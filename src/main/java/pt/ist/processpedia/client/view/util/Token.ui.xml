@@ -1,0 +1,38 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .wrapper {
+      border-radius: 4px;
+      -wekit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      background-color: #999;
+      color: #FFF;
+      padding: 2px 5px;
+      margin: 2px 2px;
+      display: inline-block;
+    }
+    .textContainer {
+      font-size: 13px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      margin-bottom: 0px;
+      margin-top: 0px;
+      margin-right: 5px;
+    }
+    .removeAction {
+      font-size: 10px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      border: 0px;
+      background-color: #999;
+      color: #FFF;
+      cursor: pointer;
+      cursor: hand;
+    }
+  </ui:style>
+  <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE" ui:field="wrapper" styleName="{style.wrapper}">
+    <g:Label ui:field="textContainer" styleName="{style.textContainer}"/>
+    <g:Anchor ui:field="removeAction" styleName="{style.removeAction}" text="X"/>
+  </g:HorizontalPanel>
+</ui:UiBinder>

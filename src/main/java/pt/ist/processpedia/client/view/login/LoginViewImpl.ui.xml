@@ -1,0 +1,85 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .page {
+      width: 100%;
+      height: 100%;
+      background-image: url('themes/default/images/background.png');
+      vertical-align: middle;
+      text-align: center;
+    }
+    .loginBox {
+      padding-top: 150px;
+      padding-bottom: 150px;
+      margin: 0 auto;
+      width: 500px;
+      height: 500px;
+      background-image: url('themes/default/images/login-background.png');
+    }
+    .loginTitle {
+      color: black;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      visibility: hidden;
+    }
+    .textBox {
+      width: 250px;
+      padding: 5px 8px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      margin-bottom: 5px;
+      border: 0px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      font-weight: normal;
+    }
+    .loginButton {
+      width: 265px;
+      margin-top: 5px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+    }
+    .footerText {
+      font-size: 12px; color: white;
+      visibility: hidden;
+    }
+    .signupLink {
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      cursor: hand;
+      visibility: hidden;
+    }
+    .signupLink:hover {
+      color: white;
+      text-decoration: underline;
+    }
+    .copyrightText {
+      font-size: 12px;
+      color: white;
+      visibility: hidden;
+    }
+  </ui:style>
+  <g:VerticalPanel addStyleNames="{style.page}" verticalAlignment="ALIGN_MIDDLE">
+    <g:VerticalPanel addStyleNames="{style.loginBox}" horizontalAlignment="ALIGN_CENTER">
+      <g:Label addStyleNames="{style.loginTitle}" ui:field="loginBoxTitleContainer" />
+      <g:TextBox addStyleNames="{style.textBox}" ui:field="emailContainer" />
+      <g:PasswordTextBox addStyleNames="{style.textBox}" ui:field="passwordContainer" />
+      <g:Button addStyleNames="{style.loginButton}" ui:field="loginAction" />
+      <g:HTMLPanel>
+        <g:HTMLPanel ui:field="dontHaveAccountTextContainer" styleName="{style.footerText}" />
+        <g:Anchor ui:field="signupAction" addStyleNames="{style.signupLink}" />
+      </g:HTMLPanel>
+      <g:Label addStyleNames="{style.copyrightText}" ui:field="processpediaInfoContainer" />
+    </g:VerticalPanel>
+  </g:VerticalPanel>
+</ui:UiBinder>

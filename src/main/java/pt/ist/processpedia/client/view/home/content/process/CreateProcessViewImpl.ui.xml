@@ -1,0 +1,70 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:p="urn:import:pt.ist.processpedia.client.view.util">
+  <ui:style>
+    .container {
+      width: 100%;
+      padding: 10px 10px;
+    }
+    .title {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .label {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    .textbox {
+      font-size: 14px;
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      padding: 5px 2px;
+      margin-bottom: 10px;
+      width: 500px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+    }
+    .submitButton {
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 15px;
+    }
+    .cancelButton {
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: white;
+      font-size: 15px;
+      border: 0px;
+      border-right: 1px solid #CCC;
+      margin-right: 20px;
+      cursor: pointer;
+      cursor: hand;
+    }
+    .cancelButton:hover {
+      text-decoration: underline;
+    }
+    .buttonsContainer {
+      text-align: right;
+      margin-top: 30px;
+    }
+  </ui:style>
+  <g:VerticalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
+    <g:Label styleName="{style.title}" ui:field="createProcessTitleContainer"/>
+    <g:Label styleName="{style.label}" ui:field="processTitleLabelContainer"/>
+    <g:TextBox styleName="{style.textbox}" ui:field="processTitleContainer"/>
+    <g:Label styleName="{style.label}" ui:field="processDescriptionLabelContainer"/>
+    <g:TextBox styleName="{style.textbox}" ui:field="processDescriptionContainer"/>
+
+    <g:FlowPanel styleName="{style.buttonsContainer}">
+      <g:Button styleName="{style.cancelButton}" ui:field="cancelAction" />
+      <g:Button addStyleNames="{style.submitButton}" ui:field="nextAction" />
+    </g:FlowPanel>
+
+ </g:VerticalPanel>
+</ui:UiBinder>

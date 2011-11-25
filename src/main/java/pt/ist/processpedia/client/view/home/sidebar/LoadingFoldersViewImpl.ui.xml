@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .container {
+      width: 100%;
+      padding: 8px 8px;
+    }
+    .message {
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </ui:style>
+  <g:VerticalPanel addStyleNames="{style.container}"
+                   ui:field="folderListContainer">
+    <g:Label ui:field="loadingMessageContainer"/>
+ </g:VerticalPanel>
+</ui:UiBinder>

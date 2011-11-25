@@ -1,0 +1,28 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .container {
+      width: 100%;
+      padding: 10px 10px;
+      background-color: #000;
+      color: #FFF;
+    }
+    .processTitle {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;      
+    }
+    .processDescription {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+  </ui:style>
+  <g:VerticalPanel styleName="{style.container}">
+    <g:Label styleName="{style.processTitle}" ui:field="processTitleContainer"/>
+    <g:Label styleName="{style.processDescription}" ui:field="processDescriptionContainer"/>
+  </g:VerticalPanel>
+</ui:UiBinder>

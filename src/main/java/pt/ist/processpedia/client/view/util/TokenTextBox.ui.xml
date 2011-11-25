@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .container {
+    }
+    .container:focus {
+      outline: none;
+    }
+    .suggestBox {
+      border: 0px;
+    }
+    .suggestBox:focus {
+      outline: none;
+    }
+  </ui:style>
+  <g:FlowPanel styleName="{style.container}">
+    <g:FlowPanel ui:field="tokensContainer" styleName="{style.container}"/>
+    <g:SuggestBox ui:field="suggestBox" styleName="{style.suggestBox}"/>
+  </g:FlowPanel>
+</ui:UiBinder>

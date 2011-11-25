@@ -1,0 +1,181 @@
+package pt.ist.processpedia.server;
+
+enum pt.ist.processpedia.server.domain.AtomicDataObjectVersion.DataObjectType as DataObjectType;
+enum pt.ist.processpedia.server.domain.Request.RequestState as RequestState;
+
+class domain.Processpedia;
+
+class domain.User {
+  String name;
+  String email;
+  String passwordHash;
+  String salt;
+  DateTime creationTimestamp;
+  String avatarUrl;
+  Boolean active;
+  String activationKey;
+}
+
+class domain.Process {
+  String title;
+  String description;
+  DateTime creationTimestamp;
+  DateTime completionTimestamp;
+}
+
+class domain.Request {
+  RequestState state;
+  Boolean expectsAnswer;
+  DateTime creationTimestamp;
+  DateTime lastUpdateTimestamp;
+  DateTime completionTimestamp;
+}
+
+class domain.Tag {
+  String value;
+}
+
+class domain.Comment {
+  DateTime creationTimestamp;
+  String commentaryText;
+}
+
+class domain.Queue {
+  String title;
+}
+
+class domain.HumanQueue extends domain.Queue;
+class domain.SystemQueue extends domain.Queue;
+class domain.ExternalEmailQueue extends domain.Queue;
+
+class domain.DataObject;
+
+class domain.DataObjectVersion {
+  String label;
+  DateTime creationTimestamp;
+}
+
+class domain.ComposedDataObjectVersion extends domain.DataObjectVersion;
+class domain.AtomicDataObjectVersion extends domain.DataObjectVersion {
+  DataObjectType type;
+  String externalizedValue;
+}
+
+class domain.System {
+
+}
+
+relation ProcesspediaHasUsers {
+  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
+  domain.User playsRole user { multiplicity 0..*; }
+}
+
+relation ProcesspediaHasProcesses {
+  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
+  domain.Process playsRole process { multiplicity 0..*; }
+}
+
+relation ProcesspediaHasQueues {
+  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
+  domain.Queue playsRole queue { multiplicity 0..*; }
+}
+
+relation ProcessHasDataObjects {
+  domain.Process playsRole process { multiplicity 1..1; }
+  domain.DataObject playsRole dataObject { multiplicity 0..*; }
+}
+
+relation ProcessHasRequests {
+  domain.Process playsRole process { multiplicity 1..1; }
+  domain.Request playsRole request { multiplicity 0..*; }
+}
+
+relation ProcessHasInitiator {
+  domain.Process playsRole process { multiplicity 0..*; }
+  domain.User playsRole initiator { multiplicity 1..1; }
+}
+
+relation RequestHasInitiator {
+  domain.Request playsRole request { multiplicity 0..*; }
+  domain.User playsRole initiator { multiplicity 1..1; }
+}
+
+relation RequestMayHaveExecutor {
+  domain.Request playsRole executingRequest { multiplicity 0..*; }
+  domain.User playsRole executor { multiplicity 0..1; }
+}
+
+relation RequestIsPublishedOnQueues {
+  domain.Request playsRole request { multiplicity 0..*; }
+  domain.Queue playsRole publishedQueue { multiplicity 0..*; }
+}
+
+relation RequestHasContextualRequests {
+  domain.Request playsRole parentRequest { multiplicity 0..1; }
+  domain.Request playsRole contextRequest { multiplicity 0..*; }
+}
+
+relation HumanQueueHasMembers {
+  domain.HumanQueue playsRole organizationalQueue { multiplicity 0..*; }
+  domain.User playsRole member { multiplicity 0..*; }
+}
+
+relation UserHasItsPersonalQueue {
+  domain.User playsRole owner { multiplicity 1..1; }
+  domain.HumanQueue playsRole personalQueue { multiplicity 1..1; }
+}
+
+relation SystemQueueHasSystems {
+  domain.SystemQueue playsRole queue { multiplicity 0..*; }
+  domain.System playsRole system { multiplicity 0..*; }
+}
+
+relation RequestHasDataObjects {
+  domain.Request playsRole inputRequest { multiplicity 0..1; }
+  domain.DataObject playsRole inputDataObject { multiplicity 0..*; }
+}
+
+relation RequestHasSubject {
+  domain.Request playsRole request { multiplicity 0..*; }
+  domain.Tag playsRole subject { multiplicity 1..1; }
+}
+
+relation CommentHasAuthor {
+  domain.Comment playsRole authoredComment { multiplicity 0..*; }
+  domain.User playsRole author { multiplicity 1..1; }
+}
+
+relation RequestMayHaveDescriptionComment {
+  domain.Request playsRole request { multiplicity 0..1; }
+  domain.Comment playsRole descriptionComment { multiplicity 0..1; }
+}
+
+relation CommentMayHaveReplies {
+  domain.Comment playsRole parentComment { multiplicity 0..1; }
+  domain.Comment playsRole replyComment { multiplicity 0..*; }
+}
+
+relation DataObjectsAreCreatedInRequests {
+  domain.Request playsRole creationRequest { multiplicity 1..1; }
+  domain.DataObject playsRole createdDataObject { multiplicity 0..*; }
+}
+
+relation DataObjectHasVersions {
+  domain.DataObject playsRole dataObject { multiplicity 0..1; }
+  domain.DataObjectVersion playsRole version { multiplicity 0..*; }
+}
+
+relation DataObjectHasLatestVersion {
+  domain.DataObject playsRole;
+  domain.DataObjectVersion playsRole latestVersion { multiplicity 1..1; }
+}
+
+relation DataObjectVersionHasPreviousVersion {
+  domain.DataObjectVersion playsRole previousVersion { multiplicity 0..1; }
+  domain.DataObjectVersion playsRole nextVersion { multiplicity 0..1; }
+}
+
+relation ComposedDataObjectVersionIsComposedByDataObjectVersions {
+  domain.ComposedDataObjectVersion playsRole parentDataObjectVersion { multiplicity 0..1; }
+  domain.DataObjectVersion playsRole childDataObjectVersion{ multiplicity 0..*; }
+}

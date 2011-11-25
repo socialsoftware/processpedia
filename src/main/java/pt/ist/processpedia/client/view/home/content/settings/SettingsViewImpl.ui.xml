@@ -1,0 +1,78 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .container {
+      width: 100%;
+      padding: 10px 10px;
+    }
+    .title {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .label {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    .textbox {
+      font-size: 15px;
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      padding: 5px 2px;
+      margin-bottom: 15px;
+      width: 300px;
+    }
+    .submitButton {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 14px;
+    }
+    .cancelButton {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: white;
+      font-size: 14px;
+      border: 0px;
+      border-right: 1px solid #CCC;
+      margin-right: 20px;
+      cursor: pointer;
+      cursor: hand;
+    }
+    .cancelButton:hover {
+      text-decoration: underline;
+    }
+    .buttonsContainer {
+      text-align: right;
+      margin-top: 30px;
+    }
+  </ui:style>
+  <g:VerticalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
+    <g:Label styleName="{style.title}" ui:field="settingsTitleContainer"/>
+    <g:Label styleName="{style.label}" ui:field="userNameLabelContainer"/>
+    <g:TextBox styleName="{style.textbox}" ui:field="userNameContainer"/>
+    <g:Label styleName="{style.label}" ui:field="userEmailLabelContainer"/>
+    <g:TextBox styleName="{style.textbox}" ui:field="userEmailContainer"/>
+
+
+    <g:Label styleName="{style.label}" ui:field="userNewPasswordLabelContainer"/>
+    <g:PasswordTextBox styleName="{style.textbox}" ui:field="userNewPasswordContainer"/>
+    <g:Label styleName="{style.label}" ui:field="userConfirmNewPasswordLabelContainer"/>
+    <g:PasswordTextBox styleName="{style.textbox}" ui:field="userConfirmNewPasswordContainer"/>
+
+    <g:Label ui:field="makeSettingsChangesConditionMessageContainer" />
+    <g:Label styleName="{style.label}" ui:field="userCurrentPasswordLabelContainer"/>
+    <g:PasswordTextBox styleName="{style.textbox}" ui:field="userCurrentPasswordContainer"/>
+
+    <g:FlowPanel styleName="{style.buttonsContainer}">
+      <g:Button styleName="{style.cancelButton}" ui:field="cancelChangesAction" />
+      <g:Button addStyleNames="{style.submitButton}" ui:field="saveSettingsAction" />
+    </g:FlowPanel>
+
+ </g:VerticalPanel>
+</ui:UiBinder>
