@@ -2,13 +2,15 @@ package pt.ist.processpedia.server.domain;
 
 import java.util.Set;
 
+import pt.ist.processpedia.server.domain.AtomicDataObjectVersion.DataObjectType;
+
 public class DataObject extends DataObject_Base {
 
   public DataObject(String label, Set<DataObjectVersion> childDataObjectVersionSet) {
     createNewComposedDataObjectVersion(label, childDataObjectVersionSet);
   }
 
-  public DataObject(AtomicDataObjectVersion.DataObjectType type, String label, String externalizedValue) {
+  public DataObject(DataObjectType type, String label, String externalizedValue) {
     createNewAtomicDataObjectVersion(type, label, externalizedValue);
   }
 

@@ -28,7 +28,7 @@ public class Bootstrap {
       domainModelPath = "/processpedia.dml";
       dbAlias = "//localhost:3306/processpedia";
       dbUsername = "root";
-      dbPassword = "";
+      dbPassword = "123";
       rootClass = Processpedia.class;
     }});
   }

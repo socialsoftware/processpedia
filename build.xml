@@ -2,15 +2,15 @@
 <project basedir="." default="compile" name="processpedia">
 
   <property name="application.name" value="${ant.project.name}"/>
-  <property name="tomcat.home" value="/Applications/apache-tomcat-7.0.22"/>
+  <property name="tomcat.home" value="/home/davidmartinho/Applications/apache-tomcat-7.0.22"/>
   <property name="application.gwt.entrypoint" value="pt.ist.processpedia.Processpedia" />
   <property name="application.gwt.messages" value="pt.ist.processpedia.client.Messages" />
 
-  <property name="gwt.home" value="/Applications/gwt-2.4.0" />
+  <property name="gwt.home" value="/home/davidmartinho/Applications/gwt-2.4.0" />
 
   <property name="sql.host" value="localhost"/>
   <property name="sql.user" value="root"/>
-  <property name="sql.pass" value=""/>
+  <property name="sql.pass" value="123"/>
   <property name="sql.driver" value="com.mysql.jdbc.Driver"/>
   <property name="sql.db" value="${application.name}"/>
   <property name="sql.url" value="jdbc:mysql://${sql.host}/${sql.db}"/>
