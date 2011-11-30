@@ -18,9 +18,9 @@
 package pt.ist.processpedia.server;
 
 import com.google.gwt.user.client.rpc.SerializationException;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import pt.ist.processpedia.server.domain.*;
-import pt.ist.processpedia.server.domain.Process;
 import pt.ist.processpedia.server.domain.Queue;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
 import pt.ist.processpedia.shared.dto.action.*;
@@ -42,6 +42,8 @@ import java.util.regex.Pattern;
 import jvstm.Atomic;
 
 public class ProcesspediaServiceImpl extends RemoteServiceServlet implements ProcesspediaService {
+
+  private static final long serialVersionUID = 5095049948221761369L;
 
   @Override
   public String processCall(String payload) throws SerializationException {
@@ -133,7 +135,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
 
   @Atomic
   public GetQueueSetResponseDto getQueueSet(GetQueueSetActionDto getQueueSetActionDto) throws ProcesspediaException {
-    User actor = getUserFromAuthenticatedActionDto(getQueueSetActionDto);
+    getUserFromAuthenticatedActionDto(getQueueSetActionDto);
     Processpedia processpedia = Processpedia.getInstance();
     Set<QueueDto> queueDtoSet = DomainObjectMapper.getQueueDtoSetFromQueueSet(processpedia.getQueueSet());
     return new GetQueueSetResponseDto(queueDtoSet);
@@ -141,8 +143,8 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
 
   @Atomic
   public ActivateAccountResponseDto activateAccount(ActivateAccountActionDto activateAccountActionDto) throws ProcesspediaException {
-    String activationKey = activateAccountActionDto.getActivationKey();
-    User activatedUser = Processpedia.getInstance().activateAccount(activationKey);
+    //String activationKey = activateAccountActionDto.getActivationKey();
+    //User activatedUser = Processpedia.getInstance().activateAccount(activationKey);
     return new ActivateAccountResponseDto();
   }
 
@@ -239,9 +241,6 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       Pattern searchPattern = Pattern.compile(searchRegex);
       Matcher searchMatcher = searchPattern.matcher(request.getTitle());
       if(searchMatcher.find()) {
-        Process process = request.getProcess();
-        ProcessDto processDto = new ProcessDto(request.getOid(), process.getTitle());
-        UserDtoImpl senderDto = new UserDtoImpl(request.getInitiator().getOid(), request.getInitiator().getName());
         requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
       }
     }

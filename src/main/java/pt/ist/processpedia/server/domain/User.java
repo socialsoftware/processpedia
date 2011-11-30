@@ -3,8 +3,6 @@ package pt.ist.processpedia.server.domain;
 import org.joda.time.DateTime;
 import pt.ist.processpedia.server.util.MD5;
 import pt.ist.processpedia.shared.exception.*;
-import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyInvalidException;
-import pt.ist.processpedia.shared.exception.email.EmailInvalidException;
 import pt.ist.processpedia.shared.exception.password.PasswordTooShortException;
 import pt.ist.processpedia.shared.exception.user.UserAlreadyActiveException;
 import pt.ist.processpedia.shared.validation.InputValidator;

@@ -5,8 +5,6 @@ import pt.ist.processpedia.server.util.EmailClient;
 import pt.ist.processpedia.server.util.MD5;
 import pt.ist.processpedia.server.util.Urn;
 import pt.ist.processpedia.shared.exception.*;
-import pt.ist.processpedia.shared.exception.email.EmailInvalidException;
-import pt.ist.processpedia.shared.exception.password.PasswordTooShortException;
 import pt.ist.processpedia.shared.exception.process.ProcessDescriptionTooLongException;
 import pt.ist.processpedia.shared.exception.process.ProcessTitleTooLongException;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleAlreadyInUseException;

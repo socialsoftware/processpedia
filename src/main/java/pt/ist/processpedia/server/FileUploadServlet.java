@@ -15,6 +15,8 @@ import java.util.List;
 
 public class FileUploadServlet extends HttpServlet {
 
+  private static final long serialVersionUID = -167657131746991345L;
+
   private static final String UPLOAD_DIRECTORY = "target/processpedia-client-1.0-SNAPSHOT/images/avatar/";
 
   @Override

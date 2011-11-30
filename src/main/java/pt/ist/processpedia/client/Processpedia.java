@@ -45,13 +45,21 @@ public class Processpedia implements EntryPoint, Event.NativePreviewHandler {
       searchPopup.open();
     }
   }
+  
+  private static native void renderNotification(String notificationTitle, String notificationText, int timeout) /*-{
+    $wnd.jQuery.gritter.add({
+      title: notificationTitle,
+      text: notificationText,
+      time: timeout
+    });
+  }-*/;
 
   public static void showErrorMessage(String errorMsg) {
     Window.alert(errorMsg);
   }
 
   public static void showNotification(String notificationMsg) {
-    Window.alert(notificationMsg);
+    renderNotification("Notification", notificationMsg, 3000);
   }
 
 }
