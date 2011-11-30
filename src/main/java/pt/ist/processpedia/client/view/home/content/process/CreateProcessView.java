@@ -17,13 +17,12 @@
 
 package pt.ist.processpedia.client.view.home.content.process;
 
-import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import pt.ist.processpedia.client.view.ProcesspediaView;
 
 public interface CreateProcessView extends ProcesspediaView {
 
   interface Presenter extends ProcesspediaPresenter {
-    void onNextAction();
+    void onCreateProcessAction();
     void onCancelAction();
   }
 
@@ -33,7 +32,7 @@ public interface CreateProcessView extends ProcesspediaView {
   void setProcessTitleLabel(String processTitle);
   void setProcessDescriptionLabel(String processDescription);
 
-  void setNextButtonText(String nextButtonText);
+  void setCreateProcessButtonText(String createProcessButtonText);
   void setCancelButtonText(String cancelButtonText);
 
   String getProcessTitle();

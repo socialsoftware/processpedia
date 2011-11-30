@@ -42,7 +42,7 @@ public class CreateProcessViewImpl extends Composite implements CreateProcessVie
           processDescriptionContainer;
 
   @UiField
-  Button nextAction, cancelAction;
+  Button createProcessAction, cancelAction;
 
   public CreateProcessViewImpl() {
     initWidget(uiBinder.createAndBindUi(this));
@@ -57,7 +57,7 @@ public class CreateProcessViewImpl extends Composite implements CreateProcessVie
     setCreateProcessTitle(messages.createProcessTitle());
     setProcessTitleLabel(messages.processTitle());
     setProcessDescriptionLabel(messages.processDescription());
-    setNextButtonText(messages.next());
+    setCreateProcessButtonText(messages.createProcessAction());
     setCancelButtonText(messages.cancel());
     processTitleContainer.setText("");
     processDescriptionContainer.setText("");
@@ -75,8 +75,8 @@ public class CreateProcessViewImpl extends Composite implements CreateProcessVie
     processDescriptionLabelContainer.setText(processDescription+":");
   }
 
-  public void setNextButtonText(String nextButtonText) {
-    nextAction.setText(nextButtonText);
+  public void setCreateProcessButtonText(String createProcessButtonText) {
+    createProcessAction.setText(createProcessButtonText);
   }
 
   public void setCancelButtonText(String cancelButtonText) {
@@ -91,9 +91,9 @@ public class CreateProcessViewImpl extends Composite implements CreateProcessVie
     return processDescriptionContainer.getText();
   }
 
-  @UiHandler("nextAction")
-  public void onNextAction(ClickEvent clickEvent) {
-    presenter.onNextAction();
+  @UiHandler("createProcessAction")
+  public void onCreateProcessAction(ClickEvent clickEvent) {
+    presenter.onCreateProcessAction();
   }
 
   @UiHandler("cancelAction")

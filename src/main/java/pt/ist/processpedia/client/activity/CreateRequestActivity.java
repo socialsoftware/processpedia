@@ -17,12 +17,18 @@
 
 package pt.ist.processpedia.client.activity;
 
+import java.util.Set;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.place.CreateRequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
+import pt.ist.processpedia.shared.dto.action.authenticaded.GetQueueSetActionDto;
+import pt.ist.processpedia.shared.dto.domain.QueueDto;
+import pt.ist.processpedia.shared.dto.response.GetQueueSetResponseDto;
 
 public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPlace> implements CreateRequestView.Presenter {
 
@@ -31,12 +37,62 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
   }
 
   public void start(AcceptsOneWidget acceptsOneWidget, EventBus eventBus) {
-    //TODO: load the create
+
+
+    getBrowserFactory().getDataSwitch().getQueueSet(new GetQueueSetActionDto(getActorOid()), new AsyncCallback<GetQueueSetResponseDto>() {
+      public void onFailure(Throwable throwable) {
+        handleException(throwable);
+      }
+
+      public void onSuccess(GetQueueSetResponseDto getQueueSetResponseDto) {
+        resetOracle(getQueueSetResponseDto.getQueueDtoSet());
+      }
+    });
   }
 
+  private void resetOracle(Set<QueueDto> queueDtoSet) {
+    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
+    createRequestView.getOracle().clear();
+    for(QueueDto queueDto : queueDtoSet) {
+      createRequestView.getOracle().add(queueDto.getTitle());
+    }
+  }
+  
+  
   public void onPublishRequestAction() {
 
   }
+  
+  /*
+  public void onPublishRequestAction() {
+    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
+    String requestTitle = createRequestView.getRequestTitle();
+    String requestDescription = createRequestView.getRequestDescription();
+    Boolean isResponseExpected = createRequestView.getIsResponseExpected();
+
+
+    Set<QueueDto> publishQueueDtoSet = new HashSet<QueueDto>();
+    for(QueueDto queueDto : queueDtoSet) {
+      if(createRequestView.getTo().contains(queueDto.getTitle())) {
+        publishQueueDtoSet.add(queueDto);
+      }
+    }
+    Set<DataObjectDto> inputDataObjectDtoSet = new HashSet<DataObjectDto>();
+    //TODO: LOAD ALL DATA OBJECTS INTO THE INPUT DATA OBJECT DTO SET
+
+    CreateRequestActionDto createRequestActionDto = new CreateRequestActionDto(getActorOid(), requestTitle, requestDescription, isResponseExpected, publishQueueDtoSet, inputDataObjectDtoSet);
+    CreateProcessActionDto createProcessActionDto = new CreateProcessActionDto(getActorOid(), processTitle, processDescription, createRequestActionDto);
+    getBrowserFactory().getDataSwitch().createProcess(createProcessActionDto, new AsyncCallback<CreateProcessResponseDto>() {
+      public void onFailure(Throwable throwable) {
+        handleException(throwable);
+      }
+      public void onSuccess(CreateProcessResponseDto createProcessResponseDto) {
+        Messages messages = getBrowserFactory().getMessages();
+        Processpedia.showNotification(messages.requestSentSuccessfully());
+        onCreateProcessResponse(createProcessResponseDto);
+      }
+    });
+  }*/
 
   public void onCancelAction() {
     History.back();

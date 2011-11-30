@@ -2,7 +2,7 @@ package pt.ist.processpedia.client;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'/Users/davidmartinho/Desktop/app/src/main/resources/pt/ist/processpedia/client/Messages.properties'.
+ * 	'/home/davidmartinho/workspace/processpedia/src/main/resources/pt/ist/processpedia/client/Messages.properties'.
  */
 public interface Messages extends com.google.gwt.i18n.client.Constants {
   
@@ -59,6 +59,24 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Click here to signup")
   @Key("clickHereToSignup")
   String clickHereToSignup();
+
+  /**
+   * Translated "Create New Request".
+   * 
+   * @return translated "Create New Request"
+   */
+  @DefaultStringValue("Create New Request")
+  @Key("createNewRequestAction")
+  String createNewRequestAction();
+
+  /**
+   * Translated "Create Process".
+   * 
+   * @return translated "Create Process"
+   */
+  @DefaultStringValue("Create Process")
+  @Key("createProcessAction")
+  String createProcessAction();
 
   /**
    * Translated "Create Process".
@@ -295,15 +313,6 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String makeSettingsChangesConditionMessage();
 
   /**
-   * Translated "Next".
-   * 
-   * @return translated "Next"
-   */
-  @DefaultStringValue("Next")
-  @Key("next")
-  String next();
-
-  /**
    * Translated "No folder selected".
    * 
    * @return translated "No folder selected"
@@ -356,6 +365,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Process")
   @Key("process")
   String process();
+
+  /**
+   * Translated "Process created successfully".
+   * 
+   * @return translated "Process created successfully"
+   */
+  @DefaultStringValue("Process created successfully")
+  @Key("processCreatedSuccessfully")
+  String processCreatedSuccessfully();
 
   /**
    * Translated "Process Description".

@@ -20,8 +20,11 @@ package pt.ist.processpedia.client.view.home.content.request;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+
+import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
 import pt.ist.processpedia.client.view.home.content.request.line.ParentRequestLineView;
 import pt.ist.processpedia.client.view.home.content.request.line.ParentRequestLineViewImpl;
@@ -38,6 +41,9 @@ public class RequestSidebarViewImpl extends Composite implements RequestSidebarV
 
   @UiField
   ParentRequestLineViewImpl parentRequestLineView;
+  
+  @UiField
+  Button createNewRequestAction;
   
   public RequestSidebarViewImpl() {
     initWidget(uiBinder.createAndBindUi(this));
@@ -67,6 +73,13 @@ public class RequestSidebarViewImpl extends Composite implements RequestSidebarV
   }
 
   public void prepareView() {
-    //To change body of implemented methods use File | Settings | File Templates.
+    Messages messages = presenter.getBrowserFactory().getMessages();
+    
+    setCreateNewRequestButtonText(messages.createNewRequestAction());
   }
+  
+  public void setCreateNewRequestButtonText(String createNewRequestButtonText) {
+    createNewRequestAction.setText(createNewRequestButtonText);
+  }
+  
 }

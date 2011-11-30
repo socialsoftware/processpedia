@@ -11,5 +11,6 @@
 
   <g:VerticalPanel styleName="{style.container}">
     <p:ParentRequestLineViewImpl ui:field="parentRequestLineView" />
+    <g:Button ui:field="createNewRequestAction" />
   </g:VerticalPanel>
 </ui:UiBinder>

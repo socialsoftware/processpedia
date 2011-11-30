@@ -27,96 +27,23 @@ import pt.ist.processpedia.client.Processpedia;
 import pt.ist.processpedia.client.place.CreateProcessPlace;
 import pt.ist.processpedia.client.place.FolderPlace;
 import pt.ist.processpedia.client.view.home.content.process.CreateProcessView;
-import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.CreateProcessActionDto;
-import pt.ist.processpedia.shared.dto.action.authenticaded.CreateRequestActionDto;
-import pt.ist.processpedia.shared.dto.action.authenticaded.GetQueueSetActionDto;
-import pt.ist.processpedia.shared.dto.domain.DataObjectDto;
-import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import pt.ist.processpedia.shared.dto.response.CreateProcessResponseDto;
-import pt.ist.processpedia.shared.dto.response.GetQueueSetResponseDto;
 import pt.ist.processpedia.shared.dto.util.FolderDto;
 import pt.ist.processpedia.shared.validation.InputValidator;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class CreateProcessActivity extends ProcesspediaActivity<CreateProcessPlace> implements CreateProcessView.Presenter, CreateRequestView.Presenter {
-
-  private Set<QueueDto> queueDtoSet;
-
-  private String processTitle;
-  private String processDescription;
-
-  private AcceptsOneWidget containerWidget;
+public class CreateProcessActivity extends ProcesspediaActivity<CreateProcessPlace> implements CreateProcessView.Presenter {
 
   public CreateProcessActivity(CreateProcessPlace place, BrowserFactory browserFactory) {
     super(place, browserFactory);
   }
 
   public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-    this.containerWidget = containerWidget;
     CreateProcessView createProcessView = getBrowserFactory().getCreateProcessView();
     createProcessView.setPresenter(this);
     createProcessView.prepareView();
     containerWidget.setWidget(createProcessView);
-    getBrowserFactory().getDataSwitch().getQueueSet(new GetQueueSetActionDto(getActorOid()), new AsyncCallback<GetQueueSetResponseDto>() {
-      public void onFailure(Throwable throwable) {
-        handleException(throwable);
-      }
 
-      public void onSuccess(GetQueueSetResponseDto getQueueSetResponseDto) {
-        resetOracle(getQueueSetResponseDto.getQueueDtoSet());
-      }
-    });
-  }
-
-  public void onNextAction() {
-    CreateProcessView createProcessView = getBrowserFactory().getCreateProcessView();
-    processTitle = createProcessView.getProcessTitle();
-    processDescription = createProcessView.getProcessDescription();
-    try {
-      InputValidator.validateProcessTitle(processTitle);
-      InputValidator.validateProcessDescription(processDescription);
-    } catch (Throwable e) {
-      handleException(e);
-      return;
-    }
-    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
-    createRequestView.setPresenter(this);
-    createRequestView.prepareView();
-    containerWidget.setWidget(createRequestView);
-  }
-
-
-  public void onPublishRequestAction() {
-    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
-    String requestTitle = createRequestView.getRequestTitle();
-    String requestDescription = createRequestView.getRequestDescription();
-    Boolean isResponseExpected = createRequestView.getIsResponseExpected();
-
-
-    Set<QueueDto> publishQueueDtoSet = new HashSet<QueueDto>();
-    for(QueueDto queueDto : queueDtoSet) {
-      if(createRequestView.getTo().contains(queueDto.getTitle())) {
-        publishQueueDtoSet.add(queueDto);
-      }
-    }
-    Set<DataObjectDto> inputDataObjectDtoSet = new HashSet<DataObjectDto>();
-    //TODO: LOAD ALL DATA OBJECTS INTO THE INPUT DATA OBJECT DTO SET
-
-    CreateRequestActionDto createRequestActionDto = new CreateRequestActionDto(getActorOid(), requestTitle, requestDescription, isResponseExpected, publishQueueDtoSet, inputDataObjectDtoSet);
-    CreateProcessActionDto createProcessActionDto = new CreateProcessActionDto(getActorOid(), processTitle, processDescription, createRequestActionDto);
-    getBrowserFactory().getDataSwitch().createProcess(createProcessActionDto, new AsyncCallback<CreateProcessResponseDto>() {
-      public void onFailure(Throwable throwable) {
-        handleException(throwable);
-      }
-      public void onSuccess(CreateProcessResponseDto createProcessResponseDto) {
-        Messages messages = getBrowserFactory().getMessages();
-        Processpedia.showNotification(messages.requestSentSuccessfully());
-        onCreateProcessResponse(createProcessResponseDto);
-      }
-    });
   }
 
   private void onCreateProcessResponse(CreateProcessResponseDto createProcessResponseDto) {
@@ -127,12 +54,30 @@ public class CreateProcessActivity extends ProcesspediaActivity<CreateProcessPla
     History.back();
   }
 
-  private void resetOracle(Set<QueueDto> queueDtoSet) {
-    this.queueDtoSet = queueDtoSet;
-    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
-    createRequestView.getOracle().clear();
-    for(QueueDto queueDto : queueDtoSet) {
-      createRequestView.getOracle().add(queueDto.getTitle());
+  @Override
+  public void onCreateProcessAction() {
+    CreateProcessView createProcessView = getBrowserFactory().getCreateProcessView();
+    String processTitle = createProcessView.getProcessTitle();
+    String processDescription = createProcessView.getProcessDescription();
+    try {
+      InputValidator.validateProcessTitle(processTitle);
+      InputValidator.validateProcessDescription(processDescription);
+    } catch (Throwable e) {
+      handleException(e);
+      return;
     }
+    CreateProcessActionDto createProcessActionDto = new CreateProcessActionDto(getActorOid(), processTitle, processDescription);
+    getBrowserFactory().getDataSwitch().createProcess(createProcessActionDto, new AsyncCallback<CreateProcessResponseDto>() {
+      @Override
+      public void onFailure(Throwable throwable) {
+        handleException(throwable);
+      }
+      @Override
+      public void onSuccess(CreateProcessResponseDto createProcessResponseDto) {
+        Messages messages = getBrowserFactory().getMessages();
+        Processpedia.showNotification(messages.processCreatedSuccessfully());
+        onCreateProcessResponse(createProcessResponseDto);
+      }
+    });
   }
 }

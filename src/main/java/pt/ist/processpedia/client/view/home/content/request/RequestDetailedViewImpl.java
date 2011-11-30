@@ -44,6 +44,7 @@ public class RequestDetailedViewImpl extends Composite implements RequestDetaile
 
   public void setPresenter(Presenter presenter) {
     this.presenter = presenter;
+    requestSidebar.setPresenter(presenter);
   }
 
   public void prepareView() {
@@ -72,4 +73,10 @@ public class RequestDetailedViewImpl extends Composite implements RequestDetaile
     requestSidebar.prepareView();
     requestSidebar.setParentRequestLine(parentRequestDetailedDto);
   }
+
+  @Override
+  public void setCreateNewRequestButtonText(String createNewRequestButtonText) {
+    requestSidebar.setCreateNewRequestButtonText(createNewRequestButtonText);
+  }
+  
 }

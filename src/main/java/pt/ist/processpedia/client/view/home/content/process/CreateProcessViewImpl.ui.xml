@@ -63,7 +63,7 @@
 
     <g:FlowPanel styleName="{style.buttonsContainer}">
       <g:Button styleName="{style.cancelButton}" ui:field="cancelAction" />
-      <g:Button addStyleNames="{style.submitButton}" ui:field="nextAction" />
+      <g:Button addStyleNames="{style.submitButton}" ui:field="createProcessAction" />
     </g:FlowPanel>
 
  </g:VerticalPanel>

@@ -116,16 +116,17 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     Processpedia processpedia = Processpedia.getInstance();
     User actor = getUserFromAuthenticatedActionDto(createProcessActionDto);
 
-    CreateRequestActionDto createRequestActionDto = createProcessActionDto.getCreateRequestActionDto();
-    Set<Queue> publishQueueSet = DomainObjectMapper.getQueueSetFromQueueDtoSet(createRequestActionDto.getQueueDtoSet());
-    Set<DataObject> inputDataObjectSet = DomainObjectMapper.getDataObjectSetFromDataObjectDtoSet(createRequestActionDto.getInputDataObjectDtoSet());
-
+    Set<Queue> publishQueueSet = new HashSet<Queue>();
+    publishQueueSet.add(actor.getPersonalQueue());
+    
+    Set<DataObject> inputDataObjectSet = new HashSet<DataObject>();
+    
     processpedia.createProcess(actor,
         createProcessActionDto.getProcessTitle(),
         createProcessActionDto.getProcessDescription(),
-        createRequestActionDto.getTitle(),
-        createRequestActionDto.getDescription(),
-        createRequestActionDto.getResponseExpected(),
+        createProcessActionDto.getProcessTitle(),
+        createProcessActionDto.getProcessDescription(),
+        true,
         publishQueueSet,
         inputDataObjectSet);
     return new CreateProcessResponseDto();

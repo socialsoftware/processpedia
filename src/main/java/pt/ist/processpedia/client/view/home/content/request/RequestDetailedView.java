@@ -35,5 +35,7 @@ public interface RequestDetailedView extends ProcesspediaView {
   void setProcessDescription(String processDescription);
 
   void setParentRequest(RequestDetailedDto parentRequestDetailedDto);
+  
+  void setCreateNewRequestButtonText(String createNewRequestButtonText);
 
 }

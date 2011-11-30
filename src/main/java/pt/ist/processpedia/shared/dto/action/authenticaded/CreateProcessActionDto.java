@@ -23,15 +23,13 @@ public class CreateProcessActionDto extends AuthenticatedActionDto implements Is
 
   private String processTitle;
   private String processDescription;
-  private CreateRequestActionDto createRequestActionDto;
 
   public CreateProcessActionDto() {}
 
-  public CreateProcessActionDto(String actorId, String processTitle, String processDescription, CreateRequestActionDto createRequestActionDto) {
+  public CreateProcessActionDto(String actorId, String processTitle, String processDescription) {
     super(actorId);
     setProcessTitle(processTitle);
     setProcessDescription(processDescription);
-    setCreateRequestActionDto(createRequestActionDto);
   }
 
   public String getProcessTitle() {
@@ -48,13 +46,5 @@ public class CreateProcessActionDto extends AuthenticatedActionDto implements Is
 
   public void setProcessDescription(String processDescription) {
     this.processDescription = processDescription;
-  }
-
-  public CreateRequestActionDto getCreateRequestActionDto() {
-    return createRequestActionDto;
-  }
-
-  public void setCreateRequestActionDto(CreateRequestActionDto createRequestActionDto) {
-    this.createRequestActionDto = createRequestActionDto;
   }
 }
