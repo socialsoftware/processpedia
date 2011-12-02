@@ -8,33 +8,30 @@
 
   <property name="gwt.home" value="/home/davidmartinho/Applications/gwt-2.4.0" />
 
-  <property name="sql.host" value="localhost"/>
-  <property name="sql.user" value="root"/>
-  <property name="sql.pass" value="123"/>
-  <property name="sql.driver" value="com.mysql.jdbc.Driver"/>
-  <property name="sql.db" value="${application.name}"/>
-  <property name="sql.url" value="jdbc:mysql://${sql.host}/${sql.db}"/>
-
   <property name="src.rel-dir" value="src/main"/>
   <property name="build.rel-dir" value="target"/>
   <property name="lib.rel-dir" value="lib"/>
   <property name="dist.rel-dir" value="dist"/>
-  <property name="eclipse.build.rel-dir" value="bin"/>
-	
+  <property name="eclipse.build.rel-dir" value="bin"/>	
 
   <property name="java.src.rel-dir" value="${src.rel-dir}/java"/>
   <property name="dml.src.rel-dir" value="${src.rel-dir}/dml"/>
   <property name="resources.src.rel-dir" value="${src.rel-dir}/resources"/>
   <property name="webapp.src.rel-dir" value="${src.rel-dir}/webapp"/>
-
+  <property name="config.src.rel-dir" value="${src.rel-dir}/config"/>
+	
   <property name="generated-src.build.rel-dir" value="${build.rel-dir}/src"/>
   <property name="war.target.rel-dir" value="${build.rel-dir}/war"/>
   <property name="classes.build.rel-dir" value="${war.target.rel-dir}/WEB-INF/classes"/>
 
   <property name="war.filename" value="${application.name}.war"/>
+  <property name="build.properties.filename" value="build.properties" />
   <property name="dml.filename" value="${application.name}.dml"/>
-  <property name="dml.rel-file" value="${dml.src.rel-dir}/${dml.filename}"/>
+	<property name="dml.rel-file" value="${dml.src.rel-dir}/${dml.filename}"/>
+	<property name="build.properties.rel-dir" value="${config.src.rel-dir}/${build.properties.filename}"/>
 
+  <property file="${build.properties.rel-dir}" />
+	
   <!-- The encoding of all the source files should be the same! -->
   <property name="javac.encoding" value="UTF-8"/>
 
@@ -86,10 +83,11 @@
 
   <target name="prepare-war" depends="instrument-classes" description="Copies the libs and classes to the WEB-INF folder">
     <copy file="${dml.rel-file}" todir="${classes.build.rel-dir}"/>
+    <copy file="${build.properties.rel-dir}" todir="${classes.build.rel-dir}"/>
     <copy todir="${war.target.rel-dir}" >
       <fileset dir="${webapp.src.rel-dir}" includes="**"/>
     </copy>
-    <copy todir="${war.target.rel-dir}/WEB-INF/lib" >
+  	<copy todir="${war.target.rel-dir}/WEB-INF/lib" >
       <fileset dir="${lib.rel-dir}" includes="**">
         <exclude name="gwt-dev.jar"/>
         <exclude name="gwt-user.jar"/>
@@ -179,8 +177,8 @@
     </exec>
   </target>
   
-  <target name="clean-db">
-    <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.user}" password="${sql.pass}" classpathref="project.classpath">
+  <target name="clean-db" description="Cleans the database">
+    <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" password="${sql.password}" classpathref="project.classpath">
       <transaction>
         DROP SCHEMA IF EXISTS ${sql.db}
       </transaction>

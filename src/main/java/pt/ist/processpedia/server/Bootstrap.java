@@ -25,10 +25,10 @@ public class Bootstrap {
 
   public static void init() {
     FenixFramework.initialize(new Config() {{
-      domainModelPath = "/processpedia.dml";
-      dbAlias = "//localhost:3306/processpedia";
-      dbUsername = "root";
-      dbPassword = "123";
+      domainModelPath = PropertiesManager.getProperty("dml.filename");
+      dbAlias = PropertiesManager.getProperty("sql.alias");
+      dbUsername = PropertiesManager.getProperty("sql.username");
+      dbPassword = PropertiesManager.getProperty("sql.password");
       rootClass = Processpedia.class;
     }});
   }
