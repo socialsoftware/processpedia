@@ -19,6 +19,9 @@ package pt.ist.processpedia.client.view.home.sidebar.folder;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -36,6 +39,9 @@ public class FolderViewImpl extends Composite implements FolderView {
   private FolderDto.FolderType folderType;
 
   @UiField
+  FocusPanel wrapper;
+  
+  @UiField
   Image folderIcon;
 
   @UiField
@@ -46,6 +52,13 @@ public class FolderViewImpl extends Composite implements FolderView {
 
   public FolderViewImpl() {
     initWidget(uiBinder.createAndBindUi(this));
+    wrapper.addClickHandler(new ClickHandler() {
+
+      @Override
+      public void onClick(ClickEvent clickEvent) {
+        onFolderAction(clickEvent);
+      }
+    });
   }
 
   public void setPresenter(Presenter presenter) {

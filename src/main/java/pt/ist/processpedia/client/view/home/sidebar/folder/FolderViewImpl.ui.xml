@@ -2,6 +2,10 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:style>
+    .wrapper {
+      cursor: pointer;
+      cursor: hand;
+    }
     .folderViewContainer {
       width: 100%;
       padding: 3px 3px;
@@ -40,13 +44,15 @@
       visibility: hidden;
     }
   </ui:style>
-  <g:HorizontalPanel addStyleNames="{style.folderViewContainer}">
-    <g:cell width="17">
-      <g:Image styleName="{style.folderIcon}" ui:field="folderIcon"/>
-    </g:cell>
-    <g:Button styleName="{style.folderLabel}" ui:field="folderAction"/>
-    <g:cell width="15" verticalAlignment="ALIGN_MIDDLE">
-      <g:Label styleName="{style.folderCount}" ui:field="folderCount"/>
-    </g:cell>
-  </g:HorizontalPanel>
+  <g:FocusPanel styleName="{style.wrapper}" ui:field="wrapper">
+    <g:HorizontalPanel addStyleNames="{style.folderViewContainer}">
+      <g:cell width="17">
+        <g:Image styleName="{style.folderIcon}" ui:field="folderIcon"/>
+      </g:cell>
+      <g:Button styleName="{style.folderLabel}" ui:field="folderAction"/>
+      <g:cell width="15" verticalAlignment="ALIGN_MIDDLE">
+        <g:Label styleName="{style.folderCount}" ui:field="folderCount"/>
+      </g:cell>
+    </g:HorizontalPanel>
+  </g:FocusPanel>
 </ui:UiBinder>
