@@ -1,6 +1,6 @@
 package pt.ist.processpedia.shared.dto.domain;
 
-public class UserDtoImpl extends DomainObjectDto implements UserDto {
+public class UserDtoImpl extends DomainObjectDtoImpl implements UserDto {
 
   private String name;
 

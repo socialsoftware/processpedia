@@ -22,5 +22,4 @@ public interface UserDetailedDto {
   String getName();
   String getAvatarUrl();
 
-
 }

@@ -20,9 +20,8 @@ package pt.ist.processpedia.shared.dto.domain;
 import java.util.Date;
 import java.util.Set;
 
-public interface CommentDto {
+public interface CommentDto extends DomainObjectDto {
 
-  public long getOid();
   public UserDetailedDto getAuthorDto();
   public Date getCreationTimestamp();
   public String getCommentaryText();

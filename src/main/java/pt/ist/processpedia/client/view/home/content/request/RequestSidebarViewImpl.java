@@ -18,8 +18,11 @@
 package pt.ist.processpedia.client.view.home.content.request;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -80,6 +83,11 @@ public class RequestSidebarViewImpl extends Composite implements RequestSidebarV
   
   public void setCreateNewRequestButtonText(String createNewRequestButtonText) {
     createNewRequestAction.setText(createNewRequestButtonText);
+  }
+
+  @UiHandler("createNewRequestAction")
+  public void onCreateNewRequestAction(ClickEvent clickEvent) {
+    presenter.onCreateNewRequestAction();
   }
   
 }

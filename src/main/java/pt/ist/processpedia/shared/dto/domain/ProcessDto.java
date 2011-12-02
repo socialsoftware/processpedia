@@ -1,6 +1,6 @@
 package pt.ist.processpedia.shared.dto.domain;
 
-public class ProcessDto extends DomainObjectDto {
+public class ProcessDto extends DomainObjectDtoImpl {
 
   private String title;
 

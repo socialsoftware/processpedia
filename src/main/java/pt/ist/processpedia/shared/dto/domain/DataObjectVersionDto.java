@@ -17,7 +17,7 @@
 
 package pt.ist.processpedia.shared.dto.domain;
 
-public abstract class DataObjectVersionDto extends DomainObjectDto {
+public abstract class DataObjectVersionDto extends DomainObjectDtoImpl {
 
   private String label;
 

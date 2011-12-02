@@ -25,6 +25,7 @@ public interface RequestDetailedView extends ProcesspediaView {
 
   interface Presenter extends ProcesspediaPresenter {
     void goTo(Place place);
+    void onCreateNewRequestAction();
   }
 
   void setPresenter(Presenter presenter);

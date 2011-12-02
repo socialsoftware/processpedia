@@ -24,8 +24,10 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
+import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.place.CreateRequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
+import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetQueueSetActionDto;
 import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import pt.ist.processpedia.shared.dto.response.GetQueueSetResponseDto;
@@ -36,18 +38,19 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
     super(place, browserFactory);
   }
 
-  public void start(AcceptsOneWidget acceptsOneWidget, EventBus eventBus) {
-
-
+  public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
     getBrowserFactory().getDataSwitch().getQueueSet(new GetQueueSetActionDto(getActorOid()), new AsyncCallback<GetQueueSetResponseDto>() {
       public void onFailure(Throwable throwable) {
         handleException(throwable);
       }
-
       public void onSuccess(GetQueueSetResponseDto getQueueSetResponseDto) {
         resetOracle(getQueueSetResponseDto.getQueueDtoSet());
       }
     });
+    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
+    createRequestView.setPresenter(this);
+    createRequestView.prepareView();
+    containerWidget.setWidget(createRequestView);
   }
 
   private void resetOracle(Set<QueueDto> queueDtoSet) {

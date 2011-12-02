@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
 
-public class RequestDto extends DomainObjectDto {
+public class RequestDto extends DomainObjectDtoImpl {
 
   public static final ProvidesKey<RequestDto> KEY_PROVIDER = new ProvidesKey<RequestDto>() {
     public Object getKey(RequestDto requestDto) {

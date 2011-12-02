@@ -23,17 +23,14 @@ import com.google.gwt.place.shared.Prefix;
 
 public class CreateRequestPlace extends Place {
 
-  private String processId;
   private String parentRequestId;
 
-  public CreateRequestPlace(String token) {
-    String[] tokens = token.split(":");
-    processId = tokens[0];
-    parentRequestId = tokens[1];
+  public CreateRequestPlace(Long parentRequestOid) {
+    this.parentRequestId = parentRequestOid.toString();
   }
-
-  public String getProcessId() {
-    return processId;
+  
+  public CreateRequestPlace(String token) {
+    parentRequestId = token;
   }
 
   public String getParentRequestId() {
@@ -48,7 +45,7 @@ public class CreateRequestPlace extends Place {
     }
 
     public String getToken(CreateRequestPlace place) {
-      return place.getProcessId()+":"+place.getParentRequestId();
+      return place.getParentRequestId();
     }
   }
 }

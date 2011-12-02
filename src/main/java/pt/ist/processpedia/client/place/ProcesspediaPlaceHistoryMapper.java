@@ -27,5 +27,6 @@ import com.google.gwt.place.shared.WithTokenizers;
     FolderPlace.Tokenizer.class,
     AccountActivationPlace.Tokenizer.class,
     RequestPlace.Tokenizer.class,
-    SearchPlace.Tokenizer.class})
+    SearchPlace.Tokenizer.class,
+    CreateRequestPlace.Tokenizer.class})
 public interface ProcesspediaPlaceHistoryMapper extends PlaceHistoryMapper {}

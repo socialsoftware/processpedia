@@ -29,5 +29,5 @@ public interface RequestSidebarView extends ProcesspediaView {
 
   void setParentRequestLine(RequestDetailedDto requestDetailedDto);
   void addChildRequestLine(ChildRequestLineView childRequestLineView);
-
+  
 }

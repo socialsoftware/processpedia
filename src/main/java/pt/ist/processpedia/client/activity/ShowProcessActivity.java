@@ -28,7 +28,7 @@ import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLin
 import pt.ist.processpedia.shared.dto.domain.ProcessWithRootRequestsDto;
 import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
 
-public class ShowProcessActivity extends ProcesspediaActivity<ProcessPlace> implements ProcessView.Presenter, RequestDetailedView.Presenter {
+public class ShowProcessActivity extends ProcesspediaActivity<ProcessPlace> implements ProcessView.Presenter {
 
   public ShowProcessActivity(ProcessPlace place, BrowserFactory browserFactory) {
     super(place, browserFactory);
@@ -55,6 +55,7 @@ public class ShowProcessActivity extends ProcesspediaActivity<ProcessPlace> impl
 
 
   public void displayRequestLine(HasWidgets widgetsContainer, RequestDetailedDtoImpl requestDetailedDto) {
+    /*
     ChildRequestLineView childRequestLineView = getBrowserFactory().getChildRequestLineView();
     childRequestLineView.setPresenter(this);
     childRequestLineView.prepareView();
@@ -64,6 +65,7 @@ public class ShowProcessActivity extends ProcesspediaActivity<ProcessPlace> impl
     childRequestLineView.setDate(requestDetailedDto.getLastUpdateTimestamp());
 
     widgetsContainer.add(childRequestLineView.asWidget());
+    */  
   }
 
   public void onRequestSelectAction(RequestDetailedDtoImpl requestDetailedDto) {
@@ -77,4 +79,5 @@ public class ShowProcessActivity extends ProcesspediaActivity<ProcessPlace> impl
   public void onViewRequestAction() {
     //To change body of implemented methods use File | Settings | File Templates.
   }
+
 }

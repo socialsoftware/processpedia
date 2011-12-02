@@ -1,6 +1,6 @@
 package pt.ist.processpedia.shared.dto.domain;
 
-public class QueueDto extends DomainObjectDto {
+public class QueueDto extends DomainObjectDtoImpl {
 
   private String title;
 

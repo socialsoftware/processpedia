@@ -19,8 +19,8 @@ package pt.ist.processpedia.shared.dto.domain;
 
 import java.util.Date;
 
-public interface RequestDetailedDto {
-
+public interface RequestDetailedDto extends DomainObjectDto {
+  
   public ProcessDetailedDto getProcessDetailedDto();
 
   public String getTitle();

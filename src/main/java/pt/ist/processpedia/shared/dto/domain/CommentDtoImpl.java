@@ -20,7 +20,7 @@ package pt.ist.processpedia.shared.dto.domain;
 import java.util.Date;
 import java.util.Set;
 
-public class CommentDtoImpl extends DomainObjectDto implements CommentDto {
+public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
 
   private UserDetailedDto authorDto;
   private Date creationTimestamp;

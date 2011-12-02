@@ -17,7 +17,7 @@
 
 package pt.ist.processpedia.shared.dto.domain;
 
-public class DataObjectDto extends DomainObjectDto {
+public class DataObjectDto extends DomainObjectDtoImpl {
 
   private DataObjectVersionDto dataObjectVersionDto;
 
