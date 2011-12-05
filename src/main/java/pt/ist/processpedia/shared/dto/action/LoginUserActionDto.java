@@ -17,33 +17,25 @@
 
 package pt.ist.processpedia.shared.dto.action;
 
+import pt.ist.processpedia.shared.dto.auth.CredentialDto;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class LoginUserActionDto extends ActionDto implements IsSerializable {
 
-  private String email;
-  private String password;
+  private CredentialDto credentialDto;
 
   public LoginUserActionDto() {}
 
-  public LoginUserActionDto(String email, String password) {
-    setEmail(email);
-    setPassword(password);
+  public LoginUserActionDto(CredentialDto credentialDto) {
+    setCredentialDto(credentialDto);
   }
 
-  public String getEmail() {
-    return email;
+  public CredentialDto getCredentialDto() {
+    return credentialDto;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
+  public void setCredentialDto(CredentialDto credentialDto) {
+    this.credentialDto = credentialDto;
   }
 }

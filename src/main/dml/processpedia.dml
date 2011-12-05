@@ -7,8 +7,9 @@ class domain.Processpedia;
 
 class domain.User {
   String name;
-  String email;
+  String username;
   String passwordHash;
+  String email;
   String salt;
   DateTime creationTimestamp;
   String avatarUrl;

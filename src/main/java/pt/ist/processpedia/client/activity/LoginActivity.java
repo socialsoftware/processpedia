@@ -22,12 +22,12 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
-import pt.ist.processpedia.client.place.FolderPlace;
 import pt.ist.processpedia.client.place.HomePlace;
 import pt.ist.processpedia.client.place.LoginPlace;
 import pt.ist.processpedia.client.place.SignupPlace;
 import pt.ist.processpedia.client.view.login.LoginView;
 import pt.ist.processpedia.shared.dto.action.LoginUserActionDto;
+import pt.ist.processpedia.shared.dto.auth.EmailPasswordCredentialDto;
 import pt.ist.processpedia.shared.dto.response.LoginUserResponseDto;
 import pt.ist.processpedia.shared.validation.InputValidator;
 
@@ -63,7 +63,8 @@ public class LoginActivity extends ProcesspediaActivity<LoginPlace> implements L
       handleException(throwable);
       return;
     }
-    LoginUserActionDto loginUserActionDto = new LoginUserActionDto(email, password);
+    EmailPasswordCredentialDto emailPasswordCredentialDto = new EmailPasswordCredentialDto(email, password);
+    LoginUserActionDto loginUserActionDto = new LoginUserActionDto(emailPasswordCredentialDto);
     getBrowserFactory().getDataSwitch().loginUser(loginUserActionDto, new AsyncCallback<LoginUserResponseDto>() {
       public void onFailure(Throwable throwable) {
         GWT.log(throwable.toString());

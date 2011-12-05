@@ -18,11 +18,8 @@
 package pt.ist.processpedia.client.activity.manager;
 
 import com.google.gwt.activity.shared.ActivityManager;
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import pt.ist.processpedia.client.BrowserFactory;
-import pt.ist.processpedia.client.place.*;
-import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
 
 public class ContentActivityManager extends ActivityManager {
 
@@ -33,7 +30,7 @@ public class ContentActivityManager extends ActivityManager {
 
   @Override
   public void onPlaceChange(PlaceChangeEvent event) {
-    Place newPlace = event.getNewPlace();
+    //Place newPlace = event.getNewPlace();
     super.onPlaceChange(event);
     /*
     if((newPlace instanceof SettingsPlace) ||

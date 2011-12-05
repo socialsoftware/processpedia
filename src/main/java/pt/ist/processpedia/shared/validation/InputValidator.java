@@ -19,6 +19,7 @@ import pt.ist.processpedia.shared.exception.queue.QueueTitleTooShortException;
 import pt.ist.processpedia.shared.exception.request.*;
 import pt.ist.processpedia.shared.exception.user.UserNameIsEmptyException;
 import pt.ist.processpedia.shared.exception.user.UserNameIsNullException;
+import pt.ist.processpedia.shared.exception.user.UsernameIsNullException;
 
 public class InputValidator {
 
@@ -323,6 +324,19 @@ public class InputValidator {
    * USER VALIDATIONS *
    ********************/
 
+  public static boolean usernameIsNull(String username) {
+    return username==null;
+  }
+  /**
+   * Verifies if a username is not null.
+   * @param username the username to be validated
+   * @throws UsernameIsNullException when the provided username is null
+   */
+  public static void validateUsername(String username) throws UsernameIsNullException {
+    if(usernameIsNull(username)) {
+      throw new UsernameIsNullException();
+    }
+  }
 
 
   /**
@@ -369,4 +383,5 @@ public class InputValidator {
     else if(activationKeyIsInvalid(activationKey))
       throw new ActivationKeyInvalidException(activationKey);
   }
+
 }

@@ -159,4 +159,17 @@ public class Processpedia extends Processpedia_Base {
   public static Processpedia getInstance() {
     return FenixFramework.getRoot();
   }
+
+  public User getUserByUsername(String username) throws ProcesspediaException {
+    for(User user : getUserSet()) {
+      if(user.getUsername().equals(username)) {
+        if(user.getActive()) {
+          return user;
+        } else {
+          throw new UserInactiveException(user.getEmail());
+        }
+      }
+    }
+    throw new WrongCredentialsException();
+  }
 }

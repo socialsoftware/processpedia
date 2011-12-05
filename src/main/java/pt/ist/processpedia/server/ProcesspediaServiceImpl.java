@@ -20,11 +20,16 @@ package pt.ist.processpedia.server;
 import com.google.gwt.user.client.rpc.SerializationException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+import pt.ist.processpedia.server.auth.Authenticator;
+import pt.ist.processpedia.server.auth.Authenticator.Credential;
+import pt.ist.processpedia.server.auth.AuthenticatorFactory;
 import pt.ist.processpedia.server.domain.*;
 import pt.ist.processpedia.server.domain.Queue;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
 import pt.ist.processpedia.shared.dto.action.*;
 import pt.ist.processpedia.shared.dto.action.authenticaded.*;
+import pt.ist.processpedia.shared.dto.auth.CredentialDto;
 import pt.ist.processpedia.shared.dto.domain.*;
 import pt.ist.processpedia.shared.dto.response.*;
 import pt.ist.processpedia.shared.dto.util.FolderDto;
@@ -72,12 +77,14 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
 
   @Atomic
   public LoginUserResponseDto loginUser(LoginUserActionDto loginUserActionDto) throws ProcesspediaException {
-    String email = loginUserActionDto.getEmail();
-    String password = loginUserActionDto.getPassword();
-    User user = Processpedia.getInstance().loginUser(email, password);
-    HttpSession session = this.getThreadLocalRequest().getSession();
-    session.setAttribute("actorOid", user.getOid());
-    return new LoginUserResponseDto(new UserDtoImpl(user.getOid(), user.getName()));
+    HttpSession httpSession = this.getThreadLocalRequest().getSession();
+    CredentialDto credentialDto = loginUserActionDto.getCredentialDto();
+    
+    Authenticator authenticator = AuthenticatorFactory.getAuthenticatorFor(credentialDto);
+    Credential credential = authenticator.getCredential(credentialDto);
+    User user = authenticator.login(httpSession, credential);
+    
+    return new LoginUserResponseDto(DomainObjectMapper.getUserDtoFromUser(user));
   }
 
   @Atomic

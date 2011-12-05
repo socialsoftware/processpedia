@@ -146,4 +146,9 @@ public class User extends User_Base {
     InputValidator.validateUserPassword(password);
     setPassword(password);
   }
+
+  public boolean hasUsername(String username) throws ProcesspediaException {
+    InputValidator.validateUsername(username);
+    return getUsername().equals(username);
+  }
 }
