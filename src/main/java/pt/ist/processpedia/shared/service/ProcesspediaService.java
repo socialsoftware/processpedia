@@ -49,5 +49,9 @@ public interface ProcesspediaService extends RemoteService {
 
   SearchResponseDto search(SearchActionDto searchActionDto) throws ProcesspediaException;
 
+  GetRequestRecommendationResponseDto getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction) throws ProcesspediaException;
+  
+  CreateRequestResponseDto createRequest(CreateRequestActionDto createRequestActionDto) throws ProcesspediaException;
+  
 }
 

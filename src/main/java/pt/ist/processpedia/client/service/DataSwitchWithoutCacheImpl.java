@@ -72,4 +72,14 @@ public class DataSwitchWithoutCacheImpl implements DataSwitch {
   public void search(SearchActionDto searchActionDto, AsyncCallback<SearchResponseDto> callback) {
     realService.search(searchActionDto, callback);
   }
+
+  @Override
+  public void getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction, AsyncCallback<GetRequestRecommendationResponseDto> response) {
+    realService.getRequestRecommendation(getRequestRecommendationAction, response);
+  }
+
+  @Override
+  public void createRequest(CreateRequestActionDto createRequestActionDto, AsyncCallback<CreateRequestResponseDto> callback) {
+    realService.createRequest(createRequestActionDto, callback);
+  }
 }

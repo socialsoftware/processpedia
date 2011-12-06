@@ -22,13 +22,8 @@ public class Process extends Process_Base {
    * @return the created request
    */
   public Request createRequest(User initiator, String requestTitle, String requestDescription, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
-    Request request = new Request(initiator, expectsAnswer, inputDataObjectSet);
-    for(Queue queue : publishedQueueSet) {
-      request.addPublishedQueue(queue);
-    }
-    request.setSubject(getProcesspedia().getTag(requestTitle));
-    request.setDescriptionComment(new Comment(requestDescription, initiator));
-    addRequest(request);
+    Request request = new Request(initiator, requestTitle, requestDescription, expectsAnswer, publishedQueueSet, inputDataObjectSet);
+    request.setProcess(this);
     return request;
   }
 

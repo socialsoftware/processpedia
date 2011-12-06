@@ -25,6 +25,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import pt.ist.processpedia.client.Messages;
+import pt.ist.processpedia.client.view.home.content.request.recommendation.RequestRecommendationPanelView;
 import pt.ist.processpedia.client.view.util.DataObjectCreationBox;
 import pt.ist.processpedia.client.view.util.SelectableDataObject;
 import pt.ist.processpedia.client.view.util.TokenTextBox;
@@ -35,6 +36,9 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   interface CreateRequestViewImplUiBinder extends UiBinder<Widget,CreateRequestViewImpl> {}
   private static CreateRequestViewImplUiBinder uiBinder = GWT.create(CreateRequestViewImplUiBinder.class);
 
+  @UiField
+  RequestRecommendationPanelView requestRecommendationPanelView;
+  
   @UiField
   HasText createRequestTitleContainer,
           toLabelContainer,
@@ -69,6 +73,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
 
   public void setPresenter(Presenter presenter) {
     this.presenter = presenter;
+    requestRecommendationPanelView.setPresenter(presenter);
   }
 
   public void prepareView() {
@@ -163,6 +168,16 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   @UiHandler("cancelAction")
   public void onCancelAction(ClickEvent clickEvent) {
     presenter.onCancelAction();
+  }
+
+  @Override
+  public RequestRecommendationPanelView getRequestRecommendationPanelView() {
+    return requestRecommendationPanelView;
+  }
+
+  @Override
+  public void setRequestTitle(String requestTitle) {
+      requestTitleContainer.setText(requestTitle);
   }
 
 }

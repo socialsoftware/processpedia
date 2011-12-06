@@ -18,13 +18,17 @@
 package pt.ist.processpedia.client.view.home.content.request;
 
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+
 import pt.ist.processpedia.client.view.ProcesspediaView;
+import pt.ist.processpedia.client.view.home.content.request.recommendation.RequestRecommendationPanelView;
+import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
 
 public interface CreateRequestView extends ProcesspediaView {
 
   interface Presenter extends ProcesspediaPresenter {
     void onPublishRequestAction();
     void onCancelAction();
+    void onSelectRequestRecommendationAction(RequestRecommendationDto requestRecommendationDto);
   }
 
   void setPresenter(Presenter presenter);
@@ -45,5 +49,9 @@ public interface CreateRequestView extends ProcesspediaView {
   Boolean getIsResponseExpected();
 
   MultiWordSuggestOracle getOracle();
+
+  RequestRecommendationPanelView getRequestRecommendationPanelView();
+
+  void setRequestTitle(String requestTitle);
 
 }

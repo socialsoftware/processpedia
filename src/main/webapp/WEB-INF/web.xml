@@ -16,7 +16,28 @@
     <servlet-name>processpediaServlet</servlet-name>
     <url-pattern>/Processpedia/processpedia</url-pattern>
   </servlet-mapping>
-
+<!--
+  <filter>
+    <filter-name>CAS Filter</filter-name>
+    <filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>
+    <init-param>
+      <param-name>edu.yale.its.tp.cas.client.filter.loginUrl</param-name>
+      <param-value>https://id.ist.utl.pt/cas/login</param-value>
+    </init-param>
+    <init-param>
+      <param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>
+      <param-value>https://id.ist.utl.pt/cas/serviceValidate</param-value>
+    </init-param>
+    <init-param>
+      <param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
+      <param-value>localhost:8080</param-value>
+    </init-param>
+  </filter>
+ 
+  <filter-mapping>
+    <filter-name>CAS Filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>-->
 
   <!-- Default page to serve -->
   <welcome-file-list>

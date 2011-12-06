@@ -412,6 +412,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String publishRequest();
 
   /**
+   * Translated "Recommendations".
+   * 
+   * @return translated "Recommendations"
+   */
+  @DefaultStringValue("Recommendations")
+  @Key("recommendationsTitle")
+  String recommendationsTitle();
+
+  /**
    * Translated "Request".
    * 
    * @return translated "Request"

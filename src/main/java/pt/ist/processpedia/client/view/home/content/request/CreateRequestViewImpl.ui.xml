@@ -1,7 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
-             xmlns:p="urn:import:pt.ist.processpedia.client.view.util">
+             xmlns:p="urn:import:pt.ist.processpedia.client.view">
   <ui:style>
     .container {
       width: 100%;
@@ -69,8 +69,10 @@
   <g:VerticalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
     <g:Label styleName="{style.title}" ui:field="createRequestTitleContainer"/>
 
+    <p:home.content.request.recommendation.RequestRecommendationPanelViewImpl ui:field="requestRecommendationPanelView" />
+
     <g:Label styleName="{style.label}" ui:field="toLabelContainer"/>
-    <p:TokenTextBox styleName="{style.textbox}" ui:field="toContainer"/>
+    <p:util.TokenTextBox styleName="{style.textbox}" ui:field="toContainer"/>
 
     <g:Label styleName="{style.label}" ui:field="requestTitleLabelContainer"/>
     <g:TextBox styleName="{style.textbox}" ui:field="requestTitleContainer"/>

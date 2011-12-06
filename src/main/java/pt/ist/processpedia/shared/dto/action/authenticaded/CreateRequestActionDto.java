@@ -24,6 +24,7 @@ import java.util.Set;
 
 public class CreateRequestActionDto extends AuthenticatedActionDto implements IsSerializable {
 
+  private long parentRequestOid;
   private String title;
   private String description;
   private Boolean isResponseExpected;
@@ -32,13 +33,22 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
 
   public CreateRequestActionDto() {}
 
-  public CreateRequestActionDto(String actorOid, String title, String description, Boolean isResponseExpected, Set<QueueDto> queueDtoSet, Set<DataObjectDto> inputDataObjectDtoSet) {
+  public CreateRequestActionDto(String actorOid, long parentRequestOid, String title, String description, Boolean isResponseExpected, Set<QueueDto> queueDtoSet, Set<DataObjectDto> inputDataObjectDtoSet) {
     super(actorOid);
+    setParentRequestOid(parentRequestOid);
     setTitle(title);
     setDescription(description);
     setResponseExpected(isResponseExpected);
     setQueueDtoSet(queueDtoSet);
     setInputDataObjectDtoSet(inputDataObjectDtoSet);
+  }
+  
+  public long getParentRequestOid() {
+    return parentRequestOid;
+  }
+  
+  public void setParentRequestOid(long parentRequestOid) {
+    this.parentRequestOid = parentRequestOid;
   }
 
   public String getTitle() {

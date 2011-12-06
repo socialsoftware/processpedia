@@ -28,7 +28,6 @@ import com.google.gwt.user.client.ui.Widget;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
 import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ChildRequestLineViewImpl extends Composite implements ChildRequestLineView {

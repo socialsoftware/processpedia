@@ -19,7 +19,15 @@ import java.util.Set;
 
 public class Processpedia extends Processpedia_Base {
 
-  public Processpedia() {}
+  public Processpedia() {
+    try {
+      User ritoSilva = createUser("António Rito Silva", "r@g.com", "xpta");
+      User davidMartinho = createUser("David Martinho", "d@g.com", "xpto");
+      HumanQueue dsiQueue = createHumanQueue("DEI");
+      dsiQueue.addMember(davidMartinho);
+    } catch(ProcesspediaException e)
+    {}
+  }
 
   /**
    * Creates a new user.

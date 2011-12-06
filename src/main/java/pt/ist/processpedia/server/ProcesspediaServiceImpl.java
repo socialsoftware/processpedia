@@ -21,16 +21,21 @@ import com.google.gwt.user.client.rpc.SerializationException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import pt.ist.fenixframework.FenixFramework;
 import pt.ist.processpedia.server.auth.Authenticator;
 import pt.ist.processpedia.server.auth.Authenticator.Credential;
 import pt.ist.processpedia.server.auth.AuthenticatorFactory;
 import pt.ist.processpedia.server.domain.*;
 import pt.ist.processpedia.server.domain.Queue;
+import pt.ist.processpedia.server.domain.Request.RequestState;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
+import pt.ist.processpedia.server.recommendation.RequestRecommendation;
 import pt.ist.processpedia.shared.dto.action.*;
 import pt.ist.processpedia.shared.dto.action.authenticaded.*;
 import pt.ist.processpedia.shared.dto.auth.CredentialDto;
 import pt.ist.processpedia.shared.dto.domain.*;
+import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
+import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDtoImpl;
 import pt.ist.processpedia.shared.dto.response.*;
 import pt.ist.processpedia.shared.dto.util.FolderDto;
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
@@ -205,10 +210,31 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     User actor = getUserFromAuthenticatedActionDto(getFolderContentsActionDto);
 
     Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
-
-    for(Request request : actor.getPersonalQueue().getRequestSet()) {
-      requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
+    String folderTitle = getFolderContentsActionDto.getFolderTitle().toLowerCase();
+    
+    if(folderTitle.equals("inbox")) {
+      for(Queue queue : actor.getOrganizationalQueue()) {
+        for(Request publishedRequest : queue.getRequestSet()) {
+          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(publishedRequest));
+        }
+      }
+    } else if(folderTitle.equals("handling")) {
+      for(Request request : actor.getPersonalQueue().getRequestSet()) {
+        if(request.getState().name().toLowerCase().equals("handling"))
+          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
+      }
+    } else if(folderTitle.equals("pending")) {
+      for(Request request : actor.getPersonalQueue().getRequestSet()) {
+        if(request.getState().name().toLowerCase().equals(folderTitle.toLowerCase()))
+          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
+      }
+    } else if(folderTitle.equals("handled")) {
+      for(Request request : actor.getPersonalQueue().getRequestSet()) {
+        if(request.getState().name().toLowerCase().equals(folderTitle))
+          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
+      }
     }
+    
     return new GetFolderContentsResponseDto(requestDtoSet);
   }
 
@@ -253,6 +279,38 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       }
     }
     return new SearchResponseDto(requestDtoSet);
+
+  }
+
+  @Atomic
+  public GetRequestRecommendationResponseDto getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction) throws ProcesspediaException {
+    long parentRequestOid = getRequestRecommendationAction.getParentRequestOid();
+    Request request = Processpedia.fromOID(parentRequestOid);
+    
+    Set<RequestRecommendation> requestRecommendationSet = request.getRecommendationSet();
+    
+    Set<RequestRecommendationDto> requestRecommendationDtoSet = DomainObjectMapper.getRequestRecommendationDtoSetFromRequestRecommendationSet(requestRecommendationSet);
+    //TODO: THE FOLLOWING LINE IS FOR TEXTING PURPOSES ONLY
+    requestRecommendationDtoSet.add(new RequestRecommendationDtoImpl("Fazer X", 0.98));
+    requestRecommendationDtoSet.add(new RequestRecommendationDtoImpl("Fazer Y", 0.23));
+    requestRecommendationDtoSet.add(new RequestRecommendationDtoImpl("Fazer Z", 0.56));
+    return new GetRequestRecommendationResponseDto(requestRecommendationDtoSet);
+  }
+
+  @Atomic
+  public CreateRequestResponseDto createRequest(CreateRequestActionDto createRequestActionDto) throws ProcesspediaException {
+    User actor = getUserFromAuthenticatedActionDto(createRequestActionDto);
+    
+    String title = createRequestActionDto.getTitle();
+    String description = createRequestActionDto.getDescription();
+    Boolean expectsAnswer = createRequestActionDto.getResponseExpected();
+    Set<Queue> publishedQueueSet = DomainObjectMapper.getQueueSetFromQueueDtoSet(createRequestActionDto.getQueueDtoSet());
+    Set<DataObject> inputDataObjectSet = DomainObjectMapper.getDataObjectSetFromDataObjectDtoSet(createRequestActionDto.getInputDataObjectDtoSet());
+    
+    Request parentRequest = Processpedia.fromOID(createRequestActionDto.getParentRequestOid());
+    Request createdRequest = parentRequest.createRequest(actor, title, description, expectsAnswer, publishedQueueSet, inputDataObjectSet);
+    
+    return new CreateRequestResponseDto(createdRequest.getOid());
 
   }
 }

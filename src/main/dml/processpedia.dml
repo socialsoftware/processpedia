@@ -111,9 +111,9 @@ relation RequestIsPublishedOnQueues {
   domain.Queue playsRole publishedQueue { multiplicity 0..*; }
 }
 
-relation RequestHasContextualRequests {
+relation RequestMayHaveChildRequests {
   domain.Request playsRole parentRequest { multiplicity 0..1; }
-  domain.Request playsRole contextRequest { multiplicity 0..*; }
+  domain.Request playsRole childRequest { multiplicity 0..*; }
 }
 
 relation HumanQueueHasMembers {
@@ -122,7 +122,7 @@ relation HumanQueueHasMembers {
 }
 
 relation UserHasItsPersonalQueue {
-  domain.User playsRole owner { multiplicity 1..1; }
+  domain.User playsRole owner { multiplicity 0..1; }
   domain.HumanQueue playsRole personalQueue { multiplicity 1..1; }
 }
 

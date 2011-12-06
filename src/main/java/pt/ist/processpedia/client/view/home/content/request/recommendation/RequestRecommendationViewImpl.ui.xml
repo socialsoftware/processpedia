@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:p="urn:import:pt.ist.processpedia.client.view.home.content">
+  <ui:style>
+    .requestContentContainer {
+      width: 100%;
+    }
+    .requestTitle {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      text-decoration: underline;
+      font-size: 15px;
+      font-weight: 300;
+      cursor: hand;
+      cursor: pointer;
+    }
+  </ui:style>
+  <g:FocusPanel ui:field="container">
+    <g:Label ui:field="requestTitleContainer" styleName="{style.requestTitle}" />
+  </g:FocusPanel>
+</ui:UiBinder>

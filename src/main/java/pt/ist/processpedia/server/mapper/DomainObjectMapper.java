@@ -19,7 +19,10 @@ package pt.ist.processpedia.server.mapper;
 
 import pt.ist.processpedia.server.domain.*;
 import pt.ist.processpedia.server.domain.Process;
+import pt.ist.processpedia.server.recommendation.RequestRecommendation;
 import pt.ist.processpedia.shared.dto.domain.*;
+import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
+import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDtoImpl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -170,5 +173,15 @@ public class DomainObjectMapper {
       }
     }
     return dataObjectSet;
+  }
+
+  public static Set<RequestRecommendationDto> getRequestRecommendationDtoSetFromRequestRecommendationSet(Set<RequestRecommendation> requestRecommendationSet) {
+    Set<RequestRecommendationDto> requestRecommendationDtoSet = new HashSet<RequestRecommendationDto>();
+    for(RequestRecommendation requestRecommendation : requestRecommendationSet) {
+      requestRecommendationDtoSet.add(new RequestRecommendationDtoImpl(requestRecommendation.getRequestTitle(), requestRecommendation.getSupport()));
+    }
+
+    
+    return requestRecommendationDtoSet;
   }
 }

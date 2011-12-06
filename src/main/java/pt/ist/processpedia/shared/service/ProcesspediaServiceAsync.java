@@ -21,6 +21,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import pt.ist.processpedia.shared.dto.action.*;
 import pt.ist.processpedia.shared.dto.action.authenticaded.*;
 import pt.ist.processpedia.shared.dto.response.*;
+import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
 public interface ProcesspediaServiceAsync {
 
@@ -45,4 +46,9 @@ public interface ProcesspediaServiceAsync {
   void getQueueSet(GetQueueSetActionDto getQueueSetActionDto, AsyncCallback<GetQueueSetResponseDto> callback);
 
   void search(SearchActionDto searchActionDto, AsyncCallback<SearchResponseDto> callback);
+  
+  void getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction, AsyncCallback<GetRequestRecommendationResponseDto> response);
+
+  void createRequest(CreateRequestActionDto createRequestActionDto, AsyncCallback<CreateRequestResponseDto> callback);
+
 }
