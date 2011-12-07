@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
-import com.ocpsoft.pretty.time.PrettyTime;
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
 

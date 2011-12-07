@@ -16,7 +16,8 @@
     <servlet-name>processpediaServlet</servlet-name>
     <url-pattern>/Processpedia/processpedia</url-pattern>
   </servlet-mapping>
-<!--
+  
+  <!--
   <filter>
     <filter-name>CAS Filter</filter-name>
     <filter-class>edu.yale.its.tp.cas.client.filter.CASFilter</filter-class>
@@ -29,8 +30,8 @@
       <param-value>https://id.ist.utl.pt/cas/serviceValidate</param-value>
     </init-param>
     <init-param>
-      <param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
-      <param-value>localhost:8080</param-value>
+      <param-name>edu.yale.its.tp.cas.client.filter.serviceUrl</param-name>
+      <param-value>https://fenix-ashes.ist.utl.pt/processpedia/</param-value>
     </init-param>
   </filter>
  

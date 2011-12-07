@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
-
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
 import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
 

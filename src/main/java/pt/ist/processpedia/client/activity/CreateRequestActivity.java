@@ -29,6 +29,8 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.Processpedia;
+import pt.ist.processpedia.client.notification.ProcesspediaNotification;
+import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.CreateRequestPlace;
 import pt.ist.processpedia.client.place.RequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
@@ -121,7 +123,8 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
       }
       public void onSuccess(CreateRequestResponseDto createRequestResponseDto) {
         Messages messages = getBrowserFactory().getMessages();
-        Processpedia.showNotification(messages.requestSentSuccessfully());
+        ProcesspediaNotification notification = new ProcesspediaNotificationImpl(messages.request(), messages.requestSentSuccessfully());
+        notification.show();
         onCreateRequestResponse(createRequestResponseDto);
       }
     });

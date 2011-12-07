@@ -19,14 +19,21 @@ import java.util.Set;
 
 public class Processpedia extends Processpedia_Base {
 
+  /**
+   * Initializes the application.
+   */
   public Processpedia() {
     try {
       User ritoSilva = createUser("António Rito Silva", "r@g.com", "xpta");
       User davidMartinho = createUser("David Martinho", "d@g.com", "xpto");
-      HumanQueue dsiQueue = createHumanQueue("DEI");
+      HumanQueue dsiQueue = createHumanQueue("DSI");
+      HumanQueue istQueue = createHumanQueue("IST");
       dsiQueue.addMember(davidMartinho);
-    } catch(ProcesspediaException e)
-    {}
+      istQueue.addMember(davidMartinho);
+      istQueue.addMember(ritoSilva);
+    } catch(ProcesspediaException e) {
+      
+    }
   }
 
   /**
@@ -168,7 +175,14 @@ public class Processpedia extends Processpedia_Base {
     return FenixFramework.getRoot();
   }
 
-  public User getUserByUsername(String username) throws ProcesspediaException {
+  /**
+   * Obtains a Processpedia user given its username.
+   * @param username the username of the user
+   * @return the user associated with the given username
+   * @throws UserInactiveException when the user is not active
+   * @throws WrongCredentialException when the user is not found
+   */
+  public User getUserByUsername(String username) throws UserInactiveException, WrongCredentialsException {
     for(User user : getUserSet()) {
       if(user.getUsername().equals(username)) {
         if(user.getActive()) {

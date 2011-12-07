@@ -17,49 +17,23 @@
 
 package pt.ist.processpedia.client;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
-import pt.ist.processpedia.client.ui.SearchPopup;
-import pt.ist.processpedia.client.util.KeyCodes;
+import pt.ist.processpedia.client.notification.ProcesspediaNotification;
 
-public class Processpedia implements EntryPoint, Event.NativePreviewHandler {
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
+
+public class Processpedia implements EntryPoint {
 
   public void onModuleLoad() {
     BrowserFactory browserFactory = BrowserFactoryImpl.getInstance();
     RootLayoutPanel.get().add(browserFactory.getAppContainer());
     browserFactory.getPlaceHistoryHandler().handleCurrentHistory();
-    Event.addNativePreviewHandler(this);
-  }
-
-  public void onPreviewNativeEvent(Event.NativePreviewEvent event) {
-    int pressedKey = event.getNativeEvent().getKeyCode();
-    boolean ctrl = event.getNativeEvent().getCtrlKey();
-    if(ctrl && (pressedKey == KeyCodes.KEY_SPACE)) {
-      event.getNativeEvent().preventDefault();
-      event.consume();
-      SearchPopup searchPopup = SearchPopup.getInstance();
-      searchPopup.open();
-    }
   }
   
-  private static native void renderNotification(String notificationTitle, String notificationText, int timeout) /*-{
-    $wnd.jQuery.gritter.add({
-      title: notificationTitle,
-      text: notificationText,
-      time: timeout
-    });
-  }-*/;
 
   public static void showErrorMessage(String errorMsg) {
     Window.alert(errorMsg);
-  }
-
-  public static void showNotification(String notificationMsg) {
-    renderNotification("Notification", notificationMsg, 3000);
   }
 
 }

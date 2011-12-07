@@ -2,7 +2,6 @@ package pt.ist.processpedia.server.domain;
 
 import org.joda.time.DateTime;
 
-import pt.ist.fenixframework.FenixFramework;
 import pt.ist.processpedia.server.domain.AtomicDataObjectVersion.DataObjectType;
 import pt.ist.processpedia.server.recommendation.RequestRecommendation;
 
