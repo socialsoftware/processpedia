@@ -126,6 +126,7 @@
       </classpath>
       <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
       <jvmarg value="-Xmx256M"/>
+      <arg line="-strict"/>
       <arg line="-war"/>
       <arg value="${war.target.rel-dir}"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
