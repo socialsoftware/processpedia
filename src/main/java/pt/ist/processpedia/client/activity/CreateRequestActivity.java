@@ -123,7 +123,7 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
       }
       public void onSuccess(CreateRequestResponseDto createRequestResponseDto) {
         Messages messages = getBrowserFactory().getMessages();
-        ProcesspediaNotification notification = new ProcesspediaNotificationImpl(messages.request(), messages.requestSentSuccessfully());
+        ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.SUCCESS, messages.request(), messages.requestSentSuccessfully());
         notification.show();
         onCreateRequestResponse(createRequestResponseDto);
       }

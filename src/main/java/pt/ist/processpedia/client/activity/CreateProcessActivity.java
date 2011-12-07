@@ -77,7 +77,7 @@ public class CreateProcessActivity extends ProcesspediaActivity<CreateProcessPla
       @Override
       public void onSuccess(CreateProcessResponseDto createProcessResponseDto) {
         Messages messages = getBrowserFactory().getMessages();
-        ProcesspediaNotification notification = new ProcesspediaNotificationImpl(messages.process(), messages.processCreatedSuccessfully());
+        ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.SUCCESS, messages.process(), messages.processCreatedSuccessfully());
         notification.show();
         onCreateProcessResponse(createProcessResponseDto);
       }

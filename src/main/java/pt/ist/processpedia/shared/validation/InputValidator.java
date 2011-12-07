@@ -10,6 +10,8 @@ import pt.ist.processpedia.shared.exception.dataobject.DataObjectLabelTooShortEx
 import pt.ist.processpedia.shared.exception.email.EmailInvalidException;
 import pt.ist.processpedia.shared.exception.email.EmailIsEmptyException;
 import pt.ist.processpedia.shared.exception.email.EmailIsNullException;
+import pt.ist.processpedia.shared.exception.password.PasswordIsEmptyException;
+import pt.ist.processpedia.shared.exception.password.PasswordIsNullException;
 import pt.ist.processpedia.shared.exception.password.PasswordTooShortException;
 import pt.ist.processpedia.shared.exception.process.*;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleIsEmptyException;
@@ -338,24 +340,46 @@ public class InputValidator {
     }
   }
 
-
+  /**
+   * Verifies if a password has the null value.
+   * @param password the password to be verified
+   * @return true if the password is null, false otherwise
+   */
+  public static boolean isPasswordNull(String password) {
+    return password == null;
+  }
+  
   /**
    * Verifies if a password is at least PASSWORD_MIN_LENGTH character long.
    * @param password the password to be verified
    * @return true if the provided password is at least PASSWORD_MIN_LENGTH character long
    */
+  public static boolean isPasswordTooShort(String password) {
+    return password.length() < PASSWORD_MIN_LENGTH;
+  }
+  
+  public static boolean isPasswordEmpty(String password) {
+    return password.length() == 0;
+  }
+  
   public static boolean isValidPassword(String password) {
-    return password!=null && password.length() >= PASSWORD_MIN_LENGTH;
+    return !isPasswordNull(password) && !isPasswordEmpty(password) && !isPasswordTooShort(password);
   }
 
   /**
    * Verifies if a password is at least PASSWORD_MIN_LENGTH character wide.
    * @param password the password to be validated
-   * @throws pt.ist.processpedia.shared.exception.password.PasswordTooShortException when the provided password is shorter than PASSWORD_MIN_LENGTH characters
+   * @throws PasswordIsNullException when the provided password is null
+   * @throws PasswordIsEmptyException when the provided password is empty
+   * @throws PasswordTooShortException when the provided password is shorter than PASSWORD_MIN_LENGTH characters
    */
-  public static void validateUserPassword(String password) throws PasswordTooShortException {
-    if(!isValidPassword(password)) {
-      throw new PasswordTooShortException();
+  public static void validateUserPassword(String password) throws PasswordIsNullException, PasswordIsEmptyException, PasswordTooShortException {
+    if(isPasswordNull(password))
+      throw new PasswordIsNullException();
+    if(isPasswordEmpty(password))
+      throw new PasswordIsEmptyException();
+    if(isPasswordTooShort(password)) {
+      throw new PasswordTooShortException(PASSWORD_MIN_LENGTH);
     }
   }
 

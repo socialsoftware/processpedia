@@ -140,9 +140,8 @@ public class User extends User_Base {
   /**
    * Sets a valid password.
    * @param password the password to be validated and updated
-   * @throws pt.ist.processpedia.shared.exception.password.PasswordTooShortException
    */
-  public void updatePassword(String password) throws PasswordTooShortException {
+  public void updatePassword(String password) throws ProcesspediaException {
     InputValidator.validateUserPassword(password);
     setPassword(password);
   }

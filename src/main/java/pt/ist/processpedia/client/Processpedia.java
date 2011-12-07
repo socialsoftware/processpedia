@@ -30,10 +30,5 @@ public class Processpedia implements EntryPoint {
     RootLayoutPanel.get().add(browserFactory.getAppContainer());
     browserFactory.getPlaceHistoryHandler().handleCurrentHistory();
   }
-  
-
-  public static void showErrorMessage(String errorMsg) {
-    Window.alert(errorMsg);
-  }
 
 }

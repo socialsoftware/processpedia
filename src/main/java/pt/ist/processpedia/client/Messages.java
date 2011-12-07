@@ -124,6 +124,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String emailAlreadyInUse();
 
   /**
+   * Translated "The email field is empty".
+   * 
+   * @return translated "The email field is empty"
+   */
+  @DefaultStringValue("The email field is empty")
+  @Key("emailIsEmpty")
+  String emailIsEmpty();
+
+  /**
    * Translated "Enter your email".
    * 
    * @return translated "Enter your email"
@@ -149,6 +158,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Enter your password")
   @Key("enterYourPassword")
   String enterYourPassword();
+
+  /**
+   * Translated "Error".
+   * 
+   * @return translated "Error"
+   */
+  @DefaultStringValue("Error")
+  @Key("error")
+  String error();
 
   /**
    * Translated "I expects an answer to this request".
@@ -338,6 +356,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("No requests found")
   @Key("noRequestsFound")
   String noRequestsFound();
+
+  /**
+   * Translated "The password is empty".
+   * 
+   * @return translated "The password is empty"
+   */
+  @DefaultStringValue("The password is empty")
+  @Key("passwordIsEmpty")
+  String passwordIsEmpty();
 
   /**
    * Translated "Passwords do not match".
@@ -617,4 +644,13 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("The credentials you provided are wrong")
   @Key("wrongCredentialsWereProvided")
   String wrongCredentialsWereProvided();
+
+  /**
+   * Translated "You have sucessfully logged out".
+   * 
+   * @return translated "You have sucessfully logged out"
+   */
+  @DefaultStringValue("You have sucessfully logged out")
+  @Key("youHaveLoggedOutSuccessfully")
+  String youHaveLoggedOutSuccessfully();
 }

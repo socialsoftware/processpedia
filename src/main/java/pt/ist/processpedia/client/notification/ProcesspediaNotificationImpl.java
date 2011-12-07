@@ -4,18 +4,28 @@ public class ProcesspediaNotificationImpl implements ProcesspediaNotification {
 
   private static int DEFAULT_TIMEOUT = 3000;
   
+  private Type type;
   private String title;
   private String text;
   private int timeout;
   
-  public ProcesspediaNotificationImpl(String title, String text) {
-    this(title, text, DEFAULT_TIMEOUT);
+  public ProcesspediaNotificationImpl(Type type, String title, String text) {
+    this(type, title, text, DEFAULT_TIMEOUT);
   }
   
-  public ProcesspediaNotificationImpl(String title, String text, int timeout) {
+  public ProcesspediaNotificationImpl(Type type, String title, String text, int timeout) {
+    setType(type);
     setTitle(title);
     setText(text);
     setTimeout(timeout);
+  }
+  
+  public Type getType() {
+    return type;
+  }
+  
+  public void setType(Type type) {
+    this.type = type;
   }
 
   public String getTitle() {
@@ -42,17 +52,22 @@ public class ProcesspediaNotificationImpl implements ProcesspediaNotification {
     this.timeout = timeout;
   }
   
+  private static native void renderNotification(String type, String title, String message, int timeout) /*-{
+    $wnd.showMessage(type, title, message, timeout);
+  }-*/;
+  
+  /*
   private static native void renderNotification(String notificationTitle, String notificationText, int timeout) /*-{
     $wnd.jQuery.gritter.add({
       title: notificationTitle,
       text: notificationText,
       time: timeout
     });
-  }-*/;
+  }-*/
 
   @Override
   public void show() {
-    renderNotification(title, text, timeout);
+    renderNotification(type.toString().toLowerCase(), title, text, timeout);
   }
 
 }

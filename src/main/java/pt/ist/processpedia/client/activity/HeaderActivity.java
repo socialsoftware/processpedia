@@ -22,6 +22,9 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
+import pt.ist.processpedia.client.Messages;
+import pt.ist.processpedia.client.notification.ProcesspediaNotification;
+import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.CreateProcessPlace;
 import pt.ist.processpedia.client.place.LoginPlace;
 import pt.ist.processpedia.client.place.SettingsPlace;
@@ -51,6 +54,9 @@ public class HeaderActivity extends ProcesspediaActivity<Place> implements Heade
   public void onLogOutAction() {
     Storage sessionStorage = Storage.getSessionStorageIfSupported();
     sessionStorage.clear();
+    Messages messages = getBrowserFactory().getMessages();
+    ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.INFO, messages.logout(), messages.youHaveLoggedOutSuccessfully());
+    notification.show();
     goTo(new LoginPlace());
   }
 }

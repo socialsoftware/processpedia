@@ -63,7 +63,6 @@ public class SignupActivity extends ProcesspediaActivity<SignupPlace> implements
       }
       public void onSuccess(SignupUserResponseDto signupUserResponseDto) {
         String email = signupUserResponseDto.getEmail();
-        Processpedia.showErrorMessage("You have registered successfully. Please check your email to activate your account.");
         goTo(new LoginPlace());
       }
     });

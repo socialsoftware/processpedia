@@ -29,6 +29,7 @@
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">google.load('jquery', '1.5');</script>
     <script type="text/javascript" src="js/jquery.gritter.min.js"></script>
+    <script type="text/javascript" src="js/processpedia.js"></script>
   </head>
 
   <!--                                           -->
@@ -37,6 +38,27 @@
   <!-- to create a completely dynamic UI.        -->
   <!--                                           -->
   <body>
+    
+    <div id="info-message" class="info message">
+      <h3>FYI, something just happened!</h3>
+      <p>This is just an info notification message.</p>
+    </div>
+
+    <div id="error-message" class="error message">
+      <h3>Ups, an error ocurred</h3>
+      <p>This is just an error notification message.</p>
+    </div>
+
+    <div id="warning-message" class="warning message">
+      <h3>Wait, I must warn you!</h3>
+      <p>This is just a warning notification message.</p>
+    </div>
+
+    <div id="success-message" class="success message">
+      <h3>Congrats, you did it!</h3>
+      <p>This is just a success notification message.</p>
+    </div>
+
 
     <!-- OPTIONAL: include this if you want history support -->
     <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
