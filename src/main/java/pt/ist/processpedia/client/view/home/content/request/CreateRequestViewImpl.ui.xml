@@ -69,13 +69,14 @@
   <g:VerticalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
     <g:Label styleName="{style.title}" ui:field="createRequestTitleContainer"/>
 
+<!--
     <p:home.content.request.recommendation.RequestRecommendationPanelViewImpl ui:field="requestRecommendationPanelView" />
-
+-->
     <g:Label styleName="{style.label}" ui:field="toLabelContainer"/>
     <p:util.TokenTextBox styleName="{style.textbox}" ui:field="toContainer"/>
 
     <g:Label styleName="{style.label}" ui:field="requestTitleLabelContainer"/>
-    <g:TextBox styleName="{style.textbox}" ui:field="requestTitleContainer"/>
+    <g:SuggestBox styleName="{style.textbox}" ui:field="subjectSuggestBox"/>
     <g:Label styleName="{style.label}" ui:field="requestDescriptionLabelContainer"/>
     <g:TextBox styleName="{style.textbox}" ui:field="requestDescriptionContainer"/>
     <g:CheckBox ui:field="expectsAnswerContainer" />

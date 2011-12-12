@@ -20,28 +20,28 @@ package pt.ist.processpedia.client.activity;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.client.Processpedia;
 import pt.ist.processpedia.client.notification.ProcesspediaNotification;
 import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.CreateRequestPlace;
 import pt.ist.processpedia.client.place.RequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
-import pt.ist.processpedia.client.view.home.content.request.recommendation.RequestRecommendationPanelView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.CreateRequestActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetQueueSetActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetRequestRecommendationAction;
 import pt.ist.processpedia.shared.dto.domain.DataObjectDto;
 import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
-import pt.ist.processpedia.shared.dto.response.CreateProcessResponseDto;
 import pt.ist.processpedia.shared.dto.response.CreateRequestResponseDto;
 import pt.ist.processpedia.shared.dto.response.GetQueueSetResponseDto;
 import pt.ist.processpedia.shared.dto.response.GetRequestRecommendationResponseDto;
@@ -77,6 +77,13 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
     CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
     createRequestView.setPresenter(this);
     createRequestView.prepareView();
+    createRequestView.addSelectionHandler(new SelectionHandler<Suggestion>() {
+
+      @Override
+      public void onSelection(SelectionEvent<Suggestion> selectionEvent) {
+        onSelectRequestRecommendationAction((RequestRecommendationDto)selectionEvent.getSelectedItem());
+      }
+    });
     containerWidget.setWidget(createRequestView);
   }
 
@@ -91,10 +98,7 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
   
   private void displayRequestRecommendations(Set<RequestRecommendationDto> requestRecommendationDtoSet) {
     CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
-    RequestRecommendationPanelView requestRecommendationPanelView = createRequestView.getRequestRecommendationPanelView();
-    requestRecommendationPanelView.setPresenter(this);
-    requestRecommendationPanelView.prepareView();
-    requestRecommendationPanelView.displayRequestRecommendationSet(requestRecommendationDtoSet);
+    createRequestView.setRequestRecommendationSet(requestRecommendationDtoSet);
   }
   
   
@@ -136,8 +140,7 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
 
   @Override
   public void onSelectRequestRecommendationAction(RequestRecommendationDto requestRecommendationDto) {
-    CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
-    createRequestView.setRequestTitle(requestRecommendationDto.getRequestTitle());
+    Window.alert("SUPPORT :"+requestRecommendationDto.getSupport());
   }
   
   public void onCreateRequestResponse(CreateRequestResponseDto createRequestResponseDto) {

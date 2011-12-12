@@ -28,7 +28,7 @@ import pt.ist.processpedia.client.place.SearchPlace;
 import pt.ist.processpedia.client.view.home.content.request.RequestListView;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.SearchActionDto;
-import pt.ist.processpedia.shared.dto.domain.RequestDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
 import pt.ist.processpedia.shared.dto.response.SearchResponseDto;
 
 import java.util.Set;
@@ -57,7 +57,7 @@ public class SearchActivity extends ProcesspediaActivity<SearchPlace> implements
     });
   }
 
-  private void displaySearchResults(AcceptsOneWidget containerWidget, Set<RequestDto> requestDtoSet) {
+  private void displaySearchResults(AcceptsOneWidget containerWidget, Set<RequestDtoImpl> requestDtoSet) {
     RequestListView requestListView = getBrowserFactory().getProcessListView();
     requestListView.setPresenter(this);
     requestListView.prepareView();
@@ -65,7 +65,7 @@ public class SearchActivity extends ProcesspediaActivity<SearchPlace> implements
     containerWidget.setWidget(requestListView);
   }
 
-  public void onRequestSelection(RequestDto requestDto) {
+  public void onRequestSelection(RequestDtoImpl requestDto) {
     goTo(new RequestPlace(requestDto.getOid()));
   }
 }

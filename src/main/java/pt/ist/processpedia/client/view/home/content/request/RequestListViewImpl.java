@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.*;
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.shared.dto.domain.RequestDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import java.util.ArrayList;
@@ -44,9 +44,9 @@ public class RequestListViewImpl extends Composite implements RequestListView {
   @UiField
   VerticalPanel requestGridContainer;
 
-  DataGrid<RequestDto> requestGrid;
+  DataGrid<RequestDtoImpl> requestGrid;
 
-  private ListDataProvider<RequestDto> listDataProvider;
+  private ListDataProvider<RequestDtoImpl> listDataProvider;
 
   private Presenter presenter;
 
@@ -62,10 +62,10 @@ public class RequestListViewImpl extends Composite implements RequestListView {
     requestGridContainer.clear();
   }
 
-  public void displayRequestSet(Set<RequestDto> requestDtoSet) {
-    List<RequestDto> requestList = new ArrayList<RequestDto>();
+  public void displayRequestSet(Set<RequestDtoImpl> requestDtoSet) {
+    List<RequestDtoImpl> requestList = new ArrayList<RequestDtoImpl>();
     requestList.addAll(requestDtoSet);
-    requestGrid  = new DataGrid<RequestDto>(2000, RequestDto.KEY_PROVIDER);
+    requestGrid  = new DataGrid<RequestDtoImpl>(2000, RequestDtoImpl.KEY_PROVIDER);
     requestGrid.setWidth("100%");
     requestGrid.setHeight("100%");
     requestGridContainer.add(requestGrid);
@@ -74,34 +74,34 @@ public class RequestListViewImpl extends Composite implements RequestListView {
 
     requestGrid.setEmptyTableWidget(new Label(messages.noRequestsFound()));
 
-    listDataProvider = new ListDataProvider<RequestDto>();
+    listDataProvider = new ListDataProvider<RequestDtoImpl>();
     listDataProvider.addDataDisplay(requestGrid);
 
     listDataProvider.setList(requestList);
 
-    ColumnSortEvent.ListHandler<RequestDto> sortHandler = new ColumnSortEvent.ListHandler<RequestDto>(listDataProvider.getList());
+    ColumnSortEvent.ListHandler<RequestDtoImpl> sortHandler = new ColumnSortEvent.ListHandler<RequestDtoImpl>(listDataProvider.getList());
 
-    Column<RequestDto, String> senderNameColumn = new Column<RequestDto, String>(new TextCell()) {
+    Column<RequestDtoImpl, String> senderNameColumn = new Column<RequestDtoImpl, String>(new TextCell()) {
       @Override
-      public String getValue(RequestDto requestDto) {
+      public String getValue(RequestDtoImpl requestDto) {
         return requestDto.getInitiatorDto().getName();
       }
     };
-    Column<RequestDto, String> requestTitleColumn = new Column<RequestDto, String>(new TextCell()) {
+    Column<RequestDtoImpl, String> requestTitleColumn = new Column<RequestDtoImpl, String>(new TextCell()) {
       @Override
-      public String getValue(RequestDto requestDto) {
+      public String getValue(RequestDtoImpl requestDto) {
         return requestDto.getTitle();
       }
     };
-    Column<RequestDto, String> processTitleColumn = new Column<RequestDto, String>(new TextCell()) {
+    Column<RequestDtoImpl, String> processTitleColumn = new Column<RequestDtoImpl, String>(new TextCell()) {
       @Override
-      public String getValue(RequestDto requestDto) {
+      public String getValue(RequestDtoImpl requestDto) {
         return requestDto.getProcessDto().getTitle();
       }
     };
-    Column<RequestDto, String> lastUpdateTimestampColumn = new Column<RequestDto, String>(new TextCell()) {
+    Column<RequestDtoImpl, String> lastUpdateTimestampColumn = new Column<RequestDtoImpl, String>(new TextCell()) {
       @Override
-      public String getValue(RequestDto object) {
+      public String getValue(RequestDtoImpl object) {
         return object.getLastUpdateTimestamp().toString();
       }
     };
@@ -111,10 +111,10 @@ public class RequestListViewImpl extends Composite implements RequestListView {
     processTitleColumn.setSortable(true);
     lastUpdateTimestampColumn.setSortable(true);
 
-    sortHandler.setComparator(senderNameColumn, new RequestDto.CompareSenderName());
-    sortHandler.setComparator(requestTitleColumn, new RequestDto.CompareRequestTitleName());
-    sortHandler.setComparator(processTitleColumn, new RequestDto.CompareProcessTitleName());
-    sortHandler.setComparator(lastUpdateTimestampColumn, new RequestDto.CompareLastUpdateTimestamp());
+    sortHandler.setComparator(senderNameColumn, new RequestDtoImpl.CompareSenderName());
+    sortHandler.setComparator(requestTitleColumn, new RequestDtoImpl.CompareRequestTitleName());
+    sortHandler.setComparator(processTitleColumn, new RequestDtoImpl.CompareProcessTitleName());
+    sortHandler.setComparator(lastUpdateTimestampColumn, new RequestDtoImpl.CompareLastUpdateTimestamp());
 
     requestGrid.addColumnSortHandler(sortHandler);
 
@@ -129,7 +129,7 @@ public class RequestListViewImpl extends Composite implements RequestListView {
     requestGrid.setColumnWidth(lastUpdateTimestampColumn, 200, Style.Unit.PX);
 
 
-    final SingleSelectionModel<RequestDto> selectionModel = new SingleSelectionModel<RequestDto>(RequestDto.KEY_PROVIDER);
+    final SingleSelectionModel<RequestDtoImpl> selectionModel = new SingleSelectionModel<RequestDtoImpl>(RequestDtoImpl.KEY_PROVIDER);
     selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
       public void onSelectionChange(SelectionChangeEvent selectionChangeEvent) {
         presenter.onRequestSelection(selectionModel.getSelectedObject());

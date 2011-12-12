@@ -17,24 +17,24 @@
 
 package pt.ist.processpedia.shared.dto.response;
 
-import pt.ist.processpedia.shared.dto.domain.RequestDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
 import java.util.Set;
 
 public class GetFolderContentsResponseDto extends ResponseDto {
 
-  private Set<RequestDto> requestDtoSet;
+  private Set<RequestDtoImpl> requestDtoSet;
 
   public GetFolderContentsResponseDto() {}
 
-  public GetFolderContentsResponseDto(Set<RequestDto> requestDtoSet) {
+  public GetFolderContentsResponseDto(Set<RequestDtoImpl> requestDtoSet) {
     setRequestDtoSet(requestDtoSet);
   }
 
-  public Set<RequestDto> getRequestDtoSet() {
+  public Set<RequestDtoImpl> getRequestDtoSet() {
     return requestDtoSet;
   }
 
-  public void setRequestDtoSet(Set<RequestDto> requestDtoSet) {
+  public void setRequestDtoSet(Set<RequestDtoImpl> requestDtoSet) {
     this.requestDtoSet = requestDtoSet;
   }
 }

@@ -17,10 +17,7 @@
 
 package pt.ist.processpedia.client;
 
-import pt.ist.processpedia.client.notification.ProcesspediaNotification;
-
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 public class Processpedia implements EntryPoint {

@@ -1,6 +1,8 @@
 package pt.ist.processpedia.shared.dto.recommendation;
 
-public class RequestRecommendationDtoImpl implements RequestRecommendationDto {
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+
+public class RequestRecommendationDtoImpl implements RequestRecommendationDto, Suggestion {
   
   private String requestTitle;
   private Double support;
@@ -27,5 +29,15 @@ public class RequestRecommendationDtoImpl implements RequestRecommendationDto {
   
   public void setSupport(Double support) {
     this.support = support;
+  }
+
+  @Override
+  public String getDisplayString() {
+    return requestTitle;
+  }
+
+  @Override
+  public String getReplacementString() {
+    return requestTitle;
   }
 }

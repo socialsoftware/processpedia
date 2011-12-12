@@ -17,28 +17,32 @@
 
 package pt.ist.processpedia.client.view.home.content.request;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.client.view.home.content.request.recommendation.RequestRecommendationPanelView;
 import pt.ist.processpedia.client.view.util.DataObjectCreationBox;
 import pt.ist.processpedia.client.view.util.SelectableDataObject;
 import pt.ist.processpedia.client.view.util.TokenTextBox;
 import pt.ist.processpedia.shared.dto.domain.AtomicDataObjectVersionDto;
+import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
 
-public class CreateRequestViewImpl extends Composite implements CreateRequestView {
+public class CreateRequestViewImpl extends Composite implements CreateRequestView, FocusHandler {
 
   interface CreateRequestViewImplUiBinder extends UiBinder<Widget,CreateRequestViewImpl> {}
   private static CreateRequestViewImplUiBinder uiBinder = GWT.create(CreateRequestViewImplUiBinder.class);
 
-  @UiField
-  RequestRecommendationPanelView requestRecommendationPanelView;
-  
   @UiField
   HasText createRequestTitleContainer,
           toLabelContainer,
@@ -47,7 +51,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
           requestDataObjectLabelContainer;
 
   @UiField
-  HasText requestTitleContainer, requestDescriptionContainer;
+  HasText requestDescriptionContainer;
 
   @UiField(provided = true)
   TokenTextBox toContainer;
@@ -62,18 +66,25 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   Button publishRequestAction, cancelAction;
 
   private Presenter presenter;
-
-  private MultiWordSuggestOracle oracle;
+  
+  @UiField(provided = true)
+  SuggestBox subjectSuggestBox;
+  
+  private MultiWordSuggestOracle subjectOracle;
+  
+  private MultiWordSuggestOracle toOracle;
 
   public CreateRequestViewImpl() {
-    oracle = new MultiWordSuggestOracle();
-    toContainer = new TokenTextBox(oracle);
+    subjectOracle = new MultiWordSuggestOracle();
+    toOracle = new MultiWordSuggestOracle();
+    toContainer = new TokenTextBox(toOracle);
+    subjectSuggestBox = new SuggestBox(subjectOracle);
+    subjectSuggestBox.getTextBox().addFocusHandler(this);
     initWidget(uiBinder.createAndBindUi(this));
   }
 
   public void setPresenter(Presenter presenter) {
     this.presenter = presenter;
-    requestRecommendationPanelView.setPresenter(presenter);
   }
 
   public void prepareView() {
@@ -86,7 +97,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
     setRequestDataObjectLabel(messages.requestData());
     setPublishRequestButtonText(messages.publishRequest());
     setCancelButtonText(messages.cancel());
-    requestTitleContainer.setText("");
+    subjectSuggestBox.setText("");
     requestDescriptionContainer.setText("");
     toContainer.setText("");
     expectsAnswerContainer.setValue(false);
@@ -96,7 +107,6 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
     DataObjectCreationBox dataObjectCreationBox = new DataObjectCreationBox();
     dataObjectCreationBox.addDataObjectCreationHandler(new DataObjectCreationBox.DataObjectCreationHandler() {
       public void onDataObjectCreation(AtomicDataObjectVersionDto atomicDataObjectVersionDto) {
-        Window.alert("I've been notified with label " + atomicDataObjectVersionDto.getLabel());
         addAtomicDataObjectVersionToTree(atomicDataObjectVersionDto);
       }
     });
@@ -145,7 +155,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   }
 
   public String getRequestTitle() {
-    return requestTitleContainer.getText();
+    return subjectSuggestBox.getText();
   }
 
   public String getRequestDescription() {
@@ -157,7 +167,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   }
 
   public MultiWordSuggestOracle getOracle() {
-    return oracle;
+    return toOracle;
   }
 
   @UiHandler("publishRequestAction")
@@ -171,13 +181,27 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   }
 
   @Override
-  public RequestRecommendationPanelView getRequestRecommendationPanelView() {
-    return requestRecommendationPanelView;
+  public void setRequestTitle(String requestTitle) {
+      subjectSuggestBox.setText(requestTitle);
   }
 
   @Override
-  public void setRequestTitle(String requestTitle) {
-      requestTitleContainer.setText(requestTitle);
+  public void onFocus(FocusEvent focusEvent) {
+    subjectSuggestBox.showSuggestionList();
+  }
+
+  @Override
+  public void setRequestRecommendationSet(Set<RequestRecommendationDto> requestRecommendationDtoSet) {
+    Set<Suggestion> suggestionsSet = new HashSet<Suggestion>();
+    for(RequestRecommendationDto requestRecommendationDto : requestRecommendationDtoSet) {
+      suggestionsSet.add((Suggestion)requestRecommendationDto);
+    }
+    subjectOracle.setDefaultSuggestions(suggestionsSet);
+  }
+
+  @Override
+  public void addSelectionHandler(SelectionHandler<Suggestion> selectionHandler) {
+    subjectSuggestBox.addSelectionHandler(selectionHandler);
   }
 
 }

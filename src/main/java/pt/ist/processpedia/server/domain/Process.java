@@ -1,6 +1,9 @@
 package pt.ist.processpedia.server.domain;
 
 import org.joda.time.DateTime;
+
+import pt.ist.processpedia.server.domain.Request.RequestState;
+
 import java.util.Set;
 
 public class Process extends Process_Base {
@@ -15,15 +18,17 @@ public class Process extends Process_Base {
   /**
    * Creates a new request within the process
    * @param initiator the user initiating the request
-   * @param requestTitle the title of the request to be created
+   * @param subject the subject of the request
+   * @param message the message explaining the request
    * @param expectsAnswer if a response is expected
    * @param publishedQueueSet the set of queues where the new request is to be published
    * @param inputDataObjectSet the set of data objects available to the executor
    * @return the created request
    */
-  public Request createRequest(User initiator, String requestTitle, String requestDescription, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
-    Request request = new Request(initiator, requestTitle, requestDescription, expectsAnswer, publishedQueueSet, inputDataObjectSet);
+  public Request createRequest(User initiator, String subject, String message, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
+    Request request = new Request(initiator, subject, message, expectsAnswer, publishedQueueSet, inputDataObjectSet);
     request.setProcess(this);
+    request.setState(RequestState.HANDLING);
     return request;
   }
 

@@ -6,4 +6,6 @@ public interface RequestRecommendationDto extends Dto {
 
   String getRequestTitle();
   
+  Double getSupport();
+  
 }

@@ -17,10 +17,13 @@
 
 package pt.ist.processpedia.client.view.home.content.request;
 
+import java.util.Set;
+
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.client.view.home.content.request.recommendation.RequestRecommendationPanelView;
 import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
 
 public interface CreateRequestView extends ProcesspediaView {
@@ -50,8 +53,8 @@ public interface CreateRequestView extends ProcesspediaView {
 
   MultiWordSuggestOracle getOracle();
 
-  RequestRecommendationPanelView getRequestRecommendationPanelView();
-
+  void setRequestRecommendationSet(Set<RequestRecommendationDto> requestRecommendationDtoSet);
+  void addSelectionHandler(SelectionHandler<Suggestion> selectionHandler);
   void setRequestTitle(String requestTitle);
 
 }

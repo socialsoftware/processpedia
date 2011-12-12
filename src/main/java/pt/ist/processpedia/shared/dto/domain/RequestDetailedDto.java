@@ -28,6 +28,7 @@ public interface RequestDetailedDto extends DomainObjectDto {
   public Date getCreationTimestamp();
 
   public UserDetailedDto getInitiatorDetailedDto();
+  public UserDetailedDto getSenderDetailedDto();
   public UserDetailedDto getExecutorDetailedDto();
 
 }

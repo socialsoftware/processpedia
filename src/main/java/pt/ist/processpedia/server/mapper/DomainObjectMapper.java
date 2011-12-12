@@ -53,10 +53,10 @@ public class DomainObjectMapper {
     return new ProcessDetailedDto(process.getOid(), process.getTitle(), process.getDescription());
   }
 
-  public static RequestDto getRequestDtoFromRequest(Request request) {
+  public static RequestDtoImpl getRequestDtoFromRequest(Request request) {
     if(request == null)
       return null;
-    return new RequestDto(request.getOid(),
+    return new RequestDtoImpl(request.getOid(),
         request.getTitle(),
         getUserDtoFromUser(request.getInitiator()),
         getUserDtoFromUser(request.getExecutor()),

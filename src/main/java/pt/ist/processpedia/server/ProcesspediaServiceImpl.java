@@ -209,7 +209,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       throws ProcesspediaException {
     User actor = getUserFromAuthenticatedActionDto(getFolderContentsActionDto);
 
-    Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
+    Set<RequestDtoImpl> requestDtoSet = new HashSet<RequestDtoImpl>();
     String folderTitle = getFolderContentsActionDto.getFolderTitle().toLowerCase();
     
     if(folderTitle.equals("inbox")) {
@@ -260,7 +260,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       }
     }
 
-    Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
+    Set<RequestDtoImpl> requestDtoSet = new HashSet<RequestDtoImpl>();
     String searchRegex = null;
     int i = 0;
     for(String criteriaToken : criteriaTokenSet) {

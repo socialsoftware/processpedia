@@ -20,7 +20,7 @@ package pt.ist.processpedia.shared.dto.domain;
 import java.util.Date;
 import java.util.Set;
 
-public class RequestDetailedDtoImpl extends RequestDto implements RequestDetailedDto {
+public class RequestDetailedDtoImpl extends RequestDtoImpl implements RequestDetailedDto {
 
   private CommentDto descriptionCommentDto;
   private Set<DataObjectDto> dataObjectDtoSet;
@@ -59,5 +59,9 @@ public class RequestDetailedDtoImpl extends RequestDto implements RequestDetaile
 
   public void setDataObjectDtoList(Set<DataObjectDto> dataObjectDtoSet) {
     this.dataObjectDtoSet = dataObjectDtoSet;
+  }
+
+  public UserDetailedDto getSenderDetailedDto() {
+    return (UserDetailedDto)super.getSenderDto();
   }
 }

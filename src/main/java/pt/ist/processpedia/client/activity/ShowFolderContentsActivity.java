@@ -28,7 +28,7 @@ import pt.ist.processpedia.client.view.home.content.request.RequestListView;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.client.view.home.content.splash.NoRequestsFoundView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderContentsActionDto;
-import pt.ist.processpedia.shared.dto.domain.RequestDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
 import pt.ist.processpedia.shared.dto.response.GetFolderContentsResponseDto;
 import java.util.*;
 
@@ -56,7 +56,7 @@ public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace
     });
   }
 
-  private void displayRequestSet(AcceptsOneWidget containerWidget, Set<RequestDto> requestDtoSet) {
+  private void displayRequestSet(AcceptsOneWidget containerWidget, Set<RequestDtoImpl> requestDtoSet) {
     if(requestDtoSet.size() > 0) {
       RequestListView requestListView = getBrowserFactory().getProcessListView();
       requestListView.setPresenter(this);
@@ -71,7 +71,7 @@ public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace
     }
   }
 
-  public void onRequestSelection(RequestDto requestDto) {
+  public void onRequestSelection(RequestDtoImpl requestDto) {
     goTo(new RequestPlace(requestDto.getOid()));
   }
 }

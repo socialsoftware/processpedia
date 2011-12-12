@@ -5,7 +5,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -19,7 +18,6 @@ import pt.ist.processpedia.client.activity.mapper.HeaderActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.ProcesspediaActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.SidebarActivityMapper;
 import pt.ist.processpedia.client.place.HomePlace;
-import pt.ist.processpedia.client.place.LoginPlace;
 import pt.ist.processpedia.client.place.ProcesspediaPlaceHistoryMapper;
 import pt.ist.processpedia.client.service.DataSwitch;
 import pt.ist.processpedia.client.view.account.AccountActivationView;
@@ -105,13 +103,8 @@ public class BrowserFactoryImpl implements BrowserFactory {
     CONTENT_ACTIVITY_MANAGER = new ContentActivityManager(this);
     SIDEBAR_ACTIVITY_MANAGER = new SidebarActivityManager(this);
 
-    Storage storage = Storage.getSessionStorageIfSupported();
-    String loggedUser = storage.getItem("actorOid");
-    if(loggedUser==null) {
-      PLACE_HISTORY_HANDLER.register(PLACE_CONTROLLER, EVENT_BUS, new LoginPlace());
-    } else {
-      PLACE_HISTORY_HANDLER.register(PLACE_CONTROLLER, EVENT_BUS, new HomePlace());
-    }
+    PLACE_HISTORY_HANDLER.register(PLACE_CONTROLLER, EVENT_BUS, new HomePlace());
+    
   }
 
   public static BrowserFactory getInstance() {
