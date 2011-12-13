@@ -38,15 +38,10 @@ public class LoginActivity extends ProcesspediaActivity<LoginPlace> implements L
   }
 
   public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-    String actorId = getActorOid();
-    if(actorId == null) {
-      LoginView loginView = getBrowserFactory().getLoginView();
-      loginView.setPresenter(this);
-      loginView.prepareView();
-      containerWidget.setWidget(loginView.asWidget());
-    } else {
-      goTo(new HomePlace());
-    }
+    LoginView loginView = getBrowserFactory().getLoginView();
+    loginView.setPresenter(this);
+    loginView.prepareView();
+    containerWidget.setWidget(loginView.asWidget());
   }
 
   /**

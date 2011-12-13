@@ -9,6 +9,8 @@ import pt.ist.processpedia.client.activity.mapper.ContentActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.HeaderActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.ProcesspediaActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.SidebarActivityMapper;
+import pt.ist.processpedia.client.auth.AuthenticationHandler;
+import pt.ist.processpedia.client.exception.ExceptionHandler;
 import pt.ist.processpedia.client.service.DataSwitch;
 import pt.ist.processpedia.client.view.account.AccountActivationView;
 import pt.ist.processpedia.client.view.home.HomeView;
@@ -61,6 +63,7 @@ public interface BrowserFactory {
   HeaderView getHeaderView();
 
   DataSwitch getDataSwitch();
+  AuthenticationHandler getAuthenticationHandler();
 
   ProcesspediaActivityMapper getProcesspediaActivityMapper();
   HeaderActivityMapper getHeaderActivityMapper();
@@ -77,5 +80,6 @@ public interface BrowserFactory {
   AcceptsOneWidget getProcesspediaContainer();
 
 
+  ExceptionHandler getExceptionHandler();
 
 }

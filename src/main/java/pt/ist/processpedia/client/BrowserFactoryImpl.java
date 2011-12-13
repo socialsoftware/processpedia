@@ -1,7 +1,6 @@
 package pt.ist.processpedia.client;
 
 import com.google.gwt.core.client.GWT;
-
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -17,6 +16,9 @@ import pt.ist.processpedia.client.activity.mapper.ContentActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.HeaderActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.ProcesspediaActivityMapper;
 import pt.ist.processpedia.client.activity.mapper.SidebarActivityMapper;
+import pt.ist.processpedia.client.auth.AuthenticationHandler;
+import pt.ist.processpedia.client.exception.ExceptionHandler;
+import pt.ist.processpedia.client.exception.ExceptionHandlerImpl;
 import pt.ist.processpedia.client.place.HomePlace;
 import pt.ist.processpedia.client.place.ProcesspediaPlaceHistoryMapper;
 import pt.ist.processpedia.client.service.DataSwitch;
@@ -61,14 +63,17 @@ public class BrowserFactoryImpl implements BrowserFactory {
 
   private static SidebarActivityMapper SIDEBAR_ACTIVITY_MAPPER;
   private static SidebarActivityManager SIDEBAR_ACTIVITY_MANAGER;
-
+  
+  private static ExceptionHandler EXCEPTION_HANDLER;
+  
   private static final ProcesspediaPlaceHistoryMapper PROCESSPEDIA_PLACE_HISTORY_MAPPER = GWT.create(ProcesspediaPlaceHistoryMapper.class);
   private static final PlaceHistoryHandler PLACE_HISTORY_HANDLER = new PlaceHistoryHandler(PROCESSPEDIA_PLACE_HISTORY_MAPPER);
-
+  
   private static final Messages MESSAGES = GWT.create(Messages.class);
   private static final SimpleLayoutPanel PROCESSPEDIA_CONTAINER = new SimpleLayoutPanel();
 
   private static final DataSwitch DATA_SWITCH = GWT.create(DataSwitch.class);
+  private static final AuthenticationHandler AUTHENTICATION_HANDLER = GWT.create(AuthenticationHandler.class);
 
   private static final LoginView LOGIN_VIEW = new LoginViewImpl();
   private static final SignupView SIGNUP_VIEW = new SignupViewImpl();
@@ -88,7 +93,7 @@ public class BrowserFactoryImpl implements BrowserFactory {
   private static final NoRequestsFoundView NO_REQUESTS_FOUND_VIEW = new NoRequestsFoundViewImpl();
 
   private static final LoadingFoldersView LOADING_FOLDERS_VIEW = new LoadingFoldersViewImpl();
-
+  
   private static BrowserFactory INSTANCE = new BrowserFactoryImpl();
 
   private BrowserFactoryImpl() {
@@ -103,6 +108,8 @@ public class BrowserFactoryImpl implements BrowserFactory {
     CONTENT_ACTIVITY_MANAGER = new ContentActivityManager(this);
     SIDEBAR_ACTIVITY_MANAGER = new SidebarActivityManager(this);
 
+    EXCEPTION_HANDLER = new ExceptionHandlerImpl(this);
+    
     PLACE_HISTORY_HANDLER.register(PLACE_CONTROLLER, EVENT_BUS, new HomePlace());
     
   }
@@ -158,6 +165,10 @@ public class BrowserFactoryImpl implements BrowserFactory {
   public DataSwitch getDataSwitch() {
     return DATA_SWITCH;
   }
+  
+  public AuthenticationHandler getAuthenticationHandler() {
+    return AUTHENTICATION_HANDLER;
+  }
 
   public ProcesspediaActivityMapper getProcesspediaActivityMapper() {
     return PROCESSPEDIA_ACTIVITY_MAPPER;
@@ -181,5 +192,9 @@ public class BrowserFactoryImpl implements BrowserFactory {
 
   public AcceptsOneWidget getProcesspediaContainer() {
     return PROCESSPEDIA_CONTAINER;
+  }
+
+  public ExceptionHandler getExceptionHandler() {
+    return EXCEPTION_HANDLER;
   }
 }

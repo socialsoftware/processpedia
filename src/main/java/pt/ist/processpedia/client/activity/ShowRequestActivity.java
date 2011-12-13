@@ -24,7 +24,6 @@ import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.place.CreateRequestPlace;
 import pt.ist.processpedia.client.place.RequestPlace;
-import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetRequestActionDto;
@@ -58,6 +57,7 @@ public class ShowRequestActivity extends ProcesspediaActivity<RequestPlace> impl
 
   private void displayRequestDetailedView(AcceptsOneWidget containerWidget, RequestDetailedDto requestDetailedDto) {
     this.requestDetailedDto = requestDetailedDto;
+    
     RequestDetailedView requestDetailedView = getBrowserFactory().getRequestDetailedView();
     requestDetailedView.setPresenter(this);
     requestDetailedView.prepareView();
@@ -72,7 +72,7 @@ public class ShowRequestActivity extends ProcesspediaActivity<RequestPlace> impl
 
   @Override
   public void onCreateNewRequestAction() {
-    goTo(new CreateRequestPlace(this.requestDetailedDto.getOid()));
+    goTo(new CreateRequestPlace(requestDetailedDto.getOid()));
   }
 
 

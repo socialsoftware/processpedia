@@ -25,12 +25,16 @@
   <entry-point class='pt.ist.processpedia.client.Processpedia' />
 
   <!-- Use BrowserFactoryImpl by default -->
-
   <replace-with class="pt.ist.processpedia.client.BrowserFactoryImpl">
     <when-type-is class="pt.ist.processpedia.client.BrowserFactory" />
   </replace-with>
+  
+    <!-- Use CasAuthenticationHandler by default -->
+  <replace-with class="pt.ist.processpedia.client.auth.CasAuthenticationHandler">
+    <when-type-is class="pt.ist.processpedia.client.auth.AuthenticationHandler" />
+  </replace-with>
 
-  <!-- Use BrowserFactoryImpl by default -->
+  <!-- Use DataSwitchWithoutCacheImpl by default -->
   <replace-with class="pt.ist.processpedia.client.service.DataSwitchWithoutCacheImpl">
     <when-type-is class="pt.ist.processpedia.client.service.DataSwitch" />
   </replace-with>

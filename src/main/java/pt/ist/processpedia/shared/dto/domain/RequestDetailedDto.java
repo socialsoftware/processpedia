@@ -23,7 +23,7 @@ public interface RequestDetailedDto extends DomainObjectDto {
   
   public ProcessDetailedDto getProcessDetailedDto();
 
-  public String getTitle();
+  public String getSubject();
   public CommentDto getDescriptionCommentDto();
   public Date getCreationTimestamp();
 

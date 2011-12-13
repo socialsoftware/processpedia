@@ -28,9 +28,7 @@ public class HomeViewImpl extends Composite implements HomeView {
 
   interface HomeViewImplUiBinder extends UiBinder<Widget, HomeViewImpl> {}
   private static HomeViewImplUiBinder uiBinder = GWT.create(HomeViewImplUiBinder.class);
-
-  private Presenter presenter;
-
+  
   @UiField
   AcceptsOneWidget headerContainer;
 
@@ -46,10 +44,6 @@ public class HomeViewImpl extends Composite implements HomeView {
 
   public void prepareView() {}
 
-  public void setPresenter(Presenter presenter) {
-    this.presenter = presenter;
-  }
-
   public AcceptsOneWidget getHeaderContainer() {
    return headerContainer;
   }
@@ -61,4 +55,5 @@ public class HomeViewImpl extends Composite implements HomeView {
   public AcceptsOneWidget getContentContainer() {
     return contentContainer;
   }
+
 }

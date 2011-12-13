@@ -27,7 +27,7 @@ public class EmailPasswordAuthenticator extends AbstractAuthenticator {
     @Override
     public void validate() throws ProcesspediaException {
       Processpedia processpedia = (Processpedia)FenixFramework.getRoot();
-      processpedia.loginUser(email, password);
+      processpedia.loginUserWithEmailAndPassword(email, password);
     }
   }
   

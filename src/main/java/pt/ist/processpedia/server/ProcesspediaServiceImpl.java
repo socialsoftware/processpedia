@@ -18,16 +18,13 @@
 package pt.ist.processpedia.server;
 
 import com.google.gwt.user.client.rpc.SerializationException;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-import pt.ist.fenixframework.FenixFramework;
 import pt.ist.processpedia.server.auth.Authenticator;
 import pt.ist.processpedia.server.auth.Authenticator.Credential;
 import pt.ist.processpedia.server.auth.AuthenticatorFactory;
 import pt.ist.processpedia.server.domain.*;
 import pt.ist.processpedia.server.domain.Queue;
-import pt.ist.processpedia.server.domain.Request.RequestState;
+import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
 import pt.ist.processpedia.server.recommendation.RequestRecommendation;
 import pt.ist.processpedia.shared.dto.action.*;
@@ -41,6 +38,7 @@ import pt.ist.processpedia.shared.dto.util.FolderDto;
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
 import pt.ist.processpedia.shared.exception.UnauthenticatedUserException;
 import pt.ist.processpedia.shared.exception.WrongCredentialsException;
+import pt.ist.processpedia.shared.exception.authentication.WrongCredentialTypeException;
 import pt.ist.processpedia.shared.service.ProcesspediaService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -96,8 +94,10 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
   public SignupUserResponseDto signupUser(SignupUserActionDto signupUserActionDto) throws ProcesspediaException {
     String name = signupUserActionDto.getName();
     String email = signupUserActionDto.getEmail();
+    //String avatarUrl = signupUserActionDto.getAvatarUrl();
+    String avatarUrl = "";
     String password = signupUserActionDto.getPassword();
-    User user = Processpedia.getInstance().createUser(name, email, password);
+    User user = Processpedia.getInstance().createUserWithPasswordCredentialInfo(name, email, avatarUrl, password);
     return new SignupUserResponseDto(user.getEmail());
   }
 
@@ -115,11 +115,18 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     String currentPassword = updateUserSettingsActionDto.getCurrentPassword();
 
     User actor = getUserFromAuthenticatedActionDto(updateUserSettingsActionDto);
-    if(actor.matchCredentials(actor.getEmail(), currentPassword)) {
-      actor.updateSettings(newName, newEmail, newPassword);
-      return new UpdateUserSettingsResponseDto();
+    
+    if(actor.getCredentialInfo() instanceof PasswordCredentialInfo) {
+      PasswordCredentialInfo credentialInfo = (PasswordCredentialInfo)actor.getCredentialInfo();
+      if(credentialInfo.matchPassword(currentPassword)) {
+        actor.updateSettings(newName, newEmail);
+        credentialInfo.updatePassword(newPassword);
+        return new UpdateUserSettingsResponseDto();
+      } else {
+        throw new WrongCredentialsException(actor.getEmail());
+      }
     } else {
-      throw new WrongCredentialsException(actor.getEmail());
+      throw new WrongCredentialTypeException();
     }
   }
 
@@ -209,7 +216,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       throws ProcesspediaException {
     User actor = getUserFromAuthenticatedActionDto(getFolderContentsActionDto);
 
-    Set<RequestDtoImpl> requestDtoSet = new HashSet<RequestDtoImpl>();
+    Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
     String folderTitle = getFolderContentsActionDto.getFolderTitle().toLowerCase();
     
     if(folderTitle.equals("inbox")) {
@@ -260,7 +267,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       }
     }
 
-    Set<RequestDtoImpl> requestDtoSet = new HashSet<RequestDtoImpl>();
+    Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
     String searchRegex = null;
     int i = 0;
     for(String criteriaToken : criteriaTokenSet) {

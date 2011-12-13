@@ -4,19 +4,19 @@ import pt.ist.processpedia.shared.dto.Dto;
 
 public abstract class DomainObjectDtoImpl implements Dto {
 
-  private long oid;
+  private Long oid;
 
   public DomainObjectDtoImpl() {}
 
-  public DomainObjectDtoImpl(long oid) {
+  public DomainObjectDtoImpl(Long oid) {
     setOid(oid);
   }
 
-  public long getOid() {
+  public Long getOid() {
     return oid;
   }
 
-  public void setOid(long oid) {
+  public void setOid(Long oid) {
     this.oid = oid;
   }
 }

@@ -21,11 +21,10 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 public class Processpedia implements EntryPoint {
-
+    
   public void onModuleLoad() {
     BrowserFactory browserFactory = BrowserFactoryImpl.getInstance();
     RootLayoutPanel.get().add(browserFactory.getAppContainer());
     browserFactory.getPlaceHistoryHandler().handleCurrentHistory();
   }
-
 }

@@ -7,7 +7,7 @@ public interface RequestDto extends DomainObjectDto {
 
   public ProcessDto getProcessDto();
   
-  public String getTitle();
+  public String getSubject();
   public UserDto getInitiatorDto();
   public UserDto getSenderDto();
   public UserDto getExecutorDto();

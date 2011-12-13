@@ -23,7 +23,7 @@ public class UserDetailedDtoImpl extends UserDtoImpl implements UserDetailedDto 
 
   public UserDetailedDtoImpl() {}
 
-  public UserDetailedDtoImpl(long oid, String name, String avatarUrl) {
+  public UserDetailedDtoImpl(Long oid, String name, String avatarUrl) {
     super(oid, name);
     setAvatarUrl(avatarUrl);
   }

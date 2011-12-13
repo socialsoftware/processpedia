@@ -18,6 +18,7 @@
 package pt.ist.processpedia.client.activity;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
@@ -25,10 +26,12 @@ import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.place.FolderPlace;
 import pt.ist.processpedia.client.place.RequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.RequestListView;
+import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn;
+import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn.RequestColumn;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.client.view.home.content.splash.NoRequestsFoundView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderContentsActionDto;
-import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import pt.ist.processpedia.shared.dto.response.GetFolderContentsResponseDto;
 import java.util.*;
 
@@ -56,12 +59,24 @@ public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace
     });
   }
 
-  private void displayRequestSet(AcceptsOneWidget containerWidget, Set<RequestDtoImpl> requestDtoSet) {
+  private void displayRequestSet(AcceptsOneWidget containerWidget, Set<RequestDto> requestDtoSet) {
     if(requestDtoSet.size() > 0) {
       RequestListView requestListView = getBrowserFactory().getProcessListView();
       requestListView.setPresenter(this);
+      List<RequestColumn<RequestDto,String>> columnSet = new ArrayList<RequestColumn<RequestDto,String>>();
+      String folderTitle = getPlace().getFolderTitle();
+      if(folderTitle.equals("inbox")) {
+        columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
+        columnSet.add(RequestListColumn.CREATION_TIMESTAMP_COLUMN);
+        columnSet.add(RequestListColumn.NUMBER_PUBLISHED_QUEUE_COLUMN);
+      } else {
+        columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
+        columnSet.add(RequestListColumn.SUBJECT_COLUMN);
+        columnSet.add(RequestListColumn.PROCESS_TITLE_COLUMN);
+        columnSet.add(RequestListColumn.LAST_UPDATE_TIMESTAMP_COLUMN);
+      }
       requestListView.prepareView();
-      requestListView.displayRequestSet(requestDtoSet);
+      requestListView.displayRequestSet(requestDtoSet, columnSet);
       containerWidget.setWidget(requestListView);
     } else {
       NoRequestsFoundView noRequestsFoundView = getBrowserFactory().getNoRequestsFoundView();
@@ -71,7 +86,7 @@ public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace
     }
   }
 
-  public void onRequestSelection(RequestDtoImpl requestDto) {
+  public void onRequestSelection(RequestDto requestDto) {
     goTo(new RequestPlace(requestDto.getOid()));
   }
 }

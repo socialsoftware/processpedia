@@ -1,6 +1,5 @@
 package pt.ist.processpedia.server.filter;
 
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -35,8 +34,9 @@ public class CASAuthenticationFilter implements Filter {
 
         final String requestURL = httpServletRequest.getRequestURL().toString();
         try {
-      final CASReceipt receipt = getCASReceipt(serverName, ticket, requestURL);
-      final String username = receipt.getUserName();
+          final CASReceipt receipt = getCASReceipt(serverName, ticket, requestURL);
+          final String username = receipt.getUserName();
+          System.out.println(username);
       //AuthenticationAction.login(httpServletRequest, username, null);
         } catch (CASAuthenticationException e) {
       e.printStackTrace();

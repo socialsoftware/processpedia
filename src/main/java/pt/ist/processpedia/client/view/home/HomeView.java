@@ -22,10 +22,6 @@ import pt.ist.processpedia.client.view.ProcesspediaView;
 
 public interface HomeView extends ProcesspediaView {
 
-  public interface Presenter extends ProcesspediaPresenter {}
-
-  void setPresenter(Presenter presenter);
-
   AcceptsOneWidget getHeaderContainer();
   AcceptsOneWidget getSidebarContainer();
   AcceptsOneWidget getContentContainer();

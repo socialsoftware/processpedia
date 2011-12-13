@@ -21,24 +21,25 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
+import pt.ist.processpedia.client.auth.AuthenticationHandler;
 import pt.ist.processpedia.client.place.LoginPlace;
+import pt.ist.processpedia.client.view.ProcesspediaView;
 import pt.ist.processpedia.client.view.home.HomeView;
 
-public class HomeActivity extends ProcesspediaActivity<Place> implements HomeView.Presenter {
+public class HomeActivity extends ProcesspediaActivity<Place> implements ProcesspediaView.ProcesspediaPresenter {
 
   public HomeActivity(Place place, BrowserFactory browserFactory) {
     super(place, browserFactory);
   }
 
   public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-    String actorOid = getActorOid();
-    if(actorOid==null) {
-      goTo(new LoginPlace());
-    } else {
+    AuthenticationHandler authenticationHandler = getBrowserFactory().getAuthenticationHandler();
+    if(authenticationHandler.hasValidAuthentication()) {
       HomeView homeView = getBrowserFactory().getHomeView();
-      homeView.setPresenter(this);
       homeView.prepareView();
-      containerWidget.setWidget(homeView.asWidget());
+      containerWidget.setWidget(homeView);
+    } else {
+      goTo(new LoginPlace());
     }
   }
 }

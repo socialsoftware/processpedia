@@ -23,8 +23,6 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.place.ProcessPlace;
 import pt.ist.processpedia.client.view.home.content.process.ProcessView;
-import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
-import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
 import pt.ist.processpedia.shared.dto.domain.ProcessWithRootRequestsDto;
 import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
 

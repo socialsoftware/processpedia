@@ -6,7 +6,7 @@ public class UserDtoImpl extends DomainObjectDtoImpl implements UserDto {
 
   public UserDtoImpl() {}
 
-  public UserDtoImpl(long oid, String name) {
+  public UserDtoImpl(Long oid, String name) {
     super(oid);
     setName(name);
   }

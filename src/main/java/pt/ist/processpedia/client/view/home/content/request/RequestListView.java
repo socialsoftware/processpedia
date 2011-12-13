@@ -17,20 +17,20 @@
 
 package pt.ist.processpedia.client.view.home.content.request;
 
-import com.google.gwt.user.cellview.client.DataGrid;
 import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
-
+import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn.RequestColumn;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
+import java.util.List;
 import java.util.Set;
 
 public interface RequestListView extends ProcesspediaView {
 
   interface Presenter extends ProcesspediaPresenter {
-    void onRequestSelection(RequestDtoImpl requestDto);
+    void onRequestSelection(RequestDto requestDto);
   }
-
+  
   void setPresenter(Presenter presenter);
 
-  void displayRequestSet(Set<RequestDtoImpl> requestDtoSet);
+  void displayRequestSet(Set<RequestDto> requestDtoSet, List<RequestColumn<RequestDto,String>> columnList);
 
 }

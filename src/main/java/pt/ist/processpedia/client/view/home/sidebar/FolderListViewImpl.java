@@ -39,10 +39,6 @@ public class FolderListViewImpl extends Composite implements FolderListView {
     initWidget(uiBinder.createAndBindUi(this));
   }
 
-  public void setPresenter(Presenter presenter) {
-    this.presenter = presenter;
-  }
-
   public void prepareView() {}
 
   public void clear() {
@@ -51,6 +47,10 @@ public class FolderListViewImpl extends Composite implements FolderListView {
 
   public void addFolderView(FolderView folderView) {
     folderListContainer.add(folderView.asWidget());
+  }
+
+  public void setPresenter(Presenter presenter) {
+    this.presenter = presenter;
   }
 
 }

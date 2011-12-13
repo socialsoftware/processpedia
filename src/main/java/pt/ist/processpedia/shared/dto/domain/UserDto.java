@@ -17,9 +17,8 @@
 
 package pt.ist.processpedia.shared.dto.domain;
 
-public interface UserDto {
+public interface UserDto extends DomainObjectDto {
 
-  public long getOid();
   public String getName();
 
 }

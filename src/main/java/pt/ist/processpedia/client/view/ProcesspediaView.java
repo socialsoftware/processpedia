@@ -29,5 +29,4 @@ public interface ProcesspediaView extends IsWidget {
   }
 
   public void prepareView();
-
 }

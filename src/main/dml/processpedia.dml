@@ -7,14 +7,22 @@ class domain.Processpedia;
 
 class domain.User {
   String name;
-  String username;
-  String passwordHash;
   String email;
-  String salt;
   DateTime creationTimestamp;
   String avatarUrl;
   Boolean active;
   String activationKey;
+}
+
+class domain.credential.CredentialInfo;
+
+class domain.credential.CasCredentialInfo extends domain.credential.CredentialInfo {
+  String netId;
+}
+
+class domain.credential.PasswordCredentialInfo extends domain.credential.CredentialInfo {
+  String passwordHash;
+  String salt;
 }
 
 class domain.Process {
@@ -79,6 +87,11 @@ relation ProcesspediaHasProcesses {
 relation ProcesspediaHasQueues {
   domain.Processpedia playsRole processpedia { multiplicity 1..1; }
   domain.Queue playsRole queue { multiplicity 0..*; }
+}
+
+relation UserHaveCredentialInfo {
+  domain.User playsRole user { multiplicity 1..1; }
+  domain.credential.CredentialInfo playsRole credentialInfo { multiplicity 1..1; }
 }
 
 relation ProcessHasDataObjects {

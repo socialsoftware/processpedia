@@ -18,14 +18,10 @@
 package pt.ist.processpedia.client.activity.manager;
 
 import com.google.gwt.activity.shared.ActivityManager;
-import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
-import com.google.web.bindery.event.shared.EventBus;
 import pt.ist.processpedia.client.BrowserFactory;
-import pt.ist.processpedia.client.activity.AccountActivationActivity;
 import pt.ist.processpedia.client.place.AccountActivationPlace;
-import pt.ist.processpedia.client.place.HomePlace;
 import pt.ist.processpedia.client.place.LoginPlace;
 import pt.ist.processpedia.client.place.SignupPlace;
 

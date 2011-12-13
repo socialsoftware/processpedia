@@ -22,7 +22,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
-import pt.ist.processpedia.client.Processpedia;
 import pt.ist.processpedia.client.place.LoginPlace;
 import pt.ist.processpedia.client.place.SignupPlace;
 import pt.ist.processpedia.client.view.signup.SignupView;
@@ -62,7 +61,6 @@ public class SignupActivity extends ProcesspediaActivity<SignupPlace> implements
         handleException(throwable);
       }
       public void onSuccess(SignupUserResponseDto signupUserResponseDto) {
-        String email = signupUserResponseDto.getEmail();
         goTo(new LoginPlace());
       }
     });

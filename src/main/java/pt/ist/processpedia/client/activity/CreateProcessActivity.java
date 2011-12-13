@@ -23,7 +23,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.client.Processpedia;
 import pt.ist.processpedia.client.notification.ProcesspediaNotification;
 import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.CreateProcessPlace;

@@ -23,9 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.activity.*;
-
 import pt.ist.processpedia.client.place.*;
-import pt.ist.processpedia.client.view.home.content.splash.NoFolderSelectedView;
 
 public class ContentActivityMapper implements ActivityMapper {
 

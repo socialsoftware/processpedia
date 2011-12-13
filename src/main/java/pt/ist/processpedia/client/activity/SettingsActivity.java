@@ -18,11 +18,13 @@
 package pt.ist.processpedia.client.activity;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.Messages;
+import pt.ist.processpedia.client.notification.ProcesspediaNotification;
+import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.SettingsPlace;
 import pt.ist.processpedia.client.view.home.content.settings.SettingsView;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
@@ -74,7 +76,9 @@ public class SettingsActivity extends ProcesspediaActivity<SettingsPlace> implem
         }
 
         public void onSuccess(UpdateUserSettingsResponseDto updateUserSettingsResponseDto) {
-          Window.alert(messages.changesSavedSuccessfully());
+          ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.SUCCESS, messages.settings(), messages.changesSavedSuccessfully());
+          notification.show();
+          History.back();
         }
       });
     } else {
@@ -84,6 +88,6 @@ public class SettingsActivity extends ProcesspediaActivity<SettingsPlace> implem
   }
 
   public void onCancelChangesAction() {
-    //TODO: change view when the user cancels
+    History.back();
   }
 }

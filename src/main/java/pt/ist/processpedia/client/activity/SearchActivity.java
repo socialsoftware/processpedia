@@ -20,17 +20,21 @@ package pt.ist.processpedia.client.activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.Label;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.place.RequestPlace;
 import pt.ist.processpedia.client.place.SearchPlace;
 import pt.ist.processpedia.client.view.home.content.request.RequestListView;
+import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn;
+import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn.RequestColumn;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.SearchActionDto;
-import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import pt.ist.processpedia.shared.dto.response.SearchResponseDto;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class SearchActivity extends ProcesspediaActivity<SearchPlace> implements RequestListView.Presenter {
@@ -57,15 +61,18 @@ public class SearchActivity extends ProcesspediaActivity<SearchPlace> implements
     });
   }
 
-  private void displaySearchResults(AcceptsOneWidget containerWidget, Set<RequestDtoImpl> requestDtoSet) {
+  private void displaySearchResults(AcceptsOneWidget containerWidget, Set<RequestDto> requestDtoSet) {
     RequestListView requestListView = getBrowserFactory().getProcessListView();
     requestListView.setPresenter(this);
     requestListView.prepareView();
-    requestListView.displayRequestSet(requestDtoSet);
+    List<RequestColumn<RequestDto,String>> columnSet = new ArrayList<RequestColumn<RequestDto,String>>();
+    columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
+    columnSet.add(RequestListColumn.SUBJECT_COLUMN);
+    requestListView.displayRequestSet(requestDtoSet, columnSet);
     containerWidget.setWidget(requestListView);
   }
 
-  public void onRequestSelection(RequestDtoImpl requestDto) {
+  public void onRequestSelection(RequestDto requestDto) {
     goTo(new RequestPlace(requestDto.getOid()));
   }
 }

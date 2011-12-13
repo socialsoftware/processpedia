@@ -67,7 +67,7 @@ public class RequestSidebarViewImpl extends Composite implements RequestSidebarV
     parentRequestLineView.prepareView();
     parentRequestLineView.setInitiatorName(initiatorDetailedDto.getName());
     parentRequestLineView.setInitiatorAvatar(initiatorDetailedDto.getAvatarUrl());
-    parentRequestLineView.setRequestTitle(requestDetailedDto.getTitle());
+    parentRequestLineView.setRequestTitle(requestDetailedDto.getSubject());
     parentRequestLineView.setCreationDate(requestDetailedDto.getCreationTimestamp());
   }
 

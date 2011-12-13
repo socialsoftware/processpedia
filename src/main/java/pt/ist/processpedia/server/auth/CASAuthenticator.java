@@ -73,7 +73,7 @@ public class CASAuthenticator extends AbstractAuthenticator {
 
   @Override
   public User getUser(Processpedia processpedia, Credential credential) throws ProcesspediaException {
-    String username = ((CASCredential)credential).getUsername();
-    return processpedia.getUserByUsername(username);
+    String netId = ((CASCredential)credential).getUsername();
+    return processpedia.loginUserWithCasTicket(netId);
   }
 }

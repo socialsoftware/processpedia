@@ -1,10 +1,15 @@
 package pt.ist.processpedia.server.domain;
 
 import pt.ist.fenixframework.FenixFramework;
-import pt.ist.processpedia.server.util.EmailClient;
-import pt.ist.processpedia.server.util.MD5;
+import pt.ist.processpedia.server.domain.credential.CasCredentialInfo;
+import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
+import pt.ist.processpedia.server.organization.OrganizationalUnit;
+import pt.ist.processpedia.server.organization.Party;
+import pt.ist.processpedia.server.organization.Person;
 import pt.ist.processpedia.server.util.Urn;
 import pt.ist.processpedia.shared.exception.*;
+import pt.ist.processpedia.shared.exception.authentication.NetIdAlreadyInUserException;
+import pt.ist.processpedia.shared.exception.authentication.WrongCredentialTypeException;
 import pt.ist.processpedia.shared.exception.process.ProcessDescriptionTooLongException;
 import pt.ist.processpedia.shared.exception.process.ProcessTitleTooLongException;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleAlreadyInUseException;
@@ -18,22 +23,38 @@ import pt.ist.processpedia.shared.validation.InputValidator;
 import java.util.Set;
 
 public class Processpedia extends Processpedia_Base {
-
-  /**
-   * Initializes the application.
-   */
+  
   public Processpedia() {
     try {
-      User ritoSilva = createUser("António Rito Silva", "r@g.com", "xpta");
-      User davidMartinho = createUser("David Martinho", "d@g.com", "xpto");
-      HumanQueue dsiQueue = createHumanQueue("DSI");
-      HumanQueue istQueue = createHumanQueue("IST");
-      dsiQueue.addMember(davidMartinho);
-      istQueue.addMember(davidMartinho);
-      istQueue.addMember(ritoSilva);
-    } catch(ProcesspediaException e) {
-      
+      createUserWithPasswordCredentialInfo("David Martinho", "d@g.com", "avatar", "xpto");
+    } catch (ProcesspediaException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
+  }
+  
+  public User createUserWithCasCredentialInfo(String name, String email, String avatarUrl, String netId) throws ProcesspediaException {
+    InputValidator.validateUserName(name);
+    InputValidator.validateEmail(email);
+    
+    for(User existingUser : getUserSet()) {
+      if(existingUser.getEmail().equals(email)) {
+        throw new UserEmailAlreadyInUseException(email);
+      }
+      if(existingUser.getCredentialInfo() instanceof CasCredentialInfo) {
+        String existingNetId = ((CasCredentialInfo)existingUser.getCredentialInfo()).getNetId();
+        if(existingNetId.equals(netId)) {
+          throw new NetIdAlreadyInUserException(email);
+        }
+      }
+    }
+    User user = new User(name, email, avatarUrl);
+    addUser(user);
+    HumanQueue personalQueue = new HumanQueue(name);
+    user.setPersonalQueue(personalQueue);
+    personalQueue.setProcesspedia(this);
+    user.setCredentialInfo(new CasCredentialInfo(netId));
+    return user;
   }
 
   /**
@@ -47,7 +68,7 @@ public class Processpedia extends Processpedia_Base {
    * @throws pt.ist.processpedia.shared.exception.password.PasswordTooShortException when the provided password is too short
    * @throws UserEmailAlreadyInUseException when the provided email is already associated to another user
    */
-  public User createUser(String name, String email, String password) throws ProcesspediaException {
+  public User createUserWithPasswordCredentialInfo(String name, String email, String avatarUrl, String password) throws ProcesspediaException {
     InputValidator.validateUserName(name);
     InputValidator.validateEmail(email);
     InputValidator.validateUserPassword(password);
@@ -56,12 +77,13 @@ public class Processpedia extends Processpedia_Base {
         throw new UserEmailAlreadyInUseException(email);
       }
     }
-    User user = new User(name, email, password);
+    User user = new User(name, email, avatarUrl);
     addUser(user);
-    HumanQueue userQueue = new HumanQueue(name);
-    user.setPersonalQueue(userQueue);
-    addQueue(userQueue);
-    EmailClient.sendActivationEmail(user.getName(), user.getEmail(), user.getActivationKey());
+    HumanQueue personalQueue = new HumanQueue(name);
+    user.setPersonalQueue(personalQueue);
+    personalQueue.setProcesspedia(this);
+    user.setCredentialInfo(new PasswordCredentialInfo(password));
+    //EmailClient.sendActivationEmail(user.getName(), user.getEmail(), user.getActivationKey());
     return user;
   }
 
@@ -140,6 +162,26 @@ public class Processpedia extends Processpedia_Base {
     Tag tag = new Tag(tagValue);
     return tag;
   }
+  
+  /**
+   * Attempts to login a user given a CAS netId.
+   * @param netId the netId to be verified
+   * @return
+   * @throws WrongCredentialsException
+   */
+  public User loginUserWithCasTicket(String ticket) throws WrongCredentialsException {
+    //TODO: get netId using the given ticket
+    String netId = "";
+    for(User user : getUserSet()) {
+      if(user.getCredentialInfo() instanceof CasCredentialInfo) {
+        CasCredentialInfo credentialInfo = (CasCredentialInfo)user.getCredentialInfo();
+        if(credentialInfo.matchNetId(netId)) {
+          return user;
+        }
+      }
+    }
+    throw new WrongCredentialsException(netId);
+  }
 
   /**
    * Attempts to login a user with the provided credentials (email and password).
@@ -151,20 +193,24 @@ public class Processpedia extends Processpedia_Base {
    * @throws pt.ist.processpedia.shared.exception.user.UserInactiveException when the credentials are valid but the user is not in the active state
    * @throws WrongCredentialsException when the provided credentials are wrong or do not match any user
    */
-  public User loginUser(String email, String password) throws ProcesspediaException {
+  public User loginUserWithEmailAndPassword(String email, String password) throws ProcesspediaException {
     InputValidator.validateEmail(email);
     InputValidator.validateUserPassword(password);
     for(User user : getUserSet()) {
       if(user.getEmail().equals(email)) {
-        String passwordHash = MD5.hash(password+user.getSalt());
-        if(user.getPasswordHash().equals(passwordHash)) {
-          if(user.getActive()) {
-            return user;
+        if(user.getCredentialInfo() instanceof PasswordCredentialInfo) {
+          PasswordCredentialInfo credentialInfo = (PasswordCredentialInfo)user.getCredentialInfo();
+          if(credentialInfo.matchPassword(password)) {
+            if(user.getActive()) {
+              return user;
+            } else {
+              throw new UserInactiveException(Urn.getUrn(user));
+            }
           } else {
-            throw new UserInactiveException(Urn.getUrn(user));
+            throw new WrongCredentialsException(email);
           }
         } else {
-          throw new WrongCredentialsException(email);
+          throw new WrongCredentialTypeException();
         }
       }
     }
@@ -175,23 +221,25 @@ public class Processpedia extends Processpedia_Base {
     return FenixFramework.getRoot();
   }
 
-  /**
-   * Obtains a Processpedia user given its username.
-   * @param username the username of the user
-   * @return the user associated with the given username
-   * @throws UserInactiveException when the user is not active
-   * @throws WrongCredentialException when the user is not found
-   */
-  public User getUserByUsername(String username) throws UserInactiveException, WrongCredentialsException {
-    for(User user : getUserSet()) {
-      if(user.getUsername().equals(username)) {
-        if(user.getActive()) {
-          return user;
-        } else {
-          throw new UserInactiveException(user.getEmail());
+  public void installOrganizationalUnit(OrganizationalUnit rootOrganizationalUnit) {
+    HumanQueue humanQueue = new HumanQueue(rootOrganizationalUnit.getDesignation());
+    int error = 0;
+    int success = 0;
+    for(Party party : rootOrganizationalUnit.getChildPartySet()) {
+      if(party.isPerson()) {
+        Person person = (Person)party;
+        try {
+          createUserWithCasCredentialInfo(person.getName(), person.getEmail(), person.getAvatarUrl(), person.getNetId());
+          success++;
+        } catch(ProcesspediaException e) {
+          error++;
         }
       }
     }
-    throw new WrongCredentialsException();
+    
+  }
+  
+  public void updateOrganizationalUnit(OrganizationalUnit rootOrganization) {
+    
   }
 }
