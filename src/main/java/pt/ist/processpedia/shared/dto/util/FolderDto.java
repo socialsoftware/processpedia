@@ -21,7 +21,7 @@ import pt.ist.processpedia.shared.dto.Dto;
 
 public class FolderDto implements Dto {
 
-  public static enum FolderType { INBOX, HANDLING, PENDING, HANDLED }
+  public static enum FolderType { INBOX, DRAFT, HANDLING, PENDING, HANDLED }
 
   private FolderType type;
   private int count;

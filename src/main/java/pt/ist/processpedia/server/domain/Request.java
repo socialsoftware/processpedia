@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Request extends Request_Base {
 
-  public enum RequestState { PUBLISHED, HANDLING, PENDING, HANDLED, CANCELED }
+  public enum RequestState { DRAFT, PUBLISHED, HANDLING, PENDING, HANDLED, CANCELED }
 
   /**
    * Creates a new request.

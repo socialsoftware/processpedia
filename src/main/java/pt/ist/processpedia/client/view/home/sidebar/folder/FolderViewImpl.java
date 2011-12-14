@@ -74,6 +74,10 @@ public class FolderViewImpl extends Composite implements FolderView {
         iconUrl = "themes/default/images/folder-inbox.png";
         label = messages.inboxFolder();
         break;
+      case DRAFT:
+        iconUrl = "themes/default/images/folder-drafts.png";
+        label = messages.draft();
+        break;
       case HANDLED:
         iconUrl = "themes/default/images/folder-handled.png";
         label = messages.handledFolder();

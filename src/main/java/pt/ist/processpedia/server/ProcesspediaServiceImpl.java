@@ -24,6 +24,7 @@ import pt.ist.processpedia.server.auth.Authenticator.Credential;
 import pt.ist.processpedia.server.auth.AuthenticatorFactory;
 import pt.ist.processpedia.server.domain.*;
 import pt.ist.processpedia.server.domain.Queue;
+import pt.ist.processpedia.server.domain.Request.RequestState;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
 import pt.ist.processpedia.server.recommendation.RequestRecommendation;
@@ -178,7 +179,13 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
         requestOidSet.add(publishedRequest.getOID());
       }
     }
-    folderDtoList.add(new FolderDto(FolderDto.FolderType.INBOX, requestOidSet.size()));
+
+    int draftCount = 0;
+    for(Request initiatedRequest : actor.getInitiatedRequestSet()) {
+      if(initiatedRequest.getState().equals(RequestState.DRAFT)) {
+        draftCount++;
+      }
+    }
 
     int handlingCount = 0;
     int pendingCount = 0;
@@ -191,6 +198,8 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
         case HANDLING: handlingCount++; break;
       }
     }
+    folderDtoList.add(new FolderDto(FolderDto.FolderType.INBOX, requestOidSet.size()));
+    folderDtoList.add(new FolderDto(FolderDto.FolderType.DRAFT, draftCount));
     folderDtoList.add(new FolderDto(FolderDto.FolderType.HANDLING, handlingCount));
     folderDtoList.add(new FolderDto(FolderDto.FolderType.PENDING, pendingCount));
     folderDtoList.add(new FolderDto(FolderDto.FolderType.HANDLED, handledCount));
@@ -319,5 +328,12 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     
     return new CreateRequestResponseDto(createdRequest.getOid());
 
+  }
+
+  @Override
+  public SaveDraftRequestActionDto saveDraftRequest(SaveDraftRequestActionDto saveDraftRequestActionDto) throws ProcesspediaException {
+    
+
+    return new SaveDraftRequestActionDto();
   }
 }

@@ -110,7 +110,7 @@ relation ProcessHasInitiator {
 }
 
 relation RequestHasInitiator {
-  domain.Request playsRole request { multiplicity 0..*; }
+  domain.Request playsRole initiatedRequest { multiplicity 0..*; }
   domain.User playsRole initiator { multiplicity 1..1; }
 }
 

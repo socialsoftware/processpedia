@@ -82,4 +82,9 @@ public class DataSwitchWithoutCacheImpl implements DataSwitch {
   public void createRequest(CreateRequestActionDto createRequestActionDto, AsyncCallback<CreateRequestResponseDto> callback) {
     realService.createRequest(createRequestActionDto, callback);
   }
+
+  @Override
+  public void saveDraftRequest(SaveDraftRequestActionDto saveDraftRequestActionDto, AsyncCallback<SaveDraftRequestActionDto> callback) {
+    realService.saveDraftRequest(saveDraftRequestActionDto, callback);
+  }
 }

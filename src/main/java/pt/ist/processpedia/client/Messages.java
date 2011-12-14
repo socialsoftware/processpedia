@@ -115,6 +115,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String dontHaveAccount();
 
   /**
+   * Translated "Drafts".
+   * 
+   * @return translated "Drafts"
+   */
+  @DefaultStringValue("Drafts")
+  @Key("draft")
+  String draft();
+
+  /**
    * Translated "The provided email is already being used".
    * 
    * @return translated "The provided email is already being used"
@@ -169,11 +178,11 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String error();
 
   /**
-   * Translated "I expects an answer to this request".
+   * Translated "I expect an answer".
    * 
-   * @return translated "I expects an answer to this request"
+   * @return translated "I expect an answer"
    */
-  @DefaultStringValue("I expects an answer to this request")
+  @DefaultStringValue("I expect an answer")
   @Key("expectsAnswer")
   String expectsAnswer();
 
@@ -466,11 +475,11 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String requestData();
 
   /**
-   * Translated "Request Description".
+   * Translated "Message".
    * 
-   * @return translated "Request Description"
+   * @return translated "Message"
    */
-  @DefaultStringValue("Request Description")
+  @DefaultStringValue("Message")
   @Key("requestDescription")
   String requestDescription();
 
@@ -484,11 +493,11 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String requestSentSuccessfully();
 
   /**
-   * Translated "Request Title".
+   * Translated "Subject".
    * 
-   * @return translated "Request Title"
+   * @return translated "Subject"
    */
-  @DefaultStringValue("Request Title")
+  @DefaultStringValue("Subject")
   @Key("requestTitle")
   String requestTitle();
 
@@ -500,6 +509,15 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Save Changes")
   @Key("saveChanges")
   String saveChanges();
+
+  /**
+   * Translated "Save Draft".
+   * 
+   * @return translated "Save Draft"
+   */
+  @DefaultStringValue("Save Draft")
+  @Key("saveDraft")
+  String saveDraft();
 
   /**
    * Translated "Search".

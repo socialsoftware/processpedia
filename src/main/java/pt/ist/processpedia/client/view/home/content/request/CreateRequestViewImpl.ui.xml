@@ -39,6 +39,13 @@
       padding-left: 20px;
       padding-right: 20px;
       font-size: 15px;
+      font-weight: bold;
+    }
+    .saveButton {
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 15px;
+      margin-right: 20px;
     }
     .cancelButton {
       padding-left: 20px;
@@ -53,7 +60,6 @@
     }
     .inputDataObjectContainer {
       width: 100%;
-
     }
     .tree {
       width: 100%;
@@ -88,6 +94,7 @@
 
     <g:FlowPanel styleName="{style.buttonsContainer}">
       <g:Button styleName="{style.cancelButton}" ui:field="cancelAction" />
+      <g:Button addStyleNames="{style.saveButton}" ui:field="saveAction" />
       <g:Button addStyleNames="{style.submitButton}" ui:field="publishRequestAction" />
     </g:FlowPanel>
 

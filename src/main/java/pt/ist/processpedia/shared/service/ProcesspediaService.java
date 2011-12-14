@@ -17,6 +17,7 @@
 
 package pt.ist.processpedia.shared.service;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import pt.ist.processpedia.shared.dto.action.*;
@@ -52,6 +53,9 @@ public interface ProcesspediaService extends RemoteService {
   GetRequestRecommendationResponseDto getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction) throws ProcesspediaException;
   
   CreateRequestResponseDto createRequest(CreateRequestActionDto createRequestActionDto) throws ProcesspediaException;
+  
+  SaveDraftRequestActionDto saveDraftRequest(SaveDraftRequestActionDto saveDraftRequestActionDto) throws ProcesspediaException;
+
   
 }
 

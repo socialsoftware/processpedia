@@ -51,4 +51,6 @@ public interface ProcesspediaServiceAsync {
 
   void createRequest(CreateRequestActionDto createRequestActionDto, AsyncCallback<CreateRequestResponseDto> callback);
 
+  void saveDraftRequest(SaveDraftRequestActionDto saveDraftRequestActionDto, AsyncCallback<SaveDraftRequestActionDto> callback);
+  
 }

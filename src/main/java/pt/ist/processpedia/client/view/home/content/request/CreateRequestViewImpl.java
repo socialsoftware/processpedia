@@ -25,6 +25,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -43,6 +44,8 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   interface CreateRequestViewImplUiBinder extends UiBinder<Widget,CreateRequestViewImpl> {}
   private static CreateRequestViewImplUiBinder uiBinder = GWT.create(CreateRequestViewImplUiBinder.class);
 
+  private HandlerRegistration handlerRegistration;
+  
   @UiField
   HasText createRequestTitleContainer,
           toLabelContainer,
@@ -63,7 +66,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   Tree inputDataObjectsContainer;
 
   @UiField
-  Button publishRequestAction, cancelAction;
+  Button publishRequestAction, saveAction, cancelAction;
 
   private Presenter presenter;
   
@@ -88,6 +91,9 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
   }
 
   public void prepareView() {
+    if(handlerRegistration!=null) {
+      handlerRegistration.removeHandler();
+    }
     Messages messages = presenter.getBrowserFactory().getMessages();
     setCreateRequestTitle(messages.createRequestTitle());
     setToLabel(messages.to());
@@ -96,6 +102,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
     setExpectsAnswerLabel(messages.expectsAnswer());
     setRequestDataObjectLabel(messages.requestData());
     setPublishRequestButtonText(messages.publishRequest());
+    setSaveDraftButtonText(messages.saveDraft());
     setCancelButtonText(messages.cancel());
     subjectSuggestBox.setText("");
     requestDescriptionContainer.setText("");
@@ -128,6 +135,10 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
 
   public void setCancelButtonText(String cancelButtonText) {
     cancelAction.setText(cancelButtonText);
+  }
+  
+  public void setSaveDraftButtonText(String saveDraftButtonText) {
+    saveAction.setText(saveDraftButtonText);
   }
 
   public void setToLabel(String toLabel) {
@@ -201,7 +212,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
 
   @Override
   public void addSelectionHandler(SelectionHandler<Suggestion> selectionHandler) {
-    subjectSuggestBox.addSelectionHandler(selectionHandler);
+    handlerRegistration = subjectSuggestBox.addSelectionHandler(selectionHandler);
   }
 
 }
