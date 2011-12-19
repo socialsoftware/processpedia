@@ -1,0 +1,59 @@
+/**
+ * Copyright 2011 ESW Software Engineering Group
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ **/
+
+package pt.ist.processpedia.client.activity.content;
+
+import com.google.gwt.activity.shared.ActivityManager;
+import com.google.gwt.place.shared.PlaceChangeEvent;
+import pt.ist.processpedia.client.BrowserFactory;
+import pt.ist.processpedia.client.activity.content.column.left.ContentLeftColumnActivityManager;
+import pt.ist.processpedia.client.activity.content.column.middle.ContentMiddleColumnActivityManager;
+import pt.ist.processpedia.client.activity.content.column.right.ContentRightColumnActivityManager;
+import pt.ist.processpedia.client.activity.content.header.ContentHeaderActivityManager;
+
+public class ContentActivityManager extends ActivityManager {
+
+    private ContentHeaderActivityManager contentHeaderActivityManager;
+    private ContentLeftColumnActivityManager contentLeftColumnActivityManager;
+    private ContentMiddleColumnActivityManager contentMiddleColumnActivityManager;
+    private ContentRightColumnActivityManager contentRightColumnActivityManager;
+
+  public ContentActivityManager(BrowserFactory browserFactory) {
+    super(new ContentActivityMapper(browserFactory), browserFactory.getEventBus());
+    contentHeaderActivityManager = new ContentHeaderActivityManager(browserFactory);
+    contentLeftColumnActivityManager = new ContentLeftColumnActivityManager(browserFactory);
+    contentMiddleColumnActivityManager = new ContentMiddleColumnActivityManager(browserFactory);
+    contentRightColumnActivityManager = new ContentRightColumnActivityManager(browserFactory);
+	setDisplay(browserFactory.getHomeView().getContentContainer());
+  }
+
+  @Override
+  public void onPlaceChange(PlaceChangeEvent event) {
+    //Place newPlace = event.getNewPlace();
+    super.onPlaceChange(event);
+    /*
+    if((newPlace instanceof SettingsPlace) ||
+       (newPlace instanceof CreateProcessPlace) ||
+       (newPlace instanceof CreateRequestPlace) ||
+       (newPlace instanceof FolderPlace) ||
+       (newPlace instanceof RequestPlace) ||
+       (newPlace instanceof SearchPlace)) {
+      super.onPlaceChange(event);
+    }*/
+  }
+
+}

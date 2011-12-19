@@ -3,28 +3,39 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:p="urn:import:pt.ist.processpedia.client.view.home.content">
   <ui:style>
-    .requestContentContainer {
+    .header {
       width: 100%;
+      background-color: #000;
+      color: #FFF;
     }
-    .requestsContainer {
+    .leftColumn {
       width: 100%;
       height: 100%;
-      padding: 10px;
+      border-right: solid 1px #000;
       background-color: #EEE;
-      color: white;
-      border-right: solid 1px #CCC;
+    }
+    .middleColumn {
+      width: 100%;
+    }
+    .rightColumn {
+      width: 100%;
+      height: 100%;
+      border-left: solid 1px #CCC;
+      background-color: #EEE;
     }
   </ui:style>
-
   <g:DockLayoutPanel unit="PX">
     <g:north size="75">
-      <p:process.header.ProcessHeaderViewImpl ui:field="processHeader" />
+      <g:SimpleLayoutPanel styleName="{style.header}" ui:field="headerContainer" />
     </g:north>
     <g:center>
-      <g:SimpleLayoutPanel styleName="{style.requestContentContainer}" ui:field="requestContentContainer" />
+      <g:SimpleLayoutPanel styleName="{style.middleColumn}" ui:field="middleColumnContainer" />
     </g:center>
     <g:west size="300">
-      <p:request.RequestSidebarViewImpl styleName="{style.requestsContainer}" ui:field="requestSidebar" />
+      <g:SimpleLayoutPanel styleName="{style.leftColumn}" ui:field="leftColumnContainer" />
     </g:west>
+    <g:east size="300">
+      <g:SimpleLayoutPanel styleName="{style.rightColumn}" ui:field="rightColumnContainer" />
+    </g:east>
   </g:DockLayoutPanel>
 </ui:UiBinder>

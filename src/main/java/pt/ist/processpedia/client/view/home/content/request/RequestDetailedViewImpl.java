@@ -21,20 +21,23 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
-import pt.ist.processpedia.client.view.home.content.process.header.ProcessHeaderViewImpl;
-import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
-import pt.ist.processpedia.shared.dto.domain.*;
 
 public class RequestDetailedViewImpl extends Composite implements RequestDetailedView {
 
   interface RequestDetailedViewImplUiBinder extends UiBinder<Widget,RequestDetailedViewImpl> {}
   private static RequestDetailedViewImplUiBinder uiBinder = GWT.create(RequestDetailedViewImplUiBinder.class);
+  
+  @UiField
+  AcceptsOneWidget headerContainer;
 
   @UiField
-  ProcessHeaderViewImpl processHeader;
+  AcceptsOneWidget leftColumnContainer;
 
   @UiField
-  RequestSidebarViewImpl requestSidebar;
+  AcceptsOneWidget middleColumnContainer;
+  
+  @UiField
+  AcceptsOneWidget rightColumnContainer;
 
   private Presenter presenter;
 
@@ -44,39 +47,29 @@ public class RequestDetailedViewImpl extends Composite implements RequestDetaile
 
   public void setPresenter(Presenter presenter) {
     this.presenter = presenter;
-    requestSidebar.setPresenter(presenter);
   }
 
   public void prepareView() {
-    processHeader.prepareView();
-    requestSidebar.prepareView();
+
   }
 
-  public void setProcessTitle(String processTitle) {
-    processHeader.setProcessTitle(processTitle);
-  }
-
-  public void setProcessDescription(String processDescription) {
-    processHeader.setProcessDescription(processDescription);
-  }
-
-  public void addChildRequest(ChildRequestLineView childRequestLinewView) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  public void clear() {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
-
-  public void setParentRequest(RequestDetailedDto parentRequestDetailedDto) {
-    requestSidebar.setPresenter(presenter);
-    requestSidebar.prepareView();
-    requestSidebar.setParentRequestLine(parentRequestDetailedDto);
-  }
-
-  @Override
-  public void setCreateNewRequestButtonText(String createNewRequestButtonText) {
-    requestSidebar.setCreateNewRequestButtonText(createNewRequestButtonText);
-  }
+    @Override
+    public AcceptsOneWidget getHeaderContainer() {
+        return headerContainer;
+    }
   
+    @Override
+    public AcceptsOneWidget getLeftColumnContainer() {
+        return leftColumnContainer;
+    }
+    
+    @Override
+    public AcceptsOneWidget getMiddleColumnContainer() {
+	return middleColumnContainer;
+    }
+    
+    @Override
+    public AcceptsOneWidget getRightColumnContainer() {
+        return rightColumnContainer;
+    }
 }

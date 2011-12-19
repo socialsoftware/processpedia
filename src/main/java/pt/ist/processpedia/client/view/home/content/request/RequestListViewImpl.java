@@ -17,10 +17,8 @@
 
 package pt.ist.processpedia.client.view.home.content.request;
 
-import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Composite;
@@ -29,7 +27,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.*;
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn;
 import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn.RequestColumn;
 import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import pt.ist.processpedia.shared.dto.util.RequestDataGridLine;
@@ -37,7 +34,6 @@ import pt.ist.processpedia.shared.dto.util.RequestDataGridLine;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 

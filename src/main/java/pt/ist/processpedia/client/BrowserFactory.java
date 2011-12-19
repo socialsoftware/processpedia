@@ -5,10 +5,11 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
-import pt.ist.processpedia.client.activity.mapper.ContentActivityMapper;
-import pt.ist.processpedia.client.activity.mapper.HeaderActivityMapper;
-import pt.ist.processpedia.client.activity.mapper.ProcesspediaActivityMapper;
-import pt.ist.processpedia.client.activity.mapper.SidebarActivityMapper;
+
+import pt.ist.processpedia.client.activity.content.ContentActivityMapper;
+import pt.ist.processpedia.client.activity.header.HeaderActivityMapper;
+import pt.ist.processpedia.client.activity.home.ProcesspediaActivityMapper;
+import pt.ist.processpedia.client.activity.sidebar.SidebarActivityMapper;
 import pt.ist.processpedia.client.auth.AuthenticationHandler;
 import pt.ist.processpedia.client.exception.ExceptionHandler;
 import pt.ist.processpedia.client.service.DataSwitch;
@@ -66,9 +67,6 @@ public interface BrowserFactory {
   AuthenticationHandler getAuthenticationHandler();
 
   ProcesspediaActivityMapper getProcesspediaActivityMapper();
-  HeaderActivityMapper getHeaderActivityMapper();
-  ContentActivityMapper getContentActivityMapper();
-  SidebarActivityMapper getSidebarActivityMapper();
 
   AccountActivationView getAccountActivationView();
 

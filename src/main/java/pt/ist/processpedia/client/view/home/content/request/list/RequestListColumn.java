@@ -1,13 +1,10 @@
 package pt.ist.processpedia.client.view.home.content.request.list;
 
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
-
 import pt.ist.processpedia.client.BrowserFactoryImpl;
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import pt.ist.processpedia.shared.dto.domain.RequestDto;
-
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.user.cellview.client.Column;

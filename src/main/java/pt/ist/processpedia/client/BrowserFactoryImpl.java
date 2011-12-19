@@ -8,14 +8,15 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
-import pt.ist.processpedia.client.activity.manager.ContentActivityManager;
-import pt.ist.processpedia.client.activity.manager.HeaderActivityManager;
-import pt.ist.processpedia.client.activity.manager.ProcesspediaActivityManager;
-import pt.ist.processpedia.client.activity.manager.SidebarActivityManager;
-import pt.ist.processpedia.client.activity.mapper.ContentActivityMapper;
-import pt.ist.processpedia.client.activity.mapper.HeaderActivityMapper;
-import pt.ist.processpedia.client.activity.mapper.ProcesspediaActivityMapper;
-import pt.ist.processpedia.client.activity.mapper.SidebarActivityMapper;
+
+import pt.ist.processpedia.client.activity.content.ContentActivityManager;
+import pt.ist.processpedia.client.activity.content.ContentActivityMapper;
+import pt.ist.processpedia.client.activity.header.HeaderActivityManager;
+import pt.ist.processpedia.client.activity.header.HeaderActivityMapper;
+import pt.ist.processpedia.client.activity.home.ProcesspediaActivityManager;
+import pt.ist.processpedia.client.activity.home.ProcesspediaActivityMapper;
+import pt.ist.processpedia.client.activity.sidebar.SidebarActivityManager;
+import pt.ist.processpedia.client.activity.sidebar.SidebarActivityMapper;
 import pt.ist.processpedia.client.auth.AuthenticationHandler;
 import pt.ist.processpedia.client.exception.ExceptionHandler;
 import pt.ist.processpedia.client.exception.ExceptionHandlerImpl;
@@ -99,14 +100,14 @@ public class BrowserFactoryImpl implements BrowserFactory {
   private BrowserFactoryImpl() {
 
     PROCESSPEDIA_ACTIVITY_MAPPER = new ProcesspediaActivityMapper(this);
-    HEADER_ACTIVITY_MAPPER = new HeaderActivityMapper(this);
-    CONTENT_ACTIVITY_MAPPER = new ContentActivityMapper(this);
-    SIDEBAR_ACTIVITY_MAPPER = new SidebarActivityMapper(this);
+    //HEADER_ACTIVITY_MAPPER = new HeaderActivityMapper(this);
+    //CONTENT_ACTIVITY_MAPPER = new ContentActivityMapper(this);
+    //SIDEBAR_ACTIVITY_MAPPER = new SidebarActivityMapper(this);
 
     PROCESSPEDIA_ACTIVITY_MANAGER = new ProcesspediaActivityManager(this);
-    HEADER_ACTIVITY_MANAGER = new HeaderActivityManager(this);
-    CONTENT_ACTIVITY_MANAGER = new ContentActivityManager(this);
-    SIDEBAR_ACTIVITY_MANAGER = new SidebarActivityManager(this);
+    //HEADER_ACTIVITY_MANAGER = new HeaderActivityManager(this);
+    //CONTENT_ACTIVITY_MANAGER = new ContentActivityManager(this);
+    //SIDEBAR_ACTIVITY_MANAGER = new SidebarActivityManager(this);
 
     EXCEPTION_HANDLER = new ExceptionHandlerImpl(this);
     
@@ -172,18 +173,6 @@ public class BrowserFactoryImpl implements BrowserFactory {
 
   public ProcesspediaActivityMapper getProcesspediaActivityMapper() {
     return PROCESSPEDIA_ACTIVITY_MAPPER;
-  }
-
-  public HeaderActivityMapper getHeaderActivityMapper() {
-    return HEADER_ACTIVITY_MAPPER;
-  }
-
-  public ContentActivityMapper getContentActivityMapper() {
-    return CONTENT_ACTIVITY_MAPPER;
-  }
-
-  public SidebarActivityMapper getSidebarActivityMapper() {
-    return SIDEBAR_ACTIVITY_MAPPER;
   }
 
   public EventBus getEventBus() {

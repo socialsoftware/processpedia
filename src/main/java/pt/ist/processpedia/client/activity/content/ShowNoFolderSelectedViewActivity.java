@@ -15,26 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.client.view.home.content.request;
+package pt.ist.processpedia.client.activity.content;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-
+import pt.ist.processpedia.client.BrowserFactory;
+import pt.ist.processpedia.client.activity.ProcesspediaActivity;
 import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
+import pt.ist.processpedia.client.view.home.content.splash.NoFolderSelectedView;
 
-public interface RequestDetailedView extends ProcesspediaView {
+public class ShowNoFolderSelectedViewActivity extends ProcesspediaActivity<Place> implements ProcesspediaView.ProcesspediaPresenter {
 
-  interface Presenter extends ProcesspediaPresenter {
-    void goTo(Place place);
-    void onCreateNewRequestAction();
+  public ShowNoFolderSelectedViewActivity(Place place, BrowserFactory browserFactory) {
+    super(place, browserFactory);
   }
-  
-  AcceptsOneWidget getHeaderContainer();
-  AcceptsOneWidget getLeftColumnContainer();
-  AcceptsOneWidget getMiddleColumnContainer();
-  AcceptsOneWidget getRightColumnContainer();
 
-  void setPresenter(Presenter presenter);
-
+  public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
+    NoFolderSelectedView noFolderSelectedView = getBrowserFactory().getNoFolderSelectedView();
+    noFolderSelectedView.setPresenter(this);
+    noFolderSelectedView.prepareView();
+    containerWidget.setWidget(noFolderSelectedView);
+  }
 }

@@ -22,14 +22,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
-import pt.ist.processpedia.client.view.home.content.request.line.ParentRequestLineView;
 import pt.ist.processpedia.client.view.home.content.request.line.ParentRequestLineViewImpl;
 import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
 import pt.ist.processpedia.shared.dto.domain.UserDetailedDto;

@@ -15,26 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.client.view.home.content.request;
+package pt.ist.processpedia.client.activity.header;
 
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import pt.ist.processpedia.client.BrowserFactory;
 
-import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
+public class HeaderActivityMapper implements ActivityMapper {
 
-public interface RequestDetailedView extends ProcesspediaView {
+  private BrowserFactory browserFactory;
 
-  interface Presenter extends ProcesspediaPresenter {
-    void goTo(Place place);
-    void onCreateNewRequestAction();
+  public HeaderActivityMapper(BrowserFactory browserFactory) {
+    this.browserFactory = browserFactory;
   }
-  
-  AcceptsOneWidget getHeaderContainer();
-  AcceptsOneWidget getLeftColumnContainer();
-  AcceptsOneWidget getMiddleColumnContainer();
-  AcceptsOneWidget getRightColumnContainer();
 
-  void setPresenter(Presenter presenter);
+  public Activity getActivity(Place place) {
+    return new HeaderActivity(place, browserFactory);
+  }
 
 }
