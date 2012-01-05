@@ -22,7 +22,6 @@ import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import pt.ist.processpedia.client.BrowserFactory;
-import pt.ist.processpedia.client.activity.*;
 import pt.ist.processpedia.client.place.AccountActivationPlace;
 import pt.ist.processpedia.client.place.LoginPlace;
 import pt.ist.processpedia.client.place.SignupPlace;

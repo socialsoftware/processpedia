@@ -18,7 +18,6 @@
 package pt.ist.processpedia.client.activity.content;
 
 import com.google.gwt.activity.shared.ActivityManager;
-import com.google.gwt.place.shared.PlaceChangeEvent;
 import pt.ist.processpedia.client.BrowserFactory;
 import pt.ist.processpedia.client.activity.content.column.left.ContentLeftColumnActivityManager;
 import pt.ist.processpedia.client.activity.content.column.middle.ContentMiddleColumnActivityManager;
@@ -27,10 +26,10 @@ import pt.ist.processpedia.client.activity.content.header.ContentHeaderActivityM
 
 public class ContentActivityManager extends ActivityManager {
 
-    private ContentHeaderActivityManager contentHeaderActivityManager;
-    private ContentLeftColumnActivityManager contentLeftColumnActivityManager;
-    private ContentMiddleColumnActivityManager contentMiddleColumnActivityManager;
-    private ContentRightColumnActivityManager contentRightColumnActivityManager;
+  private ContentHeaderActivityManager contentHeaderActivityManager;
+  private ContentLeftColumnActivityManager contentLeftColumnActivityManager;
+  private ContentMiddleColumnActivityManager contentMiddleColumnActivityManager;
+  private ContentRightColumnActivityManager contentRightColumnActivityManager;
 
   public ContentActivityManager(BrowserFactory browserFactory) {
     super(new ContentActivityMapper(browserFactory), browserFactory.getEventBus());
@@ -38,22 +37,22 @@ public class ContentActivityManager extends ActivityManager {
     contentLeftColumnActivityManager = new ContentLeftColumnActivityManager(browserFactory);
     contentMiddleColumnActivityManager = new ContentMiddleColumnActivityManager(browserFactory);
     contentRightColumnActivityManager = new ContentRightColumnActivityManager(browserFactory);
-	setDisplay(browserFactory.getHomeView().getContentContainer());
+    setDisplay(browserFactory.getHomeView().getContentContainer());
   }
 
-  @Override
-  public void onPlaceChange(PlaceChangeEvent event) {
-    //Place newPlace = event.getNewPlace();
-    super.onPlaceChange(event);
-    /*
-    if((newPlace instanceof SettingsPlace) ||
-       (newPlace instanceof CreateProcessPlace) ||
-       (newPlace instanceof CreateRequestPlace) ||
-       (newPlace instanceof FolderPlace) ||
-       (newPlace instanceof RequestPlace) ||
-       (newPlace instanceof SearchPlace)) {
-      super.onPlaceChange(event);
-    }*/
+  public ContentHeaderActivityManager getHeaderActivityManager() {
+    return contentHeaderActivityManager;
   }
-
+  
+  public ContentLeftColumnActivityManager getLeftColumnActivityManager() {
+    return contentLeftColumnActivityManager;
+  }
+  
+  public ContentMiddleColumnActivityManager getMiddleColumnActivityManager() {
+    return contentMiddleColumnActivityManager;
+  }
+  
+  public ContentRightColumnActivityManager getRightColumnActivityManager() {
+    return contentRightColumnActivityManager;
+  }
 }

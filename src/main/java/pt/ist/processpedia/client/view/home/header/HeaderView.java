@@ -17,7 +17,6 @@
 
 package pt.ist.processpedia.client.view.home.header;
 
-import com.google.gwt.place.shared.Place;
 import pt.ist.processpedia.client.view.ProcesspediaView;
 
 public interface HeaderView extends ProcesspediaView {

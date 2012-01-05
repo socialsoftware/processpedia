@@ -17,7 +17,6 @@
 
 package pt.ist.processpedia.shared.service;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import pt.ist.processpedia.shared.dto.action.*;

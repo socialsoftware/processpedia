@@ -26,9 +26,9 @@ import pt.ist.processpedia.shared.service.ProcesspediaService;
 import pt.ist.processpedia.shared.service.ProcesspediaServiceAsync;
 
 public class DataSwitchWithoutCacheImpl implements DataSwitch {
-
+  
   private ProcesspediaServiceAsync realService = (ProcesspediaServiceAsync)GWT.create(ProcesspediaService.class);
-
+  
   public void loginUser(LoginUserActionDto loginUserActionDto, AsyncCallback<LoginUserResponseDto> callback) {
     realService.loginUser(loginUserActionDto, callback);
   }
@@ -61,7 +61,7 @@ public class DataSwitchWithoutCacheImpl implements DataSwitch {
     realService.getFolderContents(getFolderContentsActionDto, callback);
   }
 
-  public void getRequest(GetRequestActionDto getRequestActionDto, AsyncCallback<GetRequestResponseDto> callback) {
+  public void getRequest(final GetRequestActionDto getRequestActionDto, AsyncCallback<GetRequestResponseDto> callback) {
     realService.getRequest(getRequestActionDto, callback);
   }
 
@@ -73,17 +73,14 @@ public class DataSwitchWithoutCacheImpl implements DataSwitch {
     realService.search(searchActionDto, callback);
   }
 
-  @Override
   public void getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction, AsyncCallback<GetRequestRecommendationResponseDto> response) {
     realService.getRequestRecommendation(getRequestRecommendationAction, response);
   }
 
-  @Override
   public void createRequest(CreateRequestActionDto createRequestActionDto, AsyncCallback<CreateRequestResponseDto> callback) {
     realService.createRequest(createRequestActionDto, callback);
   }
 
-  @Override
   public void saveDraftRequest(SaveDraftRequestActionDto saveDraftRequestActionDto, AsyncCallback<SaveDraftRequestActionDto> callback) {
     realService.saveDraftRequest(saveDraftRequestActionDto, callback);
   }

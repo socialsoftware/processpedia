@@ -236,7 +236,6 @@ public class Processpedia extends Processpedia_Base {
         }
       }
     }
-    
   }
   
   public void updateOrganizationalUnit(OrganizationalUnit rootOrganization) {

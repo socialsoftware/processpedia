@@ -19,7 +19,7 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
 
   public RequestDtoImpl() {}
 
-  public RequestDtoImpl(long oid, String title, UserDtoImpl initiatorDto, UserDtoImpl executorDto, Set<QueueDto> publishedQueueDtoSet, Date creationTimestamp, Date lastUpdateTimestamp, ProcessDto processDto) {
+  public RequestDtoImpl(long oid, String title, UserDto initiatorDto, UserDto executorDto, Set<QueueDto> publishedQueueDtoSet, Date creationTimestamp, Date lastUpdateTimestamp, ProcessDto processDto) {
     super(oid);
     setTitle(title);
     setInitiatorDto(initiatorDto);
