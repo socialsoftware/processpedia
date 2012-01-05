@@ -27,7 +27,6 @@ import pt.ist.processpedia.server.domain.Queue;
 import pt.ist.processpedia.server.domain.Request.RequestState;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
-import pt.ist.processpedia.server.recommendation.RequestRecommendation;
 import pt.ist.processpedia.shared.dto.action.*;
 import pt.ist.processpedia.shared.dto.action.authenticaded.*;
 import pt.ist.processpedia.shared.dto.auth.CredentialDto;
@@ -289,7 +288,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     }
     for(Request request : actor.getPersonalQueue().getRequestSet()) {
       Pattern searchPattern = Pattern.compile(searchRegex);
-      Matcher searchMatcher = searchPattern.matcher(request.getTitle());
+      Matcher searchMatcher = searchPattern.matcher(request.getSubjectTag().getKeyword());
       if(searchMatcher.find()) {
         requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
       }
@@ -300,12 +299,10 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
 
   @Atomic
   public GetRequestRecommendationResponseDto getRequestRecommendation(GetRequestRecommendationAction getRequestRecommendationAction) throws ProcesspediaException {
-    long parentRequestOid = getRequestRecommendationAction.getParentRequestOid();
-    Request request = Processpedia.fromOID(parentRequestOid);
-    
-    Set<RequestRecommendation> requestRecommendationSet = request.getRecommendationSet();
-    
-    Set<RequestRecommendationDto> requestRecommendationDtoSet = DomainObjectMapper.getRequestRecommendationDtoSetFromRequestRecommendationSet(requestRecommendationSet);
+    //long parentRequestOid = getRequestRecommendationAction.getParentRequestOid();
+    //Request request = Processpedia.fromOID(parentRequestOid);
+        
+    Set<RequestRecommendationDto> requestRecommendationDtoSet = new HashSet<RequestRecommendationDto>();
     //TODO: THE FOLLOWING LINE IS FOR TEXTING PURPOSES ONLY
     requestRecommendationDtoSet.add(new RequestRecommendationDtoImpl("Fazer X", 0.98));
     requestRecommendationDtoSet.add(new RequestRecommendationDtoImpl("Fazer Y", 0.23));
@@ -330,10 +327,8 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
 
   }
 
-  @Override
+  @Atomic
   public SaveDraftRequestActionDto saveDraftRequest(SaveDraftRequestActionDto saveDraftRequestActionDto) throws ProcesspediaException {
-    
-
     return new SaveDraftRequestActionDto();
   }
 }

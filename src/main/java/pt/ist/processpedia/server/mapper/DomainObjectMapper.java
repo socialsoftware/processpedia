@@ -44,20 +44,20 @@ public class DomainObjectMapper {
   public static ProcessDto getProcessDtoFromProcess(Process process) {
     if(process==null)
       return null;
-    return new ProcessDto(process.getOid(), process.getTitle());
+    return new ProcessDto(process.getOid(), process.getTitleTag().getKeyword());
   }
 
   public static ProcessDetailedDto getProcessDetailedDtoFromProcess(Process process) {
     if(process == null)
       return null;
-    return new ProcessDetailedDto(process.getOid(), process.getTitle(), process.getDescription());
+    return new ProcessDetailedDto(process.getOid(), process.getTitleTag().getKeyword(), process.getDescription());
   }
 
   public static RequestDtoImpl getRequestDtoFromRequest(Request request) {
     if(request == null)
       return null;
     return new RequestDtoImpl(request.getOid(),
-        request.getTitle(),
+        request.getSubjectTag().getKeyword(),
         getUserDtoFromUser(request.getInitiator()),
         getUserDtoFromUser(request.getExecutor()),
         getQueueDtoSetFromQueueSet(request.getPublishedQueueSet()),
@@ -70,7 +70,7 @@ public class DomainObjectMapper {
     if(request == null)
       return null;
     return new RequestDetailedDtoImpl(request.getOid(),
-        request.getTitle(),
+        request.getSubjectTag().getKeyword(),
         getCommentDtoFromComment(request.getDescriptionComment()),
         getUserDetailedDtoFromUser(request.getInitiator()),
         getUserDetailedDtoFromUser(request.getExecutor()),
@@ -109,7 +109,7 @@ public class DomainObjectMapper {
 
   public static DataObjectDto getDataObjectDtoFromDataObject(DataObject dataObject) {
     return new DataObjectDto(dataObject.getOid(),
-        getDataObjectVersionDtoFromDataObjectVersion(dataObject.getLatestVersion()));
+        getDataObjectVersionDtoFromDataObjectVersion(dataObject.getLastVersion()));
   }
 
   public static DataObjectVersionDto getDataObjectVersionDtoFromDataObjectVersion(DataObjectVersion dataObjectVersion) {

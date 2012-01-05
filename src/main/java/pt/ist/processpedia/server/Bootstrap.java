@@ -20,10 +20,7 @@ package pt.ist.processpedia.server;
 import jvstm.Atomic;
 import pt.ist.fenixframework.Config;
 import pt.ist.fenixframework.FenixFramework;
-import pt.ist.processpedia.server.connector.organization.FenixOrganizationConnector;
-import pt.ist.processpedia.server.connector.organization.OrganizationConnector;
 import pt.ist.processpedia.server.domain.Processpedia;
-import pt.ist.processpedia.server.organization.OrganizationalUnit;
 
 public class Bootstrap {
 
@@ -39,9 +36,9 @@ public class Bootstrap {
   
   @Atomic
   public static void setup() {
-    OrganizationConnector organizationConnector = new FenixOrganizationConnector();
-    OrganizationalUnit rootOrganizationalUnit = organizationConnector.loadOrganizationData();
-    Processpedia.getInstance().installOrganizationalUnit(rootOrganizationalUnit);
+    //OrganizationConnector organizationConnector = new FenixOrganizationConnector();
+    //OrganizationalUnit rootOrganizationalUnit = organizationConnector.loadOrganizationData();
+    //Processpedia.getInstance().installOrganizationalUnit(rootOrganizationalUnit);
   }
   
 }

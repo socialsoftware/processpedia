@@ -4,8 +4,6 @@ import pt.ist.fenixframework.FenixFramework;
 import pt.ist.processpedia.server.domain.credential.CasCredentialInfo;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.organization.OrganizationalUnit;
-import pt.ist.processpedia.server.organization.Party;
-import pt.ist.processpedia.server.organization.Person;
 import pt.ist.processpedia.server.util.Urn;
 import pt.ist.processpedia.shared.exception.*;
 import pt.ist.processpedia.shared.exception.authentication.NetIdAlreadyInUserException;
@@ -27,6 +25,7 @@ public class Processpedia extends Processpedia_Base {
   public Processpedia() {
     try {
       createUserWithPasswordCredentialInfo("David Martinho", "d@g.com", "avatar", "xpto");
+      setTagManager(new TagManager());
     } catch (ProcesspediaException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -150,18 +149,6 @@ public class Processpedia extends Processpedia_Base {
     addQueue(newQueue);
     return newQueue;
   }
-
-  public Tag getTag(String tagValue) {
-    for(Process process : getProcessSet()) {
-      for(Request request : process.getRequestSet()) {
-        if(request.getSubject().getValue().equals(tagValue)) {
-          return request.getSubject();
-        }
-      }
-    }
-    Tag tag = new Tag(tagValue);
-    return tag;
-  }
   
   /**
    * Attempts to login a user given a CAS netId.
@@ -221,23 +208,6 @@ public class Processpedia extends Processpedia_Base {
     return FenixFramework.getRoot();
   }
 
-  public void installOrganizationalUnit(OrganizationalUnit rootOrganizationalUnit) {
-    HumanQueue humanQueue = new HumanQueue(rootOrganizationalUnit.getDesignation());
-    int error = 0;
-    int success = 0;
-    for(Party party : rootOrganizationalUnit.getChildPartySet()) {
-      if(party.isPerson()) {
-        Person person = (Person)party;
-        try {
-          createUserWithCasCredentialInfo(person.getName(), person.getEmail(), person.getAvatarUrl(), person.getNetId());
-          success++;
-        } catch(ProcesspediaException e) {
-          error++;
-        }
-      }
-    }
-  }
-  
   public void updateOrganizationalUnit(OrganizationalUnit rootOrganization) {
     
   }

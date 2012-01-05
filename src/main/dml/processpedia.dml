@@ -26,7 +26,6 @@ class domain.credential.PasswordCredentialInfo extends domain.credential.Credent
 }
 
 class domain.Process {
-  String title;
   String description;
   DateTime creationTimestamp;
   DateTime completionTimestamp;
@@ -40,8 +39,10 @@ class domain.Request {
   DateTime completionTimestamp;
 }
 
+class domain.TagManager;
+
 class domain.Tag {
-  String value;
+  String keyword;
 }
 
 class domain.Comment {
@@ -70,13 +71,16 @@ class domain.AtomicDataObjectVersion extends domain.DataObjectVersion {
   String externalizedValue;
 }
 
-class domain.System {
-
-}
+class domain.System;
 
 relation ProcesspediaHasUsers {
   domain.Processpedia playsRole processpedia { multiplicity 1..1; }
   domain.User playsRole user { multiplicity 0..*; }
+}
+
+relation ProcesspediaHasATagManager {
+  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
+  domain.TagManager playsRole tagManager { multiplicity 1..1; }
 }
 
 relation ProcesspediaHasProcesses {
@@ -87,6 +91,11 @@ relation ProcesspediaHasProcesses {
 relation ProcesspediaHasQueues {
   domain.Processpedia playsRole processpedia { multiplicity 1..1; }
   domain.Queue playsRole queue { multiplicity 0..*; }
+}
+
+relation TagManagerManagesTags {
+  domain.TagManager playsRole tagManager { multiplicity 1..1; }
+  domain.Tag playsRole existingTag { multiplicity 0..*; }
 }
 
 relation UserHaveCredentialInfo {
@@ -144,14 +153,14 @@ relation SystemQueueHasSystems {
   domain.System playsRole system { multiplicity 0..*; }
 }
 
-relation RequestHasDataObjects {
-  domain.Request playsRole inputRequest { multiplicity 0..1; }
-  domain.DataObject playsRole inputDataObject { multiplicity 0..*; }
+relation ProcessHasTitleTag {
+  domain.Process playsRole process { multiplicity 0..*; }
+  domain.Tag playsRole titleTag { multiplicity 1..1; }
 }
 
 relation RequestHasSubject {
   domain.Request playsRole request { multiplicity 0..*; }
-  domain.Tag playsRole subject { multiplicity 1..1; }
+  domain.Tag playsRole subjectTag { multiplicity 1..1; }
 }
 
 relation CommentHasAuthor {
@@ -169,22 +178,32 @@ relation CommentMayHaveReplies {
   domain.Comment playsRole replyComment { multiplicity 0..*; }
 }
 
+relation DataObjectMayHaveInputDataObjects {
+  domain.Request playsRole inputRequest { multiplicity 0..1; }
+  domain.DataObject playsRole inputDataObject { multiplicity 0..*; }
+}
+
 relation DataObjectsAreCreatedInRequests {
-  domain.Request playsRole creationRequest { multiplicity 1..1; }
+  domain.Request playsRole creationRequest { multiplicity 0..1; }
   domain.DataObject playsRole createdDataObject { multiplicity 0..*; }
 }
 
+relation RequestsMayHaveOutputDataObjects {
+  domain.Request playsRole outputRequest { multiplicity 0..1; }
+  domain.DataObject playsRole outputDataObject { multiplicity 0..*; }
+}
+
 relation DataObjectHasVersions {
-  domain.DataObject playsRole dataObject { multiplicity 0..1; }
-  domain.DataObjectVersion playsRole version { multiplicity 0..*; }
+  domain.DataObject playsRole dataObject { multiplicity 1..1; }
+  domain.DataObjectVersion playsRole version { multiplicity 1..*; }
 }
 
-relation DataObjectHasLatestVersion {
+relation DataObjectHasLastVersion {
   domain.DataObject playsRole;
-  domain.DataObjectVersion playsRole latestVersion { multiplicity 1..1; }
+  domain.DataObjectVersion playsRole lastVersion { multiplicity 1..1; }
 }
 
-relation DataObjectVersionHasPreviousVersion {
+relation DataObjectVersionMayHavePreviousVersion {
   domain.DataObjectVersion playsRole previousVersion { multiplicity 0..1; }
   domain.DataObjectVersion playsRole nextVersion { multiplicity 0..1; }
 }

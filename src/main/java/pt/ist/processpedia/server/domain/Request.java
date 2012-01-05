@@ -3,11 +3,6 @@ package pt.ist.processpedia.server.domain;
 import org.joda.time.DateTime;
 
 import pt.ist.processpedia.server.domain.AtomicDataObjectVersion.DataObjectType;
-import pt.ist.processpedia.server.recommendation.RequestRecommendation;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Request extends Request_Base {
@@ -20,9 +15,9 @@ public class Request extends Request_Base {
    * @param expectsAnswer true if the requests expects an answer, false if not
    * @param inputDataObjectSet the set of data objects available to the executor
    */
-  public Request(User initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
+  public Request(User initiator, String subject, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
     setInitiator(initiator);
-    setTitle(title);
+    setSubject(subject);
     setDescription(description);
     setExpectsAnswer(expectsAnswer);
     DateTime now = new DateTime();
@@ -37,8 +32,8 @@ public class Request extends Request_Base {
     }
   }
   
-  public void setTitle(String title) {
-    setSubject(Processpedia.getInstance().getTag(title));
+  public void setSubject(String title) {
+    setSubjectTag(Processpedia.getInstance().getTagManager().getTagForKeyword(title));
   }
   public void setDescription(String description) {
     Comment comment = new Comment(description, getInitiator());
@@ -86,34 +81,6 @@ public class Request extends Request_Base {
       }
     }
     return super.getState();
-  }
-
-  public String getTitle() {
-    return getSubject().getValue();
-  }
-  
-  public Set<RequestRecommendation> getRecommendationSet() {
-    Map<Tag,Integer> tagCounterMap = new HashMap<Tag,Integer>();
-    Tag requestTag = getSubject();
-    double totalCount = 0.0;
-    for(Request taggedRequest : requestTag.getRequestSet()) {
-      if(!taggedRequest.equals(this)) {
-        for(Request childRequest : taggedRequest.getChildRequestSet()) {
-          totalCount++;
-          Tag childTag = childRequest.getSubject();
-          if(tagCounterMap.containsKey(childTag)) {
-            tagCounterMap.put(childTag, tagCounterMap.get(childTag)+1);
-          } else {
-            tagCounterMap.put(childRequest.getSubject(), 1);
-          }
-        }
-      }
-    }
-    Set<RequestRecommendation> requestRecommendationSet = new HashSet<RequestRecommendation>();
-    for(Tag tag : tagCounterMap.keySet()) {
-      requestRecommendationSet.add(new RequestRecommendation(tag.getValue(), tagCounterMap.get(tag)/totalCount));
-    }
-    return requestRecommendationSet;
   }
 
 }

@@ -10,7 +10,7 @@ public class Process extends Process_Base {
 
   public Process(User initiator, String title, String description) {
     setInitiator(initiator);
-    setTitle(title);
+    setTitleTag(Processpedia.getInstance().getTagManager().getTagForKeyword(title));
     setDescription(description);
     setCreationTimestamp(new DateTime());
   }

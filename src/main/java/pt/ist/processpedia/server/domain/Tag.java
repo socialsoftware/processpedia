@@ -19,7 +19,11 @@ package pt.ist.processpedia.server.domain;
 
 public class Tag extends Tag_Base {
 
-  public Tag(String value) {
-    setValue(value);
+  public Tag(String keyword) {
+    setKeyword(keyword);
+  }
+
+  public boolean hasKeyword(String keyword) {
+    return getKeyword().equals(keyword);
   }
 }

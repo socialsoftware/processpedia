@@ -19,18 +19,17 @@ public class DataObject extends DataObject_Base {
     for(DataObjectVersion childDataObjectVersion : childDataObjectVersionSet) {
       newVersion.addChildDataObjectVersion(childDataObjectVersion);
     }
-    newVersion.setPreviousVersion(getLatestVersion());
+    newVersion.setPreviousVersion(getLastVersion());
     addVersion(newVersion);
-    setLatestVersion(newVersion);
+    setLastVersion(newVersion);
     return newVersion;
   }
 
   public DataObjectVersion createNewAtomicDataObjectVersion(AtomicDataObjectVersion.DataObjectType type, String label, String externalizedValue) {
     AtomicDataObjectVersion newVersion = new AtomicDataObjectVersion(type, label, externalizedValue);
-    newVersion.setPreviousVersion(getLatestVersion());
+    newVersion.setPreviousVersion(getLastVersion());
     addVersion(newVersion);
-    setLatestVersion(newVersion);
+    setLastVersion(newVersion);
     return newVersion;
   }
-
 }
