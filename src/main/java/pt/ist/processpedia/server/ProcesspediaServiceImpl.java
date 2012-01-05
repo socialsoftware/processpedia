@@ -321,7 +321,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     Set<DataObject> inputDataObjectSet = DomainObjectMapper.getDataObjectSetFromDataObjectDtoSet(createRequestActionDto.getInputDataObjectDtoSet());
     
     Request parentRequest = Processpedia.fromOID(createRequestActionDto.getParentRequestOid());
-    Request createdRequest = parentRequest.createRequest(actor, title, description, expectsAnswer, publishedQueueSet, inputDataObjectSet);
+    Request createdRequest = parentRequest.createSubRequest(actor, title, description, expectsAnswer, publishedQueueSet, inputDataObjectSet);
     
     return new CreateRequestResponseDto(createdRequest.getOid());
 

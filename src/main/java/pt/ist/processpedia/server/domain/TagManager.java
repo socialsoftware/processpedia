@@ -8,11 +8,8 @@ public class TagManager extends TagManager_Base {
         return existingTag;
       }
     }
-    Tag newTag = new Tag(keyword);
+    Tag newTag = new Tag(new Concept(), keyword);
     addExistingTag(newTag);
     return newTag;
   }
-
-  
-    
 }

@@ -45,6 +45,8 @@ class domain.Tag {
   String keyword;
 }
 
+class domain.Concept;
+
 class domain.Comment {
   DateTime creationTimestamp;
   String commentaryText;
@@ -208,7 +210,22 @@ relation DataObjectVersionMayHavePreviousVersion {
   domain.DataObjectVersion playsRole nextVersion { multiplicity 0..1; }
 }
 
+relation DataObjectVersionMayHaveForkedVersions {
+  domain.DataObjectVersion playsRole sourceVersion { multiplicity 0..1; }
+  domain.DataObjectVersion playsRole forkedVersion { multiplicity 0..*; }
+}
+
 relation ComposedDataObjectVersionIsComposedByDataObjectVersions {
   domain.ComposedDataObjectVersion playsRole parentDataObjectVersion { multiplicity 0..1; }
   domain.DataObjectVersion playsRole childDataObjectVersion{ multiplicity 0..*; }
+}
+
+relation TagRefersToConcept {
+  domain.Tag playsRole tag { multiplicity 0..*; }
+  domain.Concept playsRole concept { multiplicity 1..1; }
+}
+
+relation ConceptMayHaveExplicitTag {
+  domain.Concept playsRole;
+  domain.Tag playsRole recommendedTag { multiplicity 0..1; }
 }

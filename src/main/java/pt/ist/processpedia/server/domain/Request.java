@@ -60,10 +60,10 @@ public class Request extends Request_Base {
    * @param title the title of the request to be created
    * @param expectsAnswer if a response is expected
    * @param publishedQueueSet the set of queues where the new request is to be published
-   * @param inputDataObjectSet the set of data objects available to the executor
+   * @param inputDataObjectSet the set of data objects that will be available to the executor
    * @return the created request
    */
-  public Request createRequest(User initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
+  public Request createSubRequest(User initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
     Request childRequest = new Request(initiator, title, description, expectsAnswer, publishedQueueSet, inputDataObjectSet);
     childRequest.setParentRequest(this);
     childRequest.setProcess(getProcess());

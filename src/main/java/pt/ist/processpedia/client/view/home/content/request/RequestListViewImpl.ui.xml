@@ -7,5 +7,5 @@
       height: 100%;
     }
   </ui:style>
-  <g:VerticalPanel ui:field="requestGridContainer" addStyleNames="{style.processContainer}" />
+  <g:VerticalPanel ui:field="requestGridContainer" styleName="{style.processContainer}" />
 </ui:UiBinder>

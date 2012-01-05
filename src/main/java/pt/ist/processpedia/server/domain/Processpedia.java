@@ -21,7 +21,7 @@ import pt.ist.processpedia.shared.validation.InputValidator;
 import java.util.Set;
 
 public class Processpedia extends Processpedia_Base {
-  
+
   public Processpedia() {
     try {
       createUserWithPasswordCredentialInfo("David Martinho", "d@g.com", "avatar", "xpto");
