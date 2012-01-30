@@ -7,7 +7,7 @@ import pt.ist.processpedia.shared.dto.action.LoginUserActionDto;
 import pt.ist.processpedia.shared.dto.action.SignupUserActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.CreateProcessActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.CreateRequestActionDto;
-import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderContentsActionDto;
+import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderRequestSetActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderListActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetQueueSetActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetRequestActionDto;
@@ -19,7 +19,7 @@ import pt.ist.processpedia.shared.dto.action.authenticaded.UpdateUserSettingsAct
 import pt.ist.processpedia.shared.dto.response.ActivateAccountResponseDto;
 import pt.ist.processpedia.shared.dto.response.CreateProcessResponseDto;
 import pt.ist.processpedia.shared.dto.response.CreateRequestResponseDto;
-import pt.ist.processpedia.shared.dto.response.GetFolderContentsResponseDto;
+import pt.ist.processpedia.shared.dto.response.GetFolderRequestSetResponseDto;
 import pt.ist.processpedia.shared.dto.response.GetFolderListResponseDto;
 import pt.ist.processpedia.shared.dto.response.GetQueueSetResponseDto;
 import pt.ist.processpedia.shared.dto.response.GetRequestRecommendationResponseDto;
@@ -70,7 +70,7 @@ public class ProcesspediaCacheServiceImpl implements ProcesspediaCacheService {
     callback.onFailure(new Exception());
   }
 
-  public void getFolderContents(GetFolderContentsActionDto getFolderContentsActionDto, AsyncCallback<GetFolderContentsResponseDto> callback) {
+  public void getFolderContents(GetFolderRequestSetActionDto getFolderContentsActionDto, AsyncCallback<GetFolderRequestSetResponseDto> callback) {
     callback.onFailure(new Exception());
   }
 

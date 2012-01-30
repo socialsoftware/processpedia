@@ -19,7 +19,6 @@ package pt.ist.processpedia.client.view.home.content.request;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -31,12 +30,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.view.util.DataObjectCreationBox;
 import pt.ist.processpedia.client.view.util.SelectableDataObject;
 import pt.ist.processpedia.client.view.util.TokenTextBox;
-import pt.ist.processpedia.shared.dto.domain.AtomicDataObjectVersionDto;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
 import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
 
 public class CreateRequestViewImpl extends Composite implements CreateRequestView, FocusHandler {
@@ -113,16 +111,16 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
 
     DataObjectCreationBox dataObjectCreationBox = new DataObjectCreationBox();
     dataObjectCreationBox.addDataObjectCreationHandler(new DataObjectCreationBox.DataObjectCreationHandler() {
-      public void onDataObjectCreation(AtomicDataObjectVersionDto atomicDataObjectVersionDto) {
-        addAtomicDataObjectVersionToTree(atomicDataObjectVersionDto);
+      public void onDataObjectCreation(DataObjectVersionDto dataObjectVersionDto) {
+        addDataObjectVersionToTree(dataObjectVersionDto);
       }
     });
     TreeItem root = new TreeItem(dataObjectCreationBox);
     inputDataObjectsContainer.addItem(root);
   }
 
-  private void addAtomicDataObjectVersionToTree(AtomicDataObjectVersionDto atomicDataObjectVersionDto) {
-    inputDataObjectsContainer.insertItem(inputDataObjectsContainer.getItemCount()-1, new SelectableDataObject(atomicDataObjectVersionDto.getLabel(), atomicDataObjectVersionDto.getValue()));
+  private void addDataObjectVersionToTree(DataObjectVersionDto dataObjectVersionDto) {
+    inputDataObjectsContainer.insertItem(inputDataObjectsContainer.getItemCount()-1, new SelectableDataObject(dataObjectVersionDto.getLabel(), dataObjectVersionDto.getExternalizedValue()));
   }
 
   public void setCreateRequestTitle(String createRequestTitle) {

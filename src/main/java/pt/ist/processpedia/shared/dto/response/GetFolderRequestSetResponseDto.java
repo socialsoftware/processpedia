@@ -15,26 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.dto.domain;
+package pt.ist.processpedia.shared.dto.response;
 
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import java.util.Set;
 
-public class ComposedDataObjectVersionDto extends DataObjectVersionDto {
+public class GetFolderRequestSetResponseDto extends ResponseDto {
+  
+  private static final long serialVersionUID = 1L;
+  
+  private Set<RequestDto> requestDtoSet;
 
-  private Set<DataObjectVersionDto> dataObjectVersionDtoSet;
+  public GetFolderRequestSetResponseDto() {}
 
-  public ComposedDataObjectVersionDto() {}
-
-  public ComposedDataObjectVersionDto(long oid, String label, Set<DataObjectVersionDto> dataObjectVersionDtoList) {
-    super(oid, label);
-    setDataObjectVersionDtoList(dataObjectVersionDtoList);
+  public GetFolderRequestSetResponseDto(Set<RequestDto> requestDtoSet) {
+    setRequestDtoSet(requestDtoSet);
   }
 
-  public Set<DataObjectVersionDto> getDataObjectVersionDtoSet() {
-    return dataObjectVersionDtoSet;
+  public Set<RequestDto> getRequestDtoSet() {
+    return requestDtoSet;
   }
-
-  public void setDataObjectVersionDtoList(Set<DataObjectVersionDto> dataObjectVersionDtoSet) {
-    this.dataObjectVersionDtoSet = dataObjectVersionDtoSet;
+  
+  public void setRequestDtoSet(Set<RequestDto> requestDtoSet) {
+    this.requestDtoSet = requestDtoSet;
   }
 }

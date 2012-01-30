@@ -27,6 +27,7 @@ import pt.ist.processpedia.server.domain.Queue;
 import pt.ist.processpedia.server.domain.Request.RequestState;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
+import pt.ist.processpedia.shared.FolderType;
 import pt.ist.processpedia.shared.dto.action.*;
 import pt.ist.processpedia.shared.dto.action.authenticaded.*;
 import pt.ist.processpedia.shared.dto.auth.CredentialDto;
@@ -87,7 +88,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     Credential credential = authenticator.getCredential(credentialDto);
     User user = authenticator.login(httpSession, credential);
     
-    return new LoginUserResponseDto(DomainObjectMapper.getUserDtoFromUser(user));
+    return new LoginUserResponseDto(DomainObjectMapper.getPartyDtoFromParty(user));
   }
 
   @Atomic
@@ -136,9 +137,9 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     User actor = getUserFromAuthenticatedActionDto(createProcessActionDto);
 
     Set<Queue> publishQueueSet = new HashSet<Queue>();
-    publishQueueSet.add(actor.getPersonalQueue());
+    publishQueueSet.add(actor.getPrivateQueue());
     
-    Set<DataObject> inputDataObjectSet = new HashSet<DataObject>();
+    Set<DataObjectVersion> inputDataObjectVersionSet = new HashSet<DataObjectVersion>();
     
     processpedia.createProcess(actor,
         createProcessActionDto.getProcessTitle(),
@@ -147,7 +148,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
         createProcessActionDto.getProcessDescription(),
         true,
         publishQueueSet,
-        inputDataObjectSet);
+        inputDataObjectVersionSet);
     return new CreateProcessResponseDto();
   }
 
@@ -171,37 +172,16 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
   @Atomic
   public GetFolderListResponseDto getFolderList(GetFolderListActionDto getFolderListActionDto) throws ProcesspediaException {
     User actor = getUserFromAuthenticatedActionDto(getFolderListActionDto);
+    
     List<FolderDto> folderDtoList = new ArrayList<FolderDto>();
-    Set<Long> requestOidSet = new HashSet<Long>();
-    for(Queue queue : actor.getOrganizationalQueue()) {
-      for(Request publishedRequest : queue.getRequestSet()) {
-        requestOidSet.add(publishedRequest.getOID());
-      }
-    }
 
-    int draftCount = 0;
-    for(Request initiatedRequest : actor.getInitiatedRequestSet()) {
-      if(initiatedRequest.getState().equals(RequestState.DRAFT)) {
-        draftCount++;
-      }
-    }
-
-    int handlingCount = 0;
-    int pendingCount = 0;
-    int handledCount = 0;
-    for(Request ownedRequest : actor.getPersonalQueue().getRequestSet()) {
-      switch(ownedRequest.getState()) {
-        case PUBLISHED: pendingCount++; break;
-        case PENDING: pendingCount++; break;
-        case HANDLED: handledCount++; break;
-        case HANDLING: handlingCount++; break;
-      }
-    }
-    folderDtoList.add(new FolderDto(FolderDto.FolderType.INBOX, requestOidSet.size()));
-    folderDtoList.add(new FolderDto(FolderDto.FolderType.DRAFT, draftCount));
-    folderDtoList.add(new FolderDto(FolderDto.FolderType.HANDLING, handlingCount));
-    folderDtoList.add(new FolderDto(FolderDto.FolderType.PENDING, pendingCount));
-    folderDtoList.add(new FolderDto(FolderDto.FolderType.HANDLED, handledCount));
+    //TODO: MANAGE TO COUNT FOR THE GIVEN ACTOR, THE NUMBER OF NEW REQUESTS IN EACH QUEUE
+    folderDtoList.add(new FolderDto(FolderType.INBOX, 2));
+    folderDtoList.add(new FolderDto(FolderType.DRAFT, 3));
+    folderDtoList.add(new FolderDto(FolderType.HANDLING, 10));
+    folderDtoList.add(new FolderDto(FolderType.PENDING, 2));
+    folderDtoList.add(new FolderDto(FolderType.HANDLED, 3));
+ 
     return new GetFolderListResponseDto(folderDtoList);
   }
 
@@ -211,8 +191,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
    * @return the session user matching the oid referenced in the authenticated action dto
    * @throws UnauthenticatedUserException when the user oid contained in the authenticationActionDto mismatch the one defined in the current session
    */
-  private User getUserFromAuthenticatedActionDto(AuthenticatedActionDto authenticatedActionDto)
-      throws ProcesspediaException {
+  private User getUserFromAuthenticatedActionDto(AuthenticatedActionDto authenticatedActionDto) throws ProcesspediaException {
     System.out.println("THE NAME OF THE ACTION IS "+authenticatedActionDto.getClass().getSimpleName());
     System.out.println("THE RECEIVED ACTOR OID IS "+authenticatedActionDto.getActorOid());
     User sessionUser = getUserFromSession();
@@ -220,44 +199,16 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
   }
 
   @Atomic
-  public GetFolderContentsResponseDto getFolderContents(GetFolderContentsActionDto getFolderContentsActionDto)
-      throws ProcesspediaException {
-    User actor = getUserFromAuthenticatedActionDto(getFolderContentsActionDto);
-
-    Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
-    String folderTitle = getFolderContentsActionDto.getFolderTitle().toLowerCase();
-    
-    if(folderTitle.equals("inbox")) {
-      for(Queue queue : actor.getOrganizationalQueue()) {
-        for(Request publishedRequest : queue.getRequestSet()) {
-          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(publishedRequest));
-        }
-      }
-    } else if(folderTitle.equals("handling")) {
-      for(Request request : actor.getPersonalQueue().getRequestSet()) {
-        if(request.getState().name().toLowerCase().equals("handling"))
-          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
-      }
-    } else if(folderTitle.equals("pending")) {
-      for(Request request : actor.getPersonalQueue().getRequestSet()) {
-        if(request.getState().name().toLowerCase().equals(folderTitle.toLowerCase()))
-          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
-      }
-    } else if(folderTitle.equals("handled")) {
-      for(Request request : actor.getPersonalQueue().getRequestSet()) {
-        if(request.getState().name().toLowerCase().equals(folderTitle))
-          requestDtoSet.add(DomainObjectMapper.getRequestDtoFromRequest(request));
-      }
-    }
-    
-    return new GetFolderContentsResponseDto(requestDtoSet);
+  public GetFolderRequestSetResponseDto getFolderContents(GetFolderRequestSetActionDto getFolderRequestSetActionDto) throws ProcesspediaException {
+    User actor = getUserFromAuthenticatedActionDto(getFolderRequestSetActionDto);    
+    FolderType folderType = getFolderRequestSetActionDto.getFolderType();
+    return new GetFolderRequestSetResponseDto(DomainObjectMapper.getRequestDtoSetFromRequestSet(actor.getFolderRequestSet(folderType)));
   }
 
   @Atomic
   public GetRequestResponseDto getRequest(GetRequestActionDto getRequestActionDto) throws ProcesspediaException {
     Request request = (Request)Processpedia.fromOID(getRequestActionDto.getRequestOid());
-    RequestDetailedDto requestDetailedDto = DomainObjectMapper.getRequestDetailedDtoFromRequest(request);
-    return new GetRequestResponseDto(requestDetailedDto);
+    return new GetRequestResponseDto(DomainObjectMapper.getRequestDetailedDtoFromRequest(request));
   }
 
   @Atomic
@@ -286,7 +237,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
       }
       i++;
     }
-    for(Request request : actor.getPersonalQueue().getRequestSet()) {
+    for(Request request : actor.getPrivateQueue().getRequestSet()) {
       Pattern searchPattern = Pattern.compile(searchRegex);
       Matcher searchMatcher = searchPattern.matcher(request.getSubjectTag().getKeyword());
       if(searchMatcher.find()) {
@@ -318,10 +269,10 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     String description = createRequestActionDto.getDescription();
     Boolean expectsAnswer = createRequestActionDto.getResponseExpected();
     Set<Queue> publishedQueueSet = DomainObjectMapper.getQueueSetFromQueueDtoSet(createRequestActionDto.getQueueDtoSet());
-    Set<DataObject> inputDataObjectSet = DomainObjectMapper.getDataObjectSetFromDataObjectDtoSet(createRequestActionDto.getInputDataObjectDtoSet());
+    Set<DataObjectVersion> inputDataObjectVersionSet = DomainObjectMapper.getDataObjectVersionSetFromDataObjectVersionDtoSet(createRequestActionDto.getInputDataObjectVersionDtoSet());
     
     Request parentRequest = Processpedia.fromOID(createRequestActionDto.getParentRequestOid());
-    Request createdRequest = parentRequest.createSubRequest(actor, title, description, expectsAnswer, publishedQueueSet, inputDataObjectSet);
+    Request createdRequest = parentRequest.createSubRequest(actor, title, description, expectsAnswer, publishedQueueSet, inputDataObjectVersionSet);
     
     return new CreateRequestResponseDto(createdRequest.getOid());
 

@@ -17,36 +17,33 @@
 
 package pt.ist.processpedia.client.place;
 
+import pt.ist.processpedia.shared.FolderType;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class FolderPlace extends Place {
 
-  public static final String INBOX = "inbox";
-  public static final String EXECUTING = "executing";
-  public static final String PENDING = "pending";
-  public static final String COMPLETED = "completed";
+  private FolderType folderType;
 
-  private String folderTitle;
-
-  public FolderPlace(String token) {
-    this.folderTitle = token;
+  public FolderPlace(FolderType folderType) {
+    this.folderType = folderType;
   }
 
-  public String getFolderTitle() {
-    return folderTitle;
+  public FolderType getFolderType() {
+    return folderType;
   }
 
   @Prefix("folder")
   public static class Tokenizer implements PlaceTokenizer<FolderPlace> {
 
     public FolderPlace getPlace(String token) {
-      return new FolderPlace(token);
+      return new FolderPlace(FolderType.valueOf(token));
     }
 
     public String getToken(FolderPlace place) {
-      return place.getFolderTitle();
+      return place.getFolderType().toString();
     }
   }
 }

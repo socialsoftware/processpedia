@@ -23,14 +23,14 @@ import java.util.Set;
 public class RequestDetailedDtoImpl extends RequestDtoImpl implements RequestDetailedDto {
 
   private CommentDto descriptionCommentDto;
-  private Set<DataObjectDto> dataObjectDtoSet;
+  private Set<DataObjectVersionDto> dataObjectVersionDtoSet;
 
   public RequestDetailedDtoImpl() {}
 
-  public RequestDetailedDtoImpl(long oid, String title, CommentDtoImpl descriptionCommentDto, UserDetailedDtoImpl initiatorDto, UserDetailedDtoImpl executorDto, Set<QueueDto> publishedQueueDtoSet, Date creationTimestamp, Date lastUpdateTimestamp, ProcessDto processDto, Set<DataObjectDto> dataObjectDtoSet) {
+  public RequestDetailedDtoImpl(long oid, String title, CommentDtoImpl descriptionCommentDto, UserDetailedDtoImpl initiatorDto, UserDetailedDtoImpl executorDto, Set<QueueDto> publishedQueueDtoSet, Date creationTimestamp, Date lastUpdateTimestamp, ProcessDto processDto, Set<DataObjectVersionDto> dataObjectVersionDtoSet) {
     super(oid, title, initiatorDto, executorDto, publishedQueueDtoSet, creationTimestamp, lastUpdateTimestamp, processDto);
     setDescriptionCommentDto(descriptionCommentDto);
-    setDataObjectDtoList(dataObjectDtoSet);
+    setDataObjectVersionDtoSet(dataObjectVersionDtoSet);
   }
 
   public CommentDto getDescriptionCommentDto() {
@@ -53,12 +53,12 @@ public class RequestDetailedDtoImpl extends RequestDtoImpl implements RequestDet
     return (ProcessDetailedDto)super.getProcessDto();
   }
 
-  public Set<DataObjectDto> getDataObjectDtoSet() {
-    return dataObjectDtoSet;
+  public Set<DataObjectVersionDto> getDataObjectVersionDtoSet() {
+    return dataObjectVersionDtoSet;
   }
 
-  public void setDataObjectDtoList(Set<DataObjectDto> dataObjectDtoSet) {
-    this.dataObjectDtoSet = dataObjectDtoSet;
+  public void setDataObjectVersionDtoSet(Set<DataObjectVersionDto> dataObjectVersionDtoSet) {
+    this.dataObjectVersionDtoSet = dataObjectVersionDtoSet;
   }
 
   public UserDetailedDto getSenderDetailedDto() {

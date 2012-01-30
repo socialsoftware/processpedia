@@ -17,35 +17,36 @@
 
 package pt.ist.processpedia.shared.dto.util;
 
+import pt.ist.processpedia.shared.FolderType;
 import pt.ist.processpedia.shared.dto.Dto;
 
 public class FolderDto implements Dto {
 
-  public static enum FolderType { INBOX, DRAFT, HANDLING, PENDING, HANDLED }
+  private static final long serialVersionUID = 1L;
 
-  private FolderType type;
-  private int count;
+  private FolderType folderType;
+  private int newRequestCount;
 
   public FolderDto() {}
 
-  public FolderDto(FolderType type, int count) {
-    setType(type);
-    setCount(count);
+  public FolderDto(FolderType folderType, int newRequestCount) {
+    setFolderType(folderType);
+    setNewRequestCount(newRequestCount);
   }
 
-  public FolderType getType() {
-    return type;
+  public FolderType getFolderType() {
+    return folderType;
   }
 
-  public void setType(FolderType type) {
-    this.type = type;
+  public void setFolderType(FolderType folderType) {
+    this.folderType = folderType;
   }
-
-  public int getCount() {
-    return count;
+  
+  public int getNewRequestCount() {
+    return newRequestCount;
   }
-
-  public void setCount(int count) {
-    this.count = count;
+  
+  public void setNewRequestCount(int newRequestCount) {
+    this.newRequestCount = newRequestCount;
   }
 }

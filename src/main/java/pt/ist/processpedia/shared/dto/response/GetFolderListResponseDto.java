@@ -23,6 +23,8 @@ import java.util.List;
 
 public class GetFolderListResponseDto extends ResponseDto {
 
+  private static final long serialVersionUID = 1L;
+
   private List<FolderDto> folderDtoList;
 
   public GetFolderListResponseDto() {}

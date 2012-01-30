@@ -41,7 +41,7 @@ public interface ProcesspediaService extends RemoteService {
 
   GetFolderListResponseDto getFolderList(GetFolderListActionDto getFolderListActionDto) throws ProcesspediaException;
 
-  GetFolderContentsResponseDto getFolderContents(GetFolderContentsActionDto getFolderContentsActionDto) throws ProcesspediaException;
+  GetFolderRequestSetResponseDto getFolderContents(GetFolderRequestSetActionDto getFolderContentsActionDto) throws ProcesspediaException;
 
   GetRequestResponseDto getRequest(GetRequestActionDto getRequestActionDto) throws ProcesspediaException;
 

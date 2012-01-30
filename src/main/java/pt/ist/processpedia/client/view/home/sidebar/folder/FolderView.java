@@ -18,7 +18,7 @@
 package pt.ist.processpedia.client.view.home.sidebar.folder;
 
 import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.shared.dto.util.FolderDto;
+import pt.ist.processpedia.shared.FolderType;
 
 public interface FolderView extends ProcesspediaView {
 
@@ -30,9 +30,9 @@ public interface FolderView extends ProcesspediaView {
 
   void setFolderIconUrl(String iconUrl);
   void setFolderLabel(String folderLabel);
-  void setFolderItemCount(int count);
+  void setFolderNewRequestCount(int count);
 
-  void setFolderType(FolderDto.FolderType folderType);
-  FolderDto.FolderType getFolderType();
+  void setFolderType(FolderType folderType);
+  FolderType getFolderType();
 
 }

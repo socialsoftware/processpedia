@@ -57,7 +57,7 @@ public class DataSwitchWithoutCacheImpl implements DataSwitch {
     realService.getFolderList(getFolderListActionDto, callback);
   }
 
-  public void getFolderContents(GetFolderContentsActionDto getFolderContentsActionDto, AsyncCallback<GetFolderContentsResponseDto> callback) {
+  public void getFolderContents(GetFolderRequestSetActionDto getFolderContentsActionDto, AsyncCallback<GetFolderRequestSetResponseDto> callback) {
     realService.getFolderContents(getFolderContentsActionDto, callback);
   }
 

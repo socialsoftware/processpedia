@@ -14,6 +14,8 @@ import pt.ist.processpedia.shared.exception.email.EmailIsEmptyException;
 import pt.ist.processpedia.shared.exception.password.PasswordIsEmptyException;
 import pt.ist.processpedia.shared.exception.password.PasswordIsNullException;
 import pt.ist.processpedia.shared.exception.password.PasswordTooShortException;
+import pt.ist.processpedia.shared.exception.process.ProcessTitleIsEmptyException;
+import pt.ist.processpedia.shared.exception.process.ProcessTitleTooShortException;
 import pt.ist.processpedia.shared.exception.user.UserAlreadyActiveException;
 import pt.ist.processpedia.shared.exception.user.UserEmailAlreadyInUseException;
 import pt.ist.processpedia.shared.exception.user.UserInactiveException;
@@ -36,6 +38,14 @@ public class ExceptionHandlerImpl implements ExceptionHandler {
     String errorMessage = "";
     try {
       throw throwable;
+    } catch (ProcessTitleIsEmptyException e) {
+      errorMessage = messages.processTitleMustNotBeEmpty();
+      ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
+      notification.show();
+    } catch (ProcessTitleTooShortException e) {
+      errorMessage = messages.processTitleTooShort();
+      ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
+      notification.show();
     } catch (UserAlreadyActiveException e) {
       errorMessage = messages.userAlreadyActive();
       ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);

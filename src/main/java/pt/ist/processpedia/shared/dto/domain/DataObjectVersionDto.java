@@ -17,15 +17,29 @@
 
 package pt.ist.processpedia.shared.dto.domain;
 
-public abstract class DataObjectVersionDto extends DomainObjectDtoImpl {
-
+public class DataObjectVersionDto extends DomainObjectDtoImpl {
+  
+  private static final long serialVersionUID = 1L;
+  
+  private DataObjectType type;
   private String label;
+  private String externalizedValue;
 
   public DataObjectVersionDto() {}
 
-  public DataObjectVersionDto(long oid, String label) {
+  public DataObjectVersionDto(long oid, DataObjectType type, String label, String externalizedValue) {
     super(oid);
+    setType(type);
     setLabel(label);
+    setExternalizedValue(externalizedValue);
+  }
+  
+  public DataObjectType getType() {
+    return type;
+  }
+  
+  public void setType(DataObjectType type) {
+    this.type = type;
   }
 
   public String getLabel() {
@@ -34,5 +48,13 @@ public abstract class DataObjectVersionDto extends DomainObjectDtoImpl {
 
   public void setLabel(String label) {
     this.label = label;
+  }
+  
+  public String getExternalizedValue() {
+    return externalizedValue;
+  }
+  
+  public void setExternalizedValue(String externalizedValue) {
+    this.externalizedValue = externalizedValue;
   }
 }

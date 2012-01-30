@@ -2,7 +2,8 @@ package pt.ist.processpedia.server.domain;
 
 import org.joda.time.DateTime;
 
-import pt.ist.processpedia.server.domain.AtomicDataObjectVersion.DataObjectType;
+import pt.ist.processpedia.shared.dto.domain.DataObjectType;
+
 import java.util.Set;
 
 public class Request extends Request_Base {
@@ -15,7 +16,7 @@ public class Request extends Request_Base {
    * @param expectsAnswer true if the requests expects an answer, false if not
    * @param inputDataObjectSet the set of data objects available to the executor
    */
-  public Request(User initiator, String subject, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
+  public Request(User initiator, String subject, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObjectVersion> inputDataObjectVersionSet) {
     setInitiator(initiator);
     setSubject(subject);
     setDescription(description);
@@ -24,8 +25,8 @@ public class Request extends Request_Base {
     setCreationTimestamp(now);
     setLastUpdateTimestamp(now);
     setState(RequestState.PENDING);
-    for(DataObject inputDataObject : inputDataObjectSet) {
-      inputDataObject.setInputRequest(this);
+    for(DataObjectVersion inputDataObjectVersion : inputDataObjectVersionSet) {
+      addInputDataObjectVersion(inputDataObjectVersion);
     }
     for(Queue queue: publishedQueueSet) {
       queue.addRequest(this);
@@ -35,6 +36,7 @@ public class Request extends Request_Base {
   public void setSubject(String title) {
     setSubjectTag(Processpedia.getInstance().getTagManager().getTagForKeyword(title));
   }
+  
   public void setDescription(String description) {
     Comment comment = new Comment(description, getInitiator());
     this.setDescriptionComment(comment);
@@ -50,7 +52,7 @@ public class Request extends Request_Base {
   public DataObject createDataObject(DataObjectType type, String label, String externalizedValue) {
     DataObject newDataObject = new DataObject(type, label, externalizedValue);
     newDataObject.setProcess(getProcess());
-    addCreatedDataObject(newDataObject);
+    addCreatedDataObjectVersion(newDataObject.getLastVersion());
     return newDataObject;
   }
 
@@ -63,8 +65,8 @@ public class Request extends Request_Base {
    * @param inputDataObjectSet the set of data objects that will be available to the executor
    * @return the created request
    */
-  public Request createSubRequest(User initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObject> inputDataObjectSet) {
-    Request childRequest = new Request(initiator, title, description, expectsAnswer, publishedQueueSet, inputDataObjectSet);
+  public Request createSubRequest(User initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObjectVersion> inputDataObjectVersionSet) {
+    Request childRequest = new Request(initiator, title, description, expectsAnswer, publishedQueueSet, inputDataObjectVersionSet);
     childRequest.setParentRequest(this);
     childRequest.setProcess(getProcess());
     return childRequest;

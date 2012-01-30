@@ -20,14 +20,12 @@ package pt.ist.processpedia.client.view.home.sidebar.folder;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.shared.dto.util.FolderDto;
+import pt.ist.processpedia.shared.FolderType;
 
 public class FolderViewImpl extends Composite implements FolderView {
 
@@ -36,7 +34,7 @@ public class FolderViewImpl extends Composite implements FolderView {
 
   private Presenter presenter;
 
-  private FolderDto.FolderType folderType;
+  private FolderType folderType;
 
   @UiField
   FocusPanel wrapper;
@@ -95,11 +93,11 @@ public class FolderViewImpl extends Composite implements FolderView {
     setFolderLabel(label);
   }
 
-  public void setFolderType(FolderDto.FolderType folderType) {
+  public void setFolderType(FolderType folderType) {
     this.folderType = folderType;
   }
 
-  public FolderDto.FolderType getFolderType() {
+  public FolderType getFolderType() {
     return this.folderType;
   }
 
@@ -111,7 +109,7 @@ public class FolderViewImpl extends Composite implements FolderView {
     folderAction.setText(folderLabel);
   }
 
-  public void setFolderItemCount(int count) {
+  public void setFolderNewRequestCount(int count) {
     if(count > 0) {
       folderCount.setStyleName("folderCount", true);
       folderCount.setText(new Integer(count).toString());

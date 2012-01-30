@@ -21,6 +21,8 @@ import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
 public class UserNameIsEmptyException extends ProcesspediaException {
 
+  private static final long serialVersionUID = 1L;
+  
   public UserNameIsEmptyException() {}
 
 }

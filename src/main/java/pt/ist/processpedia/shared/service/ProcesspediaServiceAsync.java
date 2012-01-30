@@ -38,7 +38,7 @@ public interface ProcesspediaServiceAsync {
 
   void getFolderList(GetFolderListActionDto getFolderListActionDto, AsyncCallback<GetFolderListResponseDto> callback);
 
-  void getFolderContents(GetFolderContentsActionDto getFolderContentsActionDto, AsyncCallback<GetFolderContentsResponseDto> callback);
+  void getFolderContents(GetFolderRequestSetActionDto getFolderContentsActionDto, AsyncCallback<GetFolderRequestSetResponseDto> callback);
 
   void getRequest(GetRequestActionDto getRequestActionDto, AsyncCallback<GetRequestResponseDto> callback);
 

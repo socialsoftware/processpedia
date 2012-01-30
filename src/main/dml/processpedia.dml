@@ -1,37 +1,64 @@
-package pt.ist.processpedia.server;
+package pt.ist.processpedia.server.domain;
 
-enum pt.ist.processpedia.server.domain.AtomicDataObjectVersion.DataObjectType as DataObjectType;
+enum pt.ist.processpedia.shared.dto.domain.DataObjectType as DataObjectType;
 enum pt.ist.processpedia.server.domain.Request.RequestState as RequestState;
 
-class domain.Processpedia;
+class Processpedia;
 
-class domain.User {
+class Party {
   String name;
-  String email;
-  DateTime creationTimestamp;
   String avatarUrl;
-  Boolean active;
+}
+
+class OperatingParty extends Party;
+
+class Role {
+  String name;
+  String description;
+}
+
+class RolePlay;
+class RoleAssociation;
+
+class Accountability;
+class AccountabilityType {
+  String name;
+  String description;
+}
+
+class EffectivePeriod {
+  DateTime startTime;
+  DateTime endTime;
+}
+
+class OrganizationalUnit extends Party;
+class System extends OperatingParty;
+class Person extends OperatingParty;
+
+class User extends Person {
+  String email;
+  boolean active;
   String activationKey;
 }
 
-class domain.credential.CredentialInfo;
+class credential.CredentialInfo;
 
-class domain.credential.CasCredentialInfo extends domain.credential.CredentialInfo {
+class credential.CasCredentialInfo extends credential.CredentialInfo {
   String netId;
 }
 
-class domain.credential.PasswordCredentialInfo extends domain.credential.CredentialInfo {
+class credential.PasswordCredentialInfo extends credential.CredentialInfo {
   String passwordHash;
   String salt;
 }
 
-class domain.Process {
+class Process {
   String description;
   DateTime creationTimestamp;
   DateTime completionTimestamp;
 }
 
-class domain.Request {
+class Request {
   RequestState state;
   Boolean expectsAnswer;
   DateTime creationTimestamp;
@@ -39,193 +66,240 @@ class domain.Request {
   DateTime completionTimestamp;
 }
 
-class domain.TagManager;
+class TagManager;
 
-class domain.Tag {
+class Tag {
   String keyword;
 }
 
-class domain.Concept;
-
-class domain.Comment {
+class Comment {
   DateTime creationTimestamp;
   String commentaryText;
 }
 
-class domain.Queue {
+class Queue {
   String title;
 }
 
-class domain.HumanQueue extends domain.Queue;
-class domain.SystemQueue extends domain.Queue;
-class domain.ExternalEmailQueue extends domain.Queue;
+class PrivateQueue extends Queue;
 
-class domain.DataObject;
+class DynamicQueue extends Queue;
+class ScriptQueue extends DynamicQueue;
+class SmartQueue extends DynamicQueue;
+class RolePlayQueue extends SmartQueue;
 
-class domain.DataObjectVersion {
-  String label;
+class DataObject;
+
+class DataObjectVersion {
   DateTime creationTimestamp;
-}
-
-class domain.ComposedDataObjectVersion extends domain.DataObjectVersion;
-class domain.AtomicDataObjectVersion extends domain.DataObjectVersion {
   DataObjectType type;
   String externalizedValue;
 }
 
-class domain.System;
+class DataObjectVersionRelation;
+class DataObjectVersionRelationVersion;
 
-relation ProcesspediaHasUsers {
-  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
-  domain.User playsRole user { multiplicity 0..*; }
+relation RolePlayMayHaveEffectivePeriod {
+  RolePlay playsRole rolePlay { multiplicity 0..1; }
+  EffectivePeriod playsRole effectivePeriod { multiplicity 0..1; }
+}
+
+relation AccountabilityHasAnEffectivePeriod {
+  Accountability playsRole accountability { multiplicity 0..1; }
+  EffectivePeriod playsRole effectivePeriod { multiplicity 0..1; }
+}
+
+relation PartyPlaysRoles {
+  Party playsRole party { multiplicity 1..1; }
+  RolePlay playsRole rolePlay { multiplicity 0..*; }
+}
+
+relation RoleHasRoleAssociations {
+  Role playsRole role { multiplicity 1..1; }
+  RoleAssociation playsRole roleAssociation { multiplicity 0..*; }
+}
+
+relation RolesAreAssociatedToAccountabilityTypes {
+  RoleAssociation playsRole roleAssociation { multiplicity 0..*; }
+  AccountabilityType playsRole accountabilityType { multiplicity 1..1; }
+}
+
+relation RolePlaysReferToRoleAssociations {
+  RoleAssociation playsRole roleAssociation { multiplicity 1..1; }
+  RolePlay playsRole rolePlay { multiplicity 0..*; }
+}
+
+relation AccountabilityHasAccountabilityType {
+  AccountabilityType playsRole type { multiplicity 1..1; }
+  Accountability playsRole accountability { multiplicity 0..*; }
+}
+
+relation ProcesspediaHasParties {
+  Processpedia playsRole processpedia { multiplicity 1..1; }
+  Party playsRole party { multiplicity 0..*; }
+}
+
+relation OperatingPartiesHavePrivateQueues {
+  PrivateQueue playsRole privateQueue { multiplicity 1..1; }
+  OperatingParty playsRole operatingParty { multiplicity 1..1; }
 }
 
 relation ProcesspediaHasATagManager {
-  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
-  domain.TagManager playsRole tagManager { multiplicity 1..1; }
+  Processpedia playsRole;
+  TagManager playsRole tagManager { multiplicity 0..1; }
 }
 
 relation ProcesspediaHasProcesses {
-  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
-  domain.Process playsRole process { multiplicity 0..*; }
+  Processpedia playsRole processpedia { multiplicity 1..1; }
+  Process playsRole process { multiplicity 0..*; }
 }
 
 relation ProcesspediaHasQueues {
-  domain.Processpedia playsRole processpedia { multiplicity 1..1; }
-  domain.Queue playsRole queue { multiplicity 0..*; }
+  Processpedia playsRole processpedia { multiplicity 1..1; }
+  Queue playsRole queue { multiplicity 0..*; }
 }
 
 relation TagManagerManagesTags {
-  domain.TagManager playsRole tagManager { multiplicity 1..1; }
-  domain.Tag playsRole existingTag { multiplicity 0..*; }
+  TagManager playsRole tagManager { multiplicity 1..1; }
+  Tag playsRole existingTag { multiplicity 0..*; }
 }
 
 relation UserHaveCredentialInfo {
-  domain.User playsRole user { multiplicity 1..1; }
-  domain.credential.CredentialInfo playsRole credentialInfo { multiplicity 1..1; }
+  User playsRole user { multiplicity 1..1; }
+  credential.CredentialInfo playsRole credentialInfo { multiplicity 1..1; }
 }
 
 relation ProcessHasDataObjects {
-  domain.Process playsRole process { multiplicity 1..1; }
-  domain.DataObject playsRole dataObject { multiplicity 0..*; }
+  Process playsRole process { multiplicity 1..1; }
+  DataObject playsRole dataObject { multiplicity 0..*; }
 }
 
 relation ProcessHasRequests {
-  domain.Process playsRole process { multiplicity 1..1; }
-  domain.Request playsRole request { multiplicity 0..*; }
+  Process playsRole process { multiplicity 1..1; }
+  Request playsRole request { multiplicity 0..*; }
 }
 
-relation ProcessHasInitiator {
-  domain.Process playsRole process { multiplicity 0..*; }
-  domain.User playsRole initiator { multiplicity 1..1; }
+relation ProcessHasInitialRequest {
+  Process playsRole;
+  Request playsRole initialRequest { multiplicity 1..1; }
 }
 
-relation RequestHasInitiator {
-  domain.Request playsRole initiatedRequest { multiplicity 0..*; }
-  domain.User playsRole initiator { multiplicity 1..1; }
+relation ProcessHasCreator {
+  Process playsRole createdProcess { multiplicity 0..*; }
+  Party playsRole creator { multiplicity 1..1; }
 }
 
-relation RequestMayHaveExecutor {
-  domain.Request playsRole executingRequest { multiplicity 0..*; }
-  domain.User playsRole executor { multiplicity 0..1; }
+relation RequestHasAnInitiator {
+  Request playsRole initiatedRequest { multiplicity 0..*; }
+  Party playsRole initiator { multiplicity 1..1; }
 }
 
-relation RequestIsPublishedOnQueues {
-  domain.Request playsRole request { multiplicity 0..*; }
-  domain.Queue playsRole publishedQueue { multiplicity 0..*; }
+relation RequestMayHaveAnExecutor {
+  Request playsRole executingRequest { multiplicity 0..*; }
+  Party playsRole executor { multiplicity 0..1; }
+}
+
+relation RequestsAreOriginallyPublishedOnQueues {
+  Request playsRole request { multiplicity 0..*; }
+  Queue playsRole queue { multiplicity 0..*; }
+}
+
+relation RequestsMayHaveNextRequests {
+  Request playsRole previousRequest { multiplicity 0..1; }
+  Request playsRole nextRequest { multiplicity 0..1; }
 }
 
 relation RequestMayHaveChildRequests {
-  domain.Request playsRole parentRequest { multiplicity 0..1; }
-  domain.Request playsRole childRequest { multiplicity 0..*; }
-}
-
-relation HumanQueueHasMembers {
-  domain.HumanQueue playsRole organizationalQueue { multiplicity 0..*; }
-  domain.User playsRole member { multiplicity 0..*; }
-}
-
-relation UserHasItsPersonalQueue {
-  domain.User playsRole owner { multiplicity 0..1; }
-  domain.HumanQueue playsRole personalQueue { multiplicity 1..1; }
-}
-
-relation SystemQueueHasSystems {
-  domain.SystemQueue playsRole queue { multiplicity 0..*; }
-  domain.System playsRole system { multiplicity 0..*; }
+  Request playsRole parentRequest { multiplicity 0..1; }
+  Request playsRole childRequest { multiplicity 0..*; }
 }
 
 relation ProcessHasTitleTag {
-  domain.Process playsRole process { multiplicity 0..*; }
-  domain.Tag playsRole titleTag { multiplicity 1..1; }
+  Process playsRole process { multiplicity 0..*; }
+  Tag playsRole titleTag { multiplicity 1..1; }
 }
 
-relation RequestHasSubject {
-  domain.Request playsRole request { multiplicity 0..*; }
-  domain.Tag playsRole subjectTag { multiplicity 1..1; }
+relation RequestHasSubjectTag {
+  Request playsRole request { multiplicity 0..*; }
+  Tag playsRole subjectTag { multiplicity 1..1; }
 }
 
 relation CommentHasAuthor {
-  domain.Comment playsRole authoredComment { multiplicity 0..*; }
-  domain.User playsRole author { multiplicity 1..1; }
+  Comment playsRole authoredComment { multiplicity 0..*; }
+  Party playsRole author { multiplicity 1..1; }
 }
 
 relation RequestMayHaveDescriptionComment {
-  domain.Request playsRole request { multiplicity 0..1; }
-  domain.Comment playsRole descriptionComment { multiplicity 0..1; }
+  Request playsRole request { multiplicity 0..1; }
+  Comment playsRole descriptionComment { multiplicity 0..1; }
 }
 
 relation CommentMayHaveReplies {
-  domain.Comment playsRole parentComment { multiplicity 0..1; }
-  domain.Comment playsRole replyComment { multiplicity 0..*; }
+  Comment playsRole previousComment { multiplicity 0..1; }
+  Comment playsRole nextComment { multiplicity 0..1; }
 }
 
-relation DataObjectMayHaveInputDataObjects {
-  domain.Request playsRole inputRequest { multiplicity 0..1; }
-  domain.DataObject playsRole inputDataObject { multiplicity 0..*; }
+relation DataObjectMayHaveInputDataObjectVersions {
+  Request playsRole inputRequest { multiplicity 0..*; }
+  DataObjectVersion playsRole inputDataObjectVersion { multiplicity 0..*; }
 }
 
-relation DataObjectsAreCreatedInRequests {
-  domain.Request playsRole creationRequest { multiplicity 0..1; }
-  domain.DataObject playsRole createdDataObject { multiplicity 0..*; }
+relation DataObjectVersionsAreCreatedInRequests {
+  Request playsRole creationRequest { multiplicity 0..1; }
+  DataObjectVersion playsRole createdDataObjectVersion { multiplicity 0..*; }
 }
 
-relation RequestsMayHaveOutputDataObjects {
-  domain.Request playsRole outputRequest { multiplicity 0..1; }
-  domain.DataObject playsRole outputDataObject { multiplicity 0..*; }
+relation RequestsMayHaveOutputDataObjectVersions {
+  Request playsRole outputRequest { multiplicity 0..*; }
+  DataObjectVersion playsRole outputDataObjectVersion { multiplicity 0..*; }
 }
 
 relation DataObjectHasVersions {
-  domain.DataObject playsRole dataObject { multiplicity 1..1; }
-  domain.DataObjectVersion playsRole version { multiplicity 1..*; }
+  DataObject playsRole dataObject { multiplicity 1..1; }
+  DataObjectVersion playsRole version { multiplicity 1..*; }
 }
 
 relation DataObjectHasLastVersion {
-  domain.DataObject playsRole;
-  domain.DataObjectVersion playsRole lastVersion { multiplicity 1..1; }
+  DataObject playsRole;
+  DataObjectVersion playsRole lastVersion { multiplicity 1..1; }
 }
 
-relation DataObjectVersionMayHavePreviousVersion {
-  domain.DataObjectVersion playsRole previousVersion { multiplicity 0..1; }
-  domain.DataObjectVersion playsRole nextVersion { multiplicity 0..1; }
+relation DataObjectVersionMayHavePreviousAndNextVersions {
+  DataObjectVersion playsRole previousVersion { multiplicity 0..1; }
+  DataObjectVersion playsRole nextVersion { multiplicity 0..1; }
 }
 
 relation DataObjectVersionMayHaveForkedVersions {
-  domain.DataObjectVersion playsRole sourceVersion { multiplicity 0..1; }
-  domain.DataObjectVersion playsRole forkedVersion { multiplicity 0..*; }
+  DataObjectVersion playsRole sourceVersion { multiplicity 0..1; }
+  DataObjectVersion playsRole forkedVersion { multiplicity 0..*; }
 }
 
-relation ComposedDataObjectVersionIsComposedByDataObjectVersions {
-  domain.ComposedDataObjectVersion playsRole parentDataObjectVersion { multiplicity 0..1; }
-  domain.DataObjectVersion playsRole childDataObjectVersion{ multiplicity 0..*; }
+relation DataObjectVersionRelationTypeHasVersions {
+  DataObjectVersionRelation playsRole relationship { multiplicity 1..1; }
+  DataObjectVersionRelationVersion playsRole versions { multiplicity 0..*; }
 }
 
-relation TagRefersToConcept {
-  domain.Tag playsRole tag { multiplicity 0..*; }
-  domain.Concept playsRole concept { multiplicity 1..1; }
+relation DataObjectVersionMayBeSourceOfRelationVersions {
+  DataObjectVersion playsRole sourceDataObjectVersion { multiplicity 1..1; }
+  DataObjectVersionRelationVersion playsRole sourceDataObjectVersionRelationVersion { multiplicity 0..*; }
 }
 
-relation ConceptMayHaveExplicitTag {
-  domain.Concept playsRole;
-  domain.Tag playsRole recommendedTag { multiplicity 0..1; }
+relation DataObjectVersionMayBeTargetOfRelationVersions {
+  DataObjectVersion playsRole targetDataObjectVersion { multiplicity 1..1; }
+  DataObjectVersionRelationVersion playsRole targetDataObjectVersionRelationVersion { multiplicity 0..*; }
+}
+
+relation DataObjectVersionHasLabelTag {
+  DataObjectVersion playsRole taggedDataObjectVersion { multiplicity 0..*; }
+  Tag playsRole labelTag { multiplicity 1..1; }
+}
+
+relation RolePlayQueueHasRole {
+  RolePlayQueue playsRole rolePlayQueue { multiplicity 0..*; }
+  Role playsRole role { multiplicity 1..1; }
+}
+
+relation RolePlayQueueHasAccountabilityType {
+  RolePlayQueue playsRole rolePlayQueue { multiplicity 0..*; }
+  AccountabilityType playsRole accountabilityType { multiplicity 1..1; }
 }

@@ -21,7 +21,7 @@ import org.joda.time.DateTime;
 
 public class Comment extends Comment_Base {
 
-  public Comment(String commentaryText, User author) {
+  public Comment(String commentaryText, Party author) {
     setCreationTimestamp(new DateTime());
     setAuthor(author);
     setCommentaryText(commentaryText);

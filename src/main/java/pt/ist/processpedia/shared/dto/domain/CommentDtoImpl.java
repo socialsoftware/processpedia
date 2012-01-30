@@ -18,23 +18,22 @@
 package pt.ist.processpedia.shared.dto.domain;
 
 import java.util.Date;
-import java.util.Set;
 
 public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
 
   private UserDetailedDto authorDto;
   private Date creationTimestamp;
   private String commentaryText;
-  private Set<CommentDto> commentReplyDtoSet;
+  private CommentDto nextCommentDto;
 
   public CommentDtoImpl() {}
 
-  public CommentDtoImpl(long commentOid, UserDetailedDto authorDto, Date creationTimestamp, String commentaryText, Set<CommentDto> commentReplyDtoSet) {
+  public CommentDtoImpl(long commentOid, UserDetailedDto authorDto, Date creationTimestamp, String commentaryText, CommentDto nextComment) {
     super(commentOid);
     setAuthorDto(authorDto);
     setCreationTimestamp(creationTimestamp);
     setCommentaryText(commentaryText);
-    setCommentReplyDtoSet(commentReplyDtoSet);
+    setNextCommentDto(nextCommentDto);
   }
 
   public UserDetailedDto getAuthorDto() {
@@ -61,11 +60,11 @@ public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
     this.commentaryText = commentaryText;
   }
 
-  public Set<CommentDto> getCommentReplyDtoSet() {
-    return commentReplyDtoSet;
+  public CommentDto getNextCommentDto() {
+    return nextCommentDto;
   }
 
-  public void setCommentReplyDtoSet(Set<CommentDto> commentReplyDtoSet) {
-    this.commentReplyDtoSet = commentReplyDtoSet;
+  public void setNextCommentDto(CommentDto nextCommentDto) {
+    this.nextCommentDto = nextCommentDto;
   }
 }

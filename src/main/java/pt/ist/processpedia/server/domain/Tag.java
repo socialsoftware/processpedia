@@ -19,8 +19,7 @@ package pt.ist.processpedia.server.domain;
 
 public class Tag extends Tag_Base {
 
-  public Tag(Concept concept, String keyword) {
-    setConcept(concept);
+  public Tag(String keyword) {
     setKeyword(keyword);
   }
 

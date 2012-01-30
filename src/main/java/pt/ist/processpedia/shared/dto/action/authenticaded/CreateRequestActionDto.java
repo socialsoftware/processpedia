@@ -19,6 +19,7 @@ package pt.ist.processpedia.shared.dto.action.authenticaded;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import pt.ist.processpedia.shared.dto.domain.DataObjectDto;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
 import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
   private String title;
   private String description;
   private Boolean isResponseExpected;
-  private Set<DataObjectDto> inputDataObjectDtoSet;
+  private Set<DataObjectVersionDto> inputDataObjectVersionDtoSet;
   private Set<QueueDto> queueDtoSet;
 
   public CreateRequestActionDto() {}
@@ -40,7 +41,7 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
     setDescription(description);
     setResponseExpected(isResponseExpected);
     setQueueDtoSet(queueDtoSet);
-    setInputDataObjectDtoSet(inputDataObjectDtoSet);
+    setInputDataObjectVersionDtoSet(inputDataObjectVersionDtoSet);
   }
   
   public long getParentRequestOid() {
@@ -83,11 +84,11 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
     this.queueDtoSet = queueDtoSet;
   }
 
-  public Set<DataObjectDto> getInputDataObjectDtoSet() {
-    return inputDataObjectDtoSet;
+  public Set<DataObjectVersionDto> getInputDataObjectVersionDtoSet() {
+    return inputDataObjectVersionDtoSet;
   }
 
-  public void setInputDataObjectDtoSet(Set<DataObjectDto> inputDataObjectDtoSet) {
-    this.inputDataObjectDtoSet = inputDataObjectDtoSet;
+  public void setInputDataObjectVersionDtoSet(Set<DataObjectVersionDto> inputDataObjectVersionDtoSet) {
+    this.inputDataObjectVersionDtoSet = inputDataObjectVersionDtoSet;
   }
 }

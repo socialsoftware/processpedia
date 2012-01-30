@@ -1,6 +1,7 @@
 package pt.ist.processpedia.server.auth;
 
 import pt.ist.fenixframework.FenixFramework;
+import pt.ist.processpedia.server.domain.Party;
 import pt.ist.processpedia.server.domain.Processpedia;
 import pt.ist.processpedia.server.domain.User;
 import pt.ist.processpedia.shared.dto.auth.CredentialDto;
@@ -40,9 +41,12 @@ public class EmailPasswordAuthenticator extends AbstractAuthenticator {
   @Override
   public User getUser(Processpedia processpedia, Credential credential) throws WrongCredentialsException {
     String email = ((EmailPasswordCredential)credential).getEmail();
-    for(User user : processpedia.getUserSet()) {
-      if(user.getEmail().equals(email)) {
-        return user;
+    for(Party party : processpedia.getPartySet()) {
+      if(party instanceof User) {
+        User user = (User)party;
+        if(user.getEmail().equals(email)) {
+          return user;
+        }
       }
     }
     throw new WrongCredentialsException();

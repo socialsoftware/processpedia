@@ -29,9 +29,9 @@ import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.CreateProcessPlace;
 import pt.ist.processpedia.client.place.FolderPlace;
 import pt.ist.processpedia.client.view.home.content.process.CreateProcessView;
+import pt.ist.processpedia.shared.FolderType;
 import pt.ist.processpedia.shared.dto.action.authenticaded.CreateProcessActionDto;
 import pt.ist.processpedia.shared.dto.response.CreateProcessResponseDto;
-import pt.ist.processpedia.shared.dto.util.FolderDto;
 import pt.ist.processpedia.shared.validation.InputValidator;
 
 public class CreateProcessActivity extends ProcesspediaActivity<CreateProcessPlace> implements CreateProcessView.Presenter {
@@ -49,7 +49,7 @@ public class CreateProcessActivity extends ProcesspediaActivity<CreateProcessPla
   }
 
   private void onCreateProcessResponse(CreateProcessResponseDto createProcessResponseDto) {
-    goTo(new FolderPlace(FolderDto.FolderType.PENDING.toString().toLowerCase()));
+    goTo(new FolderPlace(FolderType.PENDING));
   }
 
   public void onCancelAction() {

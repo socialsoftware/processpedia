@@ -1,7 +1,6 @@
 package pt.ist.processpedia.server.domain;
 
 import org.joda.time.DateTime;
-
 import pt.ist.processpedia.server.util.MD5;
 import pt.ist.processpedia.shared.exception.*;
 import pt.ist.processpedia.shared.exception.user.UserAlreadyActiveException;
@@ -18,12 +17,10 @@ public class User extends User_Base {
    * @throws pt.ist.processpedia.shared.exception.email.EmailInvalidException
    */
   public User(String name, String email, String avatarUrl) throws ProcesspediaException {
-    updateName(name);
+    init(name,avatarUrl);
     updateEmail(email);
     setActive(true);
-    setAvatarUrl(avatarUrl);
     setActivationKey(generateNewActivationKey());
-    setCreationTimestamp(new DateTime());
   }
 
   /**

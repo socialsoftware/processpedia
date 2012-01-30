@@ -63,15 +63,15 @@ public class FolderListActivity extends ProcesspediaActivity<Place> implements F
     for(FolderDto folderDto : folderDtoList) {
       FolderView folderView = new FolderViewImpl();
       folderView.setPresenter(this);
-      folderView.setFolderType(folderDto.getType());
+      folderView.setFolderType(folderDto.getFolderType());
       folderView.prepareView();
-      folderView.setFolderItemCount(folderDto.getCount());
+      folderView.setFolderNewRequestCount(folderDto.getNewRequestCount());
       folderListView.addFolderView(folderView);
     }
     containerWidget.setWidget(folderListView);
   }
 
   public void onFolderAction(FolderView folderView) {
-    goTo(new FolderPlace(folderView.getFolderType().name().toLowerCase()));
+    goTo(new FolderPlace(folderView.getFolderType()));
   }
 }

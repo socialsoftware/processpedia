@@ -3,7 +3,6 @@ package pt.ist.processpedia.server.domain;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.processpedia.server.domain.credential.CasCredentialInfo;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
-import pt.ist.processpedia.server.organization.OrganizationalUnit;
 import pt.ist.processpedia.server.util.Urn;
 import pt.ist.processpedia.shared.exception.*;
 import pt.ist.processpedia.shared.exception.authentication.NetIdAlreadyInUserException;
@@ -23,41 +22,38 @@ import java.util.Set;
 public class Processpedia extends Processpedia_Base {
 
   public Processpedia() {
-    try {
-      createUserWithPasswordCredentialInfo("David Martinho", "d@g.com", "avatar", "xpto");
-      setTagManager(new TagManager());
-    } catch (ProcesspediaException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    setTagManager(new TagManager());
   }
   
   public User createUserWithCasCredentialInfo(String name, String email, String avatarUrl, String netId) throws ProcesspediaException {
     InputValidator.validateUserName(name);
     InputValidator.validateEmail(email);
     
-    for(User existingUser : getUserSet()) {
-      if(existingUser.getEmail().equals(email)) {
-        throw new UserEmailAlreadyInUseException(email);
-      }
-      if(existingUser.getCredentialInfo() instanceof CasCredentialInfo) {
-        String existingNetId = ((CasCredentialInfo)existingUser.getCredentialInfo()).getNetId();
-        if(existingNetId.equals(netId)) {
-          throw new NetIdAlreadyInUserException(email);
+    for(Party party : getPartySet()) {
+      if(party instanceof User) {
+        User existingUser = (User)party;
+        if(existingUser.getEmail().equals(email)) {
+          throw new UserEmailAlreadyInUseException(email);
+        }
+        if(existingUser.getCredentialInfo() instanceof CasCredentialInfo) {
+          String existingNetId = ((CasCredentialInfo)existingUser.getCredentialInfo()).getNetId();
+          if(existingNetId.equals(netId)) {
+            throw new NetIdAlreadyInUserException(email);
+          }
         }
       }
     }
     User user = new User(name, email, avatarUrl);
-    addUser(user);
-    HumanQueue personalQueue = new HumanQueue(name);
-    user.setPersonalQueue(personalQueue);
-    personalQueue.setProcesspedia(this);
     user.setCredentialInfo(new CasCredentialInfo(netId));
+    PrivateQueue privateQueue = new PrivateQueue(name);
+    user.setPrivateQueue(privateQueue);
+    addParty(user);
+    addQueue(privateQueue);
     return user;
   }
 
   /**
-   * Creates a new user.
+   * Creates a new user with password credentials.
    * @param name the name of the user
    * @param email the email of the user
    * @param password the user's password
@@ -71,17 +67,17 @@ public class Processpedia extends Processpedia_Base {
     InputValidator.validateUserName(name);
     InputValidator.validateEmail(email);
     InputValidator.validateUserPassword(password);
-    for(User existingUser : getUserSet()) {
-      if(existingUser.getEmail().equals(email)) {
-        throw new UserEmailAlreadyInUseException(email);
+    for(Party party : getPartySet()) {
+      if(party instanceof User) {
+        User existingUser = (User)party;
+        if(existingUser.getEmail().equals(email)) {
+          throw new UserEmailAlreadyInUseException(email);
+        }
       }
     }
     User user = new User(name, email, avatarUrl);
-    addUser(user);
-    HumanQueue personalQueue = new HumanQueue(name);
-    user.setPersonalQueue(personalQueue);
-    personalQueue.setProcesspedia(this);
     user.setCredentialInfo(new PasswordCredentialInfo(password));
+    addParty(user);
     //EmailClient.sendActivationEmail(user.getName(), user.getEmail(), user.getActivationKey());
     return user;
   }
@@ -94,13 +90,16 @@ public class Processpedia extends Processpedia_Base {
    * @throws WrongActivationKeyException if the account key does not match any account
    */
   public User activateAccount(String activationKey) throws UserAlreadyActiveException, WrongActivationKeyException {
-    for(User user : getUserSet()) {
-      if(user.getActivationKey().equals(activationKey)) {
-        if(user.getActive()) {
-          throw new UserAlreadyActiveException();
-        } else {
-          user.setActive(true);
-          return user;
+    for(Party party : getPartySet()) {
+      if(party instanceof User) {
+        User user = (User)party;
+        if(user.getActivationKey().equals(activationKey)) {
+          if(user.getActive()) {
+            throw new UserAlreadyActiveException();
+          } else {
+            user.setActive(true);
+            return user;
+          }
         }
       }
     }
@@ -117,35 +116,36 @@ public class Processpedia extends Processpedia_Base {
    * @param requestDescription the description of the request
    * @param expectsAnswer true if it is a callback request, false if it is a forward request
    * @param publishQueueSet the set of queues where the request is to be published
-   * @param inputDataObjectSet the sub-set of data objects accessible to the executor
+   * @param inputDataObjectVersionSet the initial set of data object versions accessible to the creator of the process
    * @return the newly created process
    */
   public Process createProcess(User initiator, String processTitle, String processDescription, String requestTitle,
                                String requestDescription, Boolean expectsAnswer, Set<Queue> publishQueueSet,
-                               Set<DataObject> inputDataObjectSet) throws ProcessTitleTooLongException,
+                               Set<DataObjectVersion> inputDataObjectVersionSet) throws ProcessTitleTooLongException,
       ProcessDescriptionTooLongException,
       RequestTitleTooLongException {
     Process newProcess = new Process(initiator, processTitle, processDescription);
     addProcess(newProcess);
-    newProcess.createRequest(initiator, requestTitle, requestDescription, expectsAnswer, publishQueueSet, inputDataObjectSet);
+    Request initialRequest = newProcess.createRequest(initiator, requestTitle, requestDescription, expectsAnswer, publishQueueSet, inputDataObjectVersionSet);
+    newProcess.setInitialRequest(initialRequest);
     return newProcess;
   }
 
   /**
-   * Creates a new human queue.
-   * @param title the title of the human queue
-   * @return the newly created human queue
+   * Creates a new queue.
+   * @param title the title of the queue
+   * @return the newly created queue
    * @throws QueueTitleAlreadyInUseException when the title provided is already associated to another queue
-   * @throws QueueTitleTooLongException
+   * @throws QueueTitleTooLongException when the title provided is too long
    */
-  public HumanQueue createHumanQueue(String title) throws ProcesspediaException {
+  public PrivateQueue createPrivateQueue(String title) throws ProcesspediaException {
     InputValidator.validateQueueTitle(title);
     for(Queue existingQueue : getQueueSet()) {
       if(existingQueue.getTitle().equals(title)) {
         throw new QueueTitleAlreadyInUseException(title);
       }
     }
-    HumanQueue newQueue = new HumanQueue(title);
+    PrivateQueue newQueue = new PrivateQueue(title);
     addQueue(newQueue);
     return newQueue;
   }
@@ -159,17 +159,20 @@ public class Processpedia extends Processpedia_Base {
   public User loginUserWithCasTicket(String ticket) throws WrongCredentialsException {
     //TODO: get netId using the given ticket
     String netId = "";
-    for(User user : getUserSet()) {
-      if(user.getCredentialInfo() instanceof CasCredentialInfo) {
-        CasCredentialInfo credentialInfo = (CasCredentialInfo)user.getCredentialInfo();
-        if(credentialInfo.matchNetId(netId)) {
-          return user;
+    for(Party party : getPartySet()) {
+      if(party instanceof User) {
+        User user = (User)party;
+        if(user.getCredentialInfo() instanceof CasCredentialInfo) {
+          CasCredentialInfo credentialInfo = (CasCredentialInfo)user.getCredentialInfo();
+          if(credentialInfo.matchNetId(netId)) {
+            return user;
+          }
         }
       }
     }
     throw new WrongCredentialsException(netId);
   }
-
+  
   /**
    * Attempts to login a user with the provided credentials (email and password).
    * @param email the email to be verified
@@ -183,21 +186,24 @@ public class Processpedia extends Processpedia_Base {
   public User loginUserWithEmailAndPassword(String email, String password) throws ProcesspediaException {
     InputValidator.validateEmail(email);
     InputValidator.validateUserPassword(password);
-    for(User user : getUserSet()) {
-      if(user.getEmail().equals(email)) {
-        if(user.getCredentialInfo() instanceof PasswordCredentialInfo) {
-          PasswordCredentialInfo credentialInfo = (PasswordCredentialInfo)user.getCredentialInfo();
-          if(credentialInfo.matchPassword(password)) {
-            if(user.getActive()) {
-              return user;
+    for(Party party : getPartySet()) {
+      if(party instanceof User) {
+        User user = (User)party;
+        if(user.getEmail().equals(email)) {
+          if(user.getCredentialInfo() instanceof PasswordCredentialInfo) {
+            PasswordCredentialInfo credentialInfo = (PasswordCredentialInfo)user.getCredentialInfo();
+            if(credentialInfo.matchPassword(password)) {
+              if(user.getActive()) {
+                return user;
+              } else {
+                throw new UserInactiveException(Urn.getUrn(user));
+              }
             } else {
-              throw new UserInactiveException(Urn.getUrn(user));
+              throw new WrongCredentialsException(email);
             }
           } else {
-            throw new WrongCredentialsException(email);
+            throw new WrongCredentialTypeException();
           }
-        } else {
-          throw new WrongCredentialTypeException();
         }
       }
     }
@@ -206,9 +212,5 @@ public class Processpedia extends Processpedia_Base {
 
   public static Processpedia getInstance() {
     return FenixFramework.getRoot();
-  }
-
-  public void updateOrganizationalUnit(OrganizationalUnit rootOrganization) {
-    
   }
 }

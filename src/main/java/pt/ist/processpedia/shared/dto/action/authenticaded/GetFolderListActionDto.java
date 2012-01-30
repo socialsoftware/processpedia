@@ -19,11 +19,12 @@ package pt.ist.processpedia.shared.dto.action.authenticaded;
 
 public class GetFolderListActionDto extends AuthenticatedActionDto {
 
+  private static final long serialVersionUID = 1L;
+
   public GetFolderListActionDto() {
   }
 
   public GetFolderListActionDto(String actorOid) {
     super(actorOid);
   }
-
 }

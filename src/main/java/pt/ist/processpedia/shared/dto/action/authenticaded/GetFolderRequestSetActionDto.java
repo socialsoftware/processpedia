@@ -15,26 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.dto.response;
+package pt.ist.processpedia.shared.dto.action.authenticaded;
 
-import pt.ist.processpedia.shared.dto.domain.RequestDto;
-import java.util.Set;
+import pt.ist.processpedia.shared.FolderType;
 
-public class GetFolderContentsResponseDto extends ResponseDto {
+public class GetFolderRequestSetActionDto extends AuthenticatedActionDto {
 
-  private Set<RequestDto> requestDtoSet;
+  private static final long serialVersionUID = 1L;
+  
+  private FolderType folderType;
+  
+  public GetFolderRequestSetActionDto() {}
 
-  public GetFolderContentsResponseDto() {}
-
-  public GetFolderContentsResponseDto(Set<RequestDto> requestDtoSet) {
-    setRequestDtoSet(requestDtoSet);
+  public GetFolderRequestSetActionDto(String actorOid, FolderType folderType) {
+    super(actorOid);
+    setFolderType(folderType);
   }
-
-  public Set<RequestDto> getRequestDtoSet() {
-    return requestDtoSet;
+  
+  public FolderType getFolderType() {
+    return folderType;
   }
-
-  public void setRequestDtoSet(Set<RequestDto> requestDtoSet) {
-    this.requestDtoSet = requestDtoSet;
+  
+  public void setFolderType(FolderType folderType) {
+    this.folderType = folderType;
   }
 }

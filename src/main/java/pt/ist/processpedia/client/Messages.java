@@ -430,6 +430,24 @@ public interface Messages extends com.google.gwt.i18n.client.Constants {
   String processTitle();
 
   /**
+   * Translated "The process title cannot be empty".
+   * 
+   * @return translated "The process title cannot be empty"
+   */
+  @DefaultStringValue("The process title cannot be empty")
+  @Key("processTitleMustNotBeEmpty")
+  String processTitleMustNotBeEmpty();
+
+  /**
+   * Translated "The process title is too short".
+   * 
+   * @return translated "The process title is too short"
+   */
+  @DefaultStringValue("The process title is too short")
+  @Key("processTitleTooShort")
+  String processTitleTooShort();
+
+  /**
    * Translated "Processpedia is developed by ESW Software Engineering".
    * 
    * @return translated "Processpedia is developed by ESW Software Engineering"

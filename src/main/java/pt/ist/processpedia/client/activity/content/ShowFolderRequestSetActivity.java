@@ -30,14 +30,15 @@ import pt.ist.processpedia.client.view.home.content.request.list.RequestListColu
 import pt.ist.processpedia.client.view.home.content.request.list.RequestListColumn.RequestColumn;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.client.view.home.content.splash.NoRequestsFoundView;
-import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderContentsActionDto;
+import pt.ist.processpedia.shared.FolderType;
+import pt.ist.processpedia.shared.dto.action.authenticaded.GetFolderRequestSetActionDto;
 import pt.ist.processpedia.shared.dto.domain.RequestDto;
-import pt.ist.processpedia.shared.dto.response.GetFolderContentsResponseDto;
+import pt.ist.processpedia.shared.dto.response.GetFolderRequestSetResponseDto;
 import java.util.*;
 
-public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace> implements RequestListView.Presenter {
+public class ShowFolderRequestSetActivity extends ProcesspediaActivity<FolderPlace> implements RequestListView.Presenter {
 
-  public ShowFolderContentsActivity(FolderPlace place, BrowserFactory browserFactory) {
+  public ShowFolderRequestSetActivity(FolderPlace place, BrowserFactory browserFactory) {
     super(place, browserFactory);
   }
 
@@ -47,14 +48,14 @@ public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace
     loadingMessageView.setLoadingMessage(messages.loadingFolderContents());
     containerWidget.setWidget(loadingMessageView);
 
-    String folderTitle = getPlace().getFolderTitle();
+    FolderType folderType = getPlace().getFolderType();
 
-    getBrowserFactory().getDataSwitch().getFolderContents(new GetFolderContentsActionDto(getActorOid(), folderTitle), new AsyncCallback<GetFolderContentsResponseDto>() {
+    getBrowserFactory().getDataSwitch().getFolderContents(new GetFolderRequestSetActionDto(getActorOid(), folderType), new AsyncCallback<GetFolderRequestSetResponseDto>() {
       public void onFailure(Throwable throwable) {
         handleException(throwable);
       }
-      public void onSuccess(GetFolderContentsResponseDto getFolderContentsResponseDto) {
-        displayRequestSet(containerWidget, getFolderContentsResponseDto.getRequestDtoSet());
+      public void onSuccess(GetFolderRequestSetResponseDto getFolderRequestSetResponseDto) {
+        displayRequestSet(containerWidget, getFolderRequestSetResponseDto.getRequestDtoSet());
       }
     });
   }
@@ -64,17 +65,22 @@ public class ShowFolderContentsActivity extends ProcesspediaActivity<FolderPlace
       RequestListView requestListView = getBrowserFactory().getProcessListView();
       requestListView.setPresenter(this);
       List<RequestColumn<RequestDto,String>> columnSet = new ArrayList<RequestColumn<RequestDto,String>>();
-      String folderTitle = getPlace().getFolderTitle();
-      if(folderTitle.equals("inbox")) {
-        columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
-        columnSet.add(RequestListColumn.CREATION_TIMESTAMP_COLUMN);
-        columnSet.add(RequestListColumn.NUMBER_PUBLISHED_QUEUE_COLUMN);
-      } else {
-        columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
-        columnSet.add(RequestListColumn.SUBJECT_COLUMN);
-        columnSet.add(RequestListColumn.PROCESS_TITLE_COLUMN);
-        columnSet.add(RequestListColumn.LAST_UPDATE_TIMESTAMP_COLUMN);
+      FolderType folderType = getPlace().getFolderType();
+      
+      switch(folderType) {
+        case INBOX:
+          columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
+          columnSet.add(RequestListColumn.CREATION_TIMESTAMP_COLUMN);
+          columnSet.add(RequestListColumn.NUMBER_PUBLISHED_QUEUE_COLUMN);
+          break;
+        default:
+          columnSet.add(RequestListColumn.SENDER_NAME_COLUMN);
+          columnSet.add(RequestListColumn.SUBJECT_COLUMN);
+          columnSet.add(RequestListColumn.PROCESS_TITLE_COLUMN);
+          columnSet.add(RequestListColumn.LAST_UPDATE_TIMESTAMP_COLUMN);
+          break;
       }
+      
       requestListView.prepareView();
       requestListView.displayRequestSet(requestDtoSet, columnSet);
       containerWidget.setWidget(requestListView);

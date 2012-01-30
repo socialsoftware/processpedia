@@ -26,7 +26,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import pt.ist.processpedia.client.util.KeyCodes;
-import pt.ist.processpedia.shared.dto.domain.AtomicDataObjectVersionDto;
+import pt.ist.processpedia.shared.dto.domain.DataObjectType;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class DataObjectCreationBox extends Composite {
   public DataObjectCreationBox() {
     dataObjectCreationHandlerSet = new HashSet<DataObjectCreationHandler>();
     dataObjectTypeListBox = new ListBox(false);
-    for(AtomicDataObjectVersionDto.DataObjectTypeDto dataObjectTypeDto : AtomicDataObjectVersionDto.DataObjectTypeDto.values()) {
+    for(DataObjectType dataObjectTypeDto : DataObjectType.values()) {
       dataObjectTypeListBox.addItem(dataObjectTypeDto.toString());
     }
     labelTextBox = new TextBox();
@@ -63,13 +64,13 @@ public class DataObjectCreationBox extends Composite {
 
   private void notifySubscribers() {
     for(DataObjectCreationHandler dataObjectCreationHandler : dataObjectCreationHandlerSet) {
-      dataObjectCreationHandler.onDataObjectCreation(new AtomicDataObjectVersionDto(1L, AtomicDataObjectVersionDto.DataObjectTypeDto.FILE, labelTextBox.getText(), ""));
+      dataObjectCreationHandler.onDataObjectCreation(new DataObjectVersionDto(1L, DataObjectType.FILE, labelTextBox.getText(), ""));
     }
     labelTextBox.setText("");
   }
 
   public interface DataObjectCreationHandler {
-    public void onDataObjectCreation(AtomicDataObjectVersionDto atomicDataObjectVersionDto);
+    public void onDataObjectCreation(DataObjectVersionDto atomicDataObjectVersionDto);
   }
 
   public void addDataObjectCreationHandler(DataObjectCreationHandler dataObjectCreationHandler) {

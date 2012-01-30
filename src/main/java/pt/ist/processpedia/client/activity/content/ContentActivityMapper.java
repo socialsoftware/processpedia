@@ -41,7 +41,7 @@ public class ContentActivityMapper implements ActivityMapper {
     if(place instanceof CreateRequestPlace)
       return new CreateRequestActivity((CreateRequestPlace) place, browserFactory);
     if(place instanceof FolderPlace)
-      return new ShowFolderContentsActivity((FolderPlace) place, browserFactory);
+      return new ShowFolderRequestSetActivity((FolderPlace) place, browserFactory);
     if(place instanceof RequestPlace)
       return new ShowRequestActivity((RequestPlace) place, browserFactory);
     if(place instanceof SearchPlace)
