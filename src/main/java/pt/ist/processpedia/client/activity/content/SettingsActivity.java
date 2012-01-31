@@ -33,7 +33,7 @@ import pt.ist.processpedia.shared.dto.action.authenticaded.GetUserSettingsAction
 import pt.ist.processpedia.shared.dto.action.authenticaded.UpdateUserSettingsActionDto;
 import pt.ist.processpedia.shared.dto.response.GetUserSettingsResponseDto;
 import pt.ist.processpedia.shared.dto.response.UpdateUserSettingsResponseDto;
-import pt.ist.processpedia.shared.exception.PasswordsDoNotMatchException;
+import pt.ist.processpedia.shared.exception.credential.PasswordsDoNotMatchException;
 
 public class SettingsActivity extends ProcesspediaActivity<SettingsPlace> implements SettingsView.Presenter {
 

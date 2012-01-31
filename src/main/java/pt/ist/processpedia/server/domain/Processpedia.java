@@ -5,8 +5,10 @@ import pt.ist.processpedia.server.domain.credential.CasCredentialInfo;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.util.Urn;
 import pt.ist.processpedia.shared.exception.*;
+import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyIsWrongException;
 import pt.ist.processpedia.shared.exception.authentication.NetIdAlreadyInUserException;
 import pt.ist.processpedia.shared.exception.authentication.WrongCredentialTypeException;
+import pt.ist.processpedia.shared.exception.credential.CredentialInfoIsWrongException;
 import pt.ist.processpedia.shared.exception.process.ProcessDescriptionTooLongException;
 import pt.ist.processpedia.shared.exception.process.ProcessTitleTooLongException;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleAlreadyInUseException;
@@ -15,6 +17,7 @@ import pt.ist.processpedia.shared.exception.request.RequestTitleTooLongException
 import pt.ist.processpedia.shared.exception.user.UserAlreadyActiveException;
 import pt.ist.processpedia.shared.exception.user.UserEmailAlreadyInUseException;
 import pt.ist.processpedia.shared.exception.user.UserInactiveException;
+import pt.ist.processpedia.shared.exception.user.UserNameInvalidException;
 import pt.ist.processpedia.shared.validation.InputValidator;
 
 import java.util.Set;
@@ -84,9 +87,9 @@ public class Processpedia extends Processpedia_Base {
    * @param activationKey the account key to be activated
    * @return the user for which the account was active
    * @throws UserAlreadyActiveException if the user is already active
-   * @throws WrongActivationKeyException if the account key does not match any account
+   * @throws ActivationKeyIsWrongException if the account key does not match any account
    */
-  public User activateAccount(String activationKey) throws UserAlreadyActiveException, WrongActivationKeyException {
+  public User activateAccount(String activationKey) throws UserAlreadyActiveException, ActivationKeyIsWrongException {
     for(Party party : getPartySet()) {
       if(party instanceof User) {
         User user = (User)party;
@@ -100,7 +103,7 @@ public class Processpedia extends Processpedia_Base {
         }
       }
     }
-    throw new WrongActivationKeyException(activationKey);
+    throw new ActivationKeyIsWrongException(activationKey);
   }
 
 
@@ -151,9 +154,9 @@ public class Processpedia extends Processpedia_Base {
    * Attempts to login a user given a CAS netId.
    * @param netId the netId to be verified
    * @return
-   * @throws WrongCredentialsException
+   * @throws CredentialInfoIsWrongException
    */
-  public User loginUserWithCasTicket(String ticket) throws WrongCredentialsException {
+  public User loginUserWithCasTicket(String ticket) throws CredentialInfoIsWrongException {
     //TODO: get netId using the given ticket
     String netId = "";
     for(Party party : getPartySet()) {
@@ -167,7 +170,7 @@ public class Processpedia extends Processpedia_Base {
         }
       }
     }
-    throw new WrongCredentialsException(netId);
+    throw new CredentialInfoIsWrongException(netId);
   }
   
   /**
@@ -176,9 +179,9 @@ public class Processpedia extends Processpedia_Base {
    * @param password the password to be verified
    * @return the corresponding user when its credentials match and the user is in the active state
    * @throws pt.ist.processpedia.shared.exception.email.EmailInvalidException when the email provided is not valid
-   * @throws pt.ist.processpedia.shared.exception.password.PasswordTooShortException when the passwordHash provided is not valid
+   * @throws pt.ist.processpedia.shared.exception.credential.PasswordTooShortException when the passwordHash provided is not valid
    * @throws pt.ist.processpedia.shared.exception.user.UserInactiveException when the credentials are valid but the user is not in the active state
-   * @throws WrongCredentialsException when the provided credentials are wrong or do not match any user
+   * @throws CredentialInfoIsWrongException when the provided credentials are wrong or do not match any user
    */
   public User loginUserWithEmailAndPassword(String email, String password) throws ProcesspediaException {
     InputValidator.validateEmail(email);
@@ -196,7 +199,7 @@ public class Processpedia extends Processpedia_Base {
                 throw new UserInactiveException(Urn.getUrn(user));
               }
             } else {
-              throw new WrongCredentialsException(email);
+              throw new CredentialInfoIsWrongException(email);
             }
           } else {
             throw new WrongCredentialTypeException();
@@ -204,7 +207,7 @@ public class Processpedia extends Processpedia_Base {
         }
       }
     }
-    throw new WrongCredentialsException(email);
+    throw new CredentialInfoIsWrongException(email);
   }
 
   public static Processpedia getInstance() {

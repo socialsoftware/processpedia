@@ -15,12 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception.password;
+package pt.ist.processpedia.shared.exception.credential;
 
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-public class PasswordIsEmptyException extends ProcesspediaException {
+public class CredentialInfoIsWrongException extends ProcesspediaException {
 
-  public PasswordIsEmptyException() {}
+  private String email;
 
+  public CredentialInfoIsWrongException() {}
+
+  public CredentialInfoIsWrongException(String email) {
+    setEmail(email);
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 }

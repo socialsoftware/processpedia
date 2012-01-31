@@ -15,24 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception;
+package pt.ist.processpedia.shared.exception.credential;
 
-public class WrongActivationKeyException extends ProcesspediaException {
+import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-  private String wrongActivationKey;
+public class PasswordIsEmptyException extends ProcesspediaException {
 
-  public WrongActivationKeyException() {}
-
-  public WrongActivationKeyException(String wrongActivationKey) {
-    setWrongActivationKey(wrongActivationKey);
-  }
-
-  public String getWrongActivationKey() {
-    return wrongActivationKey;
-  }
-
-  public void setWrongActivationKey(String wrongActivationKey) {
-    this.wrongActivationKey = wrongActivationKey;
-  }
+  public PasswordIsEmptyException() {}
 
 }

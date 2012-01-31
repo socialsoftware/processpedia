@@ -12,7 +12,7 @@ import pt.ist.processpedia.server.domain.User;
 import pt.ist.processpedia.shared.dto.auth.CASCredentialDto;
 import pt.ist.processpedia.shared.dto.auth.CredentialDto;
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
-import pt.ist.processpedia.shared.exception.WrongCredentialsException;
+import pt.ist.processpedia.shared.exception.credential.CredentialInfoIsWrongException;
 
 import edu.yale.its.tp.cas.client.ServiceTicketValidator;
 
@@ -57,7 +57,7 @@ public class CASAuthenticator extends AbstractAuthenticator {
         e.printStackTrace();
       }
       if(!serviceTicketValidator.isAuthenticationSuccesful()) {
-        throw new WrongCredentialsException();
+        throw new CredentialInfoIsWrongException();
       }
     }
     

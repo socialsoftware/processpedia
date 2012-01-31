@@ -15,23 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception;
+package pt.ist.processpedia.shared.exception.credential;
 
-public class UserNameInvalidException extends ProcesspediaException {
+import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-  private String invalidUserName;
+public class PasswordTooShortException extends ProcesspediaException {
 
-  public UserNameInvalidException() {}
+  private int minLengthAllowed;
 
-  public UserNameInvalidException(String invalidUserName) {
-    setInvalidUserName(invalidUserName);
+  public PasswordTooShortException() {}
+
+  public PasswordTooShortException(int minLengthAllowed) {
+    setMinLengthAllowed(minLengthAllowed);
   }
 
-  public String getInvalidName() {
-    return invalidUserName;
+  public int getMinLengthAllowed() {
+    return minLengthAllowed;
   }
 
-  public void setInvalidUserName(String invalidUserName) {
-    this.invalidUserName = invalidUserName;
+  public void setMinLengthAllowed(int minLengthAllowed) {
+    this.minLengthAllowed = minLengthAllowed;
   }
 }

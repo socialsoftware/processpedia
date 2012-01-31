@@ -15,10 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception;
+package pt.ist.processpedia.shared.exception.user;
 
-public class PasswordsDoNotMatchException extends ProcesspediaException {
+import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-  public PasswordsDoNotMatchException() {}
+public class UserNameInvalidException extends ProcesspediaException {
 
+  private String invalidUserName;
+
+  public UserNameInvalidException() {}
+
+  public UserNameInvalidException(String invalidUserName) {
+    setInvalidUserName(invalidUserName);
+  }
+
+  public String getInvalidName() {
+    return invalidUserName;
+  }
+
+  public void setInvalidUserName(String invalidUserName) {
+    this.invalidUserName = invalidUserName;
+  }
 }

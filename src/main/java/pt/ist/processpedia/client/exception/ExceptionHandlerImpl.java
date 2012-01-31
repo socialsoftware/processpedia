@@ -5,17 +5,17 @@ import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.notification.ProcesspediaNotification;
 import pt.ist.processpedia.client.notification.ProcesspediaNotificationImpl;
 import pt.ist.processpedia.client.place.LoginPlace;
-import pt.ist.processpedia.shared.exception.PasswordsDoNotMatchException;
-import pt.ist.processpedia.shared.exception.UnauthenticatedUserException;
-import pt.ist.processpedia.shared.exception.WrongActivationKeyException;
-import pt.ist.processpedia.shared.exception.WrongCredentialsException;
+import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyIsWrongException;
+import pt.ist.processpedia.shared.exception.credential.PasswordIsEmptyException;
+import pt.ist.processpedia.shared.exception.credential.PasswordIsNullException;
+import pt.ist.processpedia.shared.exception.credential.PasswordTooShortException;
+import pt.ist.processpedia.shared.exception.credential.PasswordsDoNotMatchException;
+import pt.ist.processpedia.shared.exception.credential.CredentialInfoIsWrongException;
 import pt.ist.processpedia.shared.exception.email.EmailInvalidException;
 import pt.ist.processpedia.shared.exception.email.EmailIsEmptyException;
-import pt.ist.processpedia.shared.exception.password.PasswordIsEmptyException;
-import pt.ist.processpedia.shared.exception.password.PasswordIsNullException;
-import pt.ist.processpedia.shared.exception.password.PasswordTooShortException;
 import pt.ist.processpedia.shared.exception.process.ProcessTitleIsEmptyException;
 import pt.ist.processpedia.shared.exception.process.ProcessTitleTooShortException;
+import pt.ist.processpedia.shared.exception.user.UserNotAuthenticatedException;
 import pt.ist.processpedia.shared.exception.user.UserAlreadyActiveException;
 import pt.ist.processpedia.shared.exception.user.UserEmailAlreadyInUseException;
 import pt.ist.processpedia.shared.exception.user.UserInactiveException;
@@ -74,11 +74,11 @@ public class ExceptionHandlerImpl implements ExceptionHandler {
       errorMessage = messages.invalidPassword();
       ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
       notification.show();
-    } catch (WrongActivationKeyException e) {
+    } catch (ActivationKeyIsWrongException e) {
       errorMessage = messages.wrongActivationKey();
       ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
       notification.show();
-    } catch (WrongCredentialsException e) {
+    } catch (CredentialInfoIsWrongException e) {
       errorMessage = messages.wrongCredentialsWereProvided();
       ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
       notification.show();
@@ -90,7 +90,7 @@ public class ExceptionHandlerImpl implements ExceptionHandler {
       errorMessage = messages.emailIsEmpty();
       ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
       notification.show();
-    } catch (UnauthenticatedUserException e) {
+    } catch (UserNotAuthenticatedException e) {
       errorMessage = messages.unauthenticatedUser();
       ProcesspediaNotification notification = new ProcesspediaNotificationImpl(ProcesspediaNotification.Type.ERROR, errorTitle, errorMessage);
       notification.show();

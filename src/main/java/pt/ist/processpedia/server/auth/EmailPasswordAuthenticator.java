@@ -7,7 +7,7 @@ import pt.ist.processpedia.server.domain.User;
 import pt.ist.processpedia.shared.dto.auth.CredentialDto;
 import pt.ist.processpedia.shared.dto.auth.EmailPasswordCredentialDto;
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
-import pt.ist.processpedia.shared.exception.WrongCredentialsException;
+import pt.ist.processpedia.shared.exception.credential.CredentialInfoIsWrongException;
 
 public class EmailPasswordAuthenticator extends AbstractAuthenticator {
 
@@ -39,7 +39,7 @@ public class EmailPasswordAuthenticator extends AbstractAuthenticator {
   }
 
   @Override
-  public User getUser(Processpedia processpedia, Credential credential) throws WrongCredentialsException {
+  public User getUser(Processpedia processpedia, Credential credential) throws CredentialInfoIsWrongException {
     String email = ((EmailPasswordCredential)credential).getEmail();
     for(Party party : processpedia.getPartySet()) {
       if(party instanceof User) {
@@ -49,7 +49,7 @@ public class EmailPasswordAuthenticator extends AbstractAuthenticator {
         }
       }
     }
-    throw new WrongCredentialsException();
+    throw new CredentialInfoIsWrongException();
   }
 
 }

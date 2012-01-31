@@ -3,6 +3,9 @@ package pt.ist.processpedia.shared.validation;
 import pt.ist.processpedia.shared.exception.*;
 import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyInvalidException;
 import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyIsNullException;
+import pt.ist.processpedia.shared.exception.credential.PasswordIsEmptyException;
+import pt.ist.processpedia.shared.exception.credential.PasswordIsNullException;
+import pt.ist.processpedia.shared.exception.credential.PasswordTooShortException;
 import pt.ist.processpedia.shared.exception.dataobject.DataObjectLabelIsEmptyException;
 import pt.ist.processpedia.shared.exception.dataobject.DataObjectLabelIsNullException;
 import pt.ist.processpedia.shared.exception.dataobject.DataObjectLabelTooLongException;
@@ -10,15 +13,13 @@ import pt.ist.processpedia.shared.exception.dataobject.DataObjectLabelTooShortEx
 import pt.ist.processpedia.shared.exception.email.EmailInvalidException;
 import pt.ist.processpedia.shared.exception.email.EmailIsEmptyException;
 import pt.ist.processpedia.shared.exception.email.EmailIsNullException;
-import pt.ist.processpedia.shared.exception.password.PasswordIsEmptyException;
-import pt.ist.processpedia.shared.exception.password.PasswordIsNullException;
-import pt.ist.processpedia.shared.exception.password.PasswordTooShortException;
 import pt.ist.processpedia.shared.exception.process.*;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleIsEmptyException;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleIsNullException;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleTooLongException;
 import pt.ist.processpedia.shared.exception.queue.QueueTitleTooShortException;
 import pt.ist.processpedia.shared.exception.request.*;
+import pt.ist.processpedia.shared.exception.user.UserNameInvalidException;
 import pt.ist.processpedia.shared.exception.user.UserNameIsEmptyException;
 import pt.ist.processpedia.shared.exception.user.UserNameIsNullException;
 
@@ -72,7 +73,6 @@ public class InputValidator {
   }
 
   public static boolean emailIsInvalid(String email) {
-    System.out.println("given email: "+email);
     return !email.contains("@");
   }
 

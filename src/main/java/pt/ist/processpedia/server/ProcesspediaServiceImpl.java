@@ -36,9 +36,9 @@ import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDtoImp
 import pt.ist.processpedia.shared.dto.response.*;
 import pt.ist.processpedia.shared.dto.util.FolderDto;
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
-import pt.ist.processpedia.shared.exception.UnauthenticatedUserException;
-import pt.ist.processpedia.shared.exception.WrongCredentialsException;
 import pt.ist.processpedia.shared.exception.authentication.WrongCredentialTypeException;
+import pt.ist.processpedia.shared.exception.credential.CredentialInfoIsWrongException;
+import pt.ist.processpedia.shared.exception.user.UserNotAuthenticatedException;
 import pt.ist.processpedia.shared.service.ProcesspediaService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -67,13 +67,13 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
 	  HttpSession session = this.getThreadLocalRequest().getSession();
 	  Long actorOid = (Long)session.getAttribute("actorOid");
 	  if (actorOid == null) {
-	    throw new UnauthenticatedUserException();
+	    throw new UserNotAuthenticatedException();
     } else {
       try {
         User loggedUser = Processpedia.fromOID(actorOid);
         return loggedUser;
       } catch(NumberFormatException e) {
-        throw new UnauthenticatedUserException();
+        throw new UserNotAuthenticatedException();
       }
     }
   }
@@ -123,7 +123,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
         credentialInfo.updatePassword(newPassword);
         return new UpdateUserSettingsResponseDto();
       } else {
-        throw new WrongCredentialsException(actor.getEmail());
+        throw new CredentialInfoIsWrongException(actor.getEmail());
       }
     } else {
       throw new WrongCredentialTypeException();
@@ -188,7 +188,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
    * Attempts to obtain the user associated to the user oid contained in a given authenticated action dto.
    * @param authenticatedActionDto the authenticated action dto containing the user oid
    * @return the session user matching the oid referenced in the authenticated action dto
-   * @throws UnauthenticatedUserException when the user oid contained in the authenticationActionDto mismatch the one defined in the current session
+   * @throws UserNotAuthenticatedException when the user oid contained in the authenticationActionDto mismatch the one defined in the current session
    */
   private User getUserFromAuthenticatedActionDto(AuthenticatedActionDto authenticatedActionDto) throws ProcesspediaException {
     System.out.println("THE NAME OF THE ACTION IS "+authenticatedActionDto.getClass().getSimpleName());

@@ -15,23 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception;
+package pt.ist.processpedia.shared.exception.credential;
 
-public class WrongCredentialsException extends ProcesspediaException {
+import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-  private String email;
+public class PasswordsDoNotMatchException extends ProcesspediaException {
 
-  public WrongCredentialsException() {}
+  public PasswordsDoNotMatchException() {}
 
-  public WrongCredentialsException(String email) {
-    setEmail(email);
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
 }

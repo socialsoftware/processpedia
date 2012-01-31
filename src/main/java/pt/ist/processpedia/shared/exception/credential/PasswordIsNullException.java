@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception;
+package pt.ist.processpedia.shared.exception.credential;
 
-public class UnauthenticatedUserException extends ProcesspediaException {
+import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-  public UnauthenticatedUserException() {}
-  
+public class PasswordIsNullException extends ProcesspediaException {
+
+  public PasswordIsNullException() {}
+
 }

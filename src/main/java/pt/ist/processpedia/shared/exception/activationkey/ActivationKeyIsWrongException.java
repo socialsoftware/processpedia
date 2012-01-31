@@ -15,25 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package pt.ist.processpedia.shared.exception.password;
+package pt.ist.processpedia.shared.exception.activationkey;
 
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
-public class PasswordTooShortException extends ProcesspediaException {
+public class ActivationKeyIsWrongException extends ProcesspediaException {
 
-  private int minLengthAllowed;
+  private String wrongActivationKey;
 
-  public PasswordTooShortException() {}
+  public ActivationKeyIsWrongException() {}
 
-  public PasswordTooShortException(int minLengthAllowed) {
-    setMinLengthAllowed(minLengthAllowed);
+  public ActivationKeyIsWrongException(String wrongActivationKey) {
+    setWrongActivationKey(wrongActivationKey);
   }
 
-  public int getMinLengthAllowed() {
-    return minLengthAllowed;
+  public String getWrongActivationKey() {
+    return wrongActivationKey;
   }
 
-  public void setMinLengthAllowed(int minLengthAllowed) {
-    this.minLengthAllowed = minLengthAllowed;
+  public void setWrongActivationKey(String wrongActivationKey) {
+    this.wrongActivationKey = wrongActivationKey;
   }
+
 }

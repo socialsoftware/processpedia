@@ -3,6 +3,7 @@ package pt.ist.processpedia.server.domain;
 import org.joda.time.DateTime;
 import pt.ist.processpedia.server.util.MD5;
 import pt.ist.processpedia.shared.exception.*;
+import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyIsWrongException;
 import pt.ist.processpedia.shared.exception.user.UserAlreadyActiveException;
 import pt.ist.processpedia.shared.validation.InputValidator;
 
@@ -13,7 +14,7 @@ public class User extends User_Base {
    * @param name the name of the user
    * @param email the email of the user
    * @param password the user's password
-   * @throws pt.ist.processpedia.shared.exception.UserNameInvalidException
+   * @throws pt.ist.processpedia.shared.exception.user.UserNameInvalidException
    * @throws pt.ist.processpedia.shared.exception.email.EmailInvalidException
    */
   public User(String name, String avatarUrl, String email) throws ProcesspediaException {
@@ -48,7 +49,7 @@ public class User extends User_Base {
   /**
    * Activates the user using an activation key.
    * @param activationKeyProvided the activation key provided by the user
-   * @throws WrongActivationKeyException when the provided activation key differs from the stored one
+   * @throws ActivationKeyIsWrongException when the provided activation key differs from the stored one
    * @throws UserAlreadyActiveException when the user is already active
    */
   public void activate(String activationKeyProvided) throws ProcesspediaException {
@@ -60,7 +61,7 @@ public class User extends User_Base {
         setActive(true);
         setActivationKey(generateNewActivationKey());
       } else {
-        throw new WrongActivationKeyException(activationKeyProvided);
+        throw new ActivationKeyIsWrongException(activationKeyProvided);
       }
     }
   }
@@ -68,7 +69,7 @@ public class User extends User_Base {
   /**
    * Sets a valid name.
    * @param name the name to be validated and updated
-   * @throws pt.ist.processpedia.shared.exception.UserNameInvalidException
+   * @throws pt.ist.processpedia.shared.exception.user.UserNameInvalidException
    */
   public void updateName(String name) throws ProcesspediaException {
     InputValidator.validateUserName(name);
