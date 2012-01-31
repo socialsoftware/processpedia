@@ -25,7 +25,7 @@
     }
   </ui:style>
   <g:DockLayoutPanel unit="PX">
-    <g:north size="75">
+    <g:north size="100">
       <g:SimpleLayoutPanel styleName="{style.header}" ui:field="headerContainer" />
     </g:north>
     <g:center>

@@ -16,8 +16,8 @@ public class User extends User_Base {
    * @throws pt.ist.processpedia.shared.exception.UserNameInvalidException
    * @throws pt.ist.processpedia.shared.exception.email.EmailInvalidException
    */
-  public User(String name, String email, String avatarUrl) throws ProcesspediaException {
-    init(name,avatarUrl);
+  public User(String name, String avatarUrl, String email) throws ProcesspediaException {
+    init(name, avatarUrl);
     updateEmail(email);
     setActive(true);
     setActivationKey(generateNewActivationKey());

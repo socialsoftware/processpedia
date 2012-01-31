@@ -12,7 +12,7 @@ public class EffectivePeriod extends EffectivePeriod_Base {
     setEndTime(endTime);
   }
   
-  public boolean isActiveOn(DateTime timestamp) {
+  public boolean isValidOn(DateTime timestamp) {
     return timestamp!=null && timestamp.isAfter(getStartTime()) && (getEndTime()==null || timestamp.isBefore(getEndTime()));
   } 
 }

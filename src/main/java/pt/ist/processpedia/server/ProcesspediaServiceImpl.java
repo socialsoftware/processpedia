@@ -24,7 +24,6 @@ import pt.ist.processpedia.server.auth.Authenticator.Credential;
 import pt.ist.processpedia.server.auth.AuthenticatorFactory;
 import pt.ist.processpedia.server.domain.*;
 import pt.ist.processpedia.server.domain.Queue;
-import pt.ist.processpedia.server.domain.Request.RequestState;
 import pt.ist.processpedia.server.domain.credential.PasswordCredentialInfo;
 import pt.ist.processpedia.server.mapper.DomainObjectMapper;
 import pt.ist.processpedia.shared.FolderType;
@@ -176,11 +175,11 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     List<FolderDto> folderDtoList = new ArrayList<FolderDto>();
 
     //TODO: MANAGE TO COUNT FOR THE GIVEN ACTOR, THE NUMBER OF NEW REQUESTS IN EACH QUEUE
-    folderDtoList.add(new FolderDto(FolderType.INBOX, 2));
-    folderDtoList.add(new FolderDto(FolderType.DRAFT, 3));
-    folderDtoList.add(new FolderDto(FolderType.HANDLING, 10));
-    folderDtoList.add(new FolderDto(FolderType.PENDING, 2));
-    folderDtoList.add(new FolderDto(FolderType.HANDLED, 3));
+    folderDtoList.add(new FolderDto(FolderType.INBOX, 0));
+    folderDtoList.add(new FolderDto(FolderType.DRAFT, 0));
+    folderDtoList.add(new FolderDto(FolderType.HANDLING, 0));
+    folderDtoList.add(new FolderDto(FolderType.PENDING, 0));
+    folderDtoList.add(new FolderDto(FolderType.HANDLED, 0));
  
     return new GetFolderListResponseDto(folderDtoList);
   }
@@ -225,7 +224,6 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
         criteriaTokenSet.add(match);
       }
     }
-
     Set<RequestDto> requestDtoSet = new HashSet<RequestDto>();
     String searchRegex = null;
     int i = 0;

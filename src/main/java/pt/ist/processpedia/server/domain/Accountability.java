@@ -1,7 +1,15 @@
 package pt.ist.processpedia.server.domain;
 
+import org.joda.time.DateTime;
+
 public class Accountability extends Accountability_Base {
 
-  public enum AccountabilityType { WORKS_FOR, IS_MANAGED_BY }
+  public Accountability(AccountabilityType type, DateTime startTime) {
+    setType(type);
+    setEffectivePeriod(new EffectivePeriod(startTime));
+  }
 
+  public boolean isValidOn(DateTime timestamp) {
+    return getEffectivePeriod().isValidOn(timestamp);
+  }
 }

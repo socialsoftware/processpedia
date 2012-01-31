@@ -38,16 +38,11 @@ public class Bootstrap {
   }
   
   @Atomic
-  public static void setup() {
-    //OrganizationConnector organizationConnector = new FenixOrganizationConnector();
-    //OrganizationalUnit rootOrganizationalUnit = organizationConnector.loadOrganizationData();
-    //Processpedia.getInstance().installOrganizationalUnit(rootOrganizationalUnit);
-    
+  private static void setup() {
     try {
-      Processpedia.getInstance().createUserWithPasswordCredentialInfo("David Martinho", "d@g.com", "avatar", "xpto");
+      Processpedia.getInstance().createUserWithPasswordCredentialInfo("David Martinho", "davidmartinho.png", "d@g.com", "xpto");
       Processpedia.getInstance().setTagManager(new TagManager());
-    } catch (ProcesspediaException e) {
-      // TODO Auto-generated catch block
+    } catch(ProcesspediaException e) {
       e.printStackTrace();
     }
   }

@@ -20,10 +20,6 @@ import pt.ist.processpedia.shared.validation.InputValidator;
 import java.util.Set;
 
 public class Processpedia extends Processpedia_Base {
-
-  public Processpedia() {
-    setTagManager(new TagManager());
-  }
   
   public User createUserWithCasCredentialInfo(String name, String email, String avatarUrl, String netId) throws ProcesspediaException {
     InputValidator.validateUserName(name);
@@ -43,7 +39,7 @@ public class Processpedia extends Processpedia_Base {
         }
       }
     }
-    User user = new User(name, email, avatarUrl);
+    User user = new User(name, avatarUrl, email);
     user.setCredentialInfo(new CasCredentialInfo(netId));
     PrivateQueue privateQueue = new PrivateQueue(name);
     user.setPrivateQueue(privateQueue);
@@ -55,15 +51,16 @@ public class Processpedia extends Processpedia_Base {
   /**
    * Creates a new user with password credentials.
    * @param name the name of the user
+   * @param avatarUrl the url of the user's avatar image
    * @param email the email of the user
    * @param password the user's password
    * @return a new user if the email is not yet registered, null if the email already exists
-   * @throws pt.ist.processpedia.shared.exception.UserNameInvalidException when the provided name does not contain at least two names separated by a space.
-   * @throws pt.ist.processpedia.shared.exception.email.EmailInvalidException when the provided email is not well-formed
-   * @throws pt.ist.processpedia.shared.exception.password.PasswordTooShortException when the provided password is too short
+   * @throws UserNameInvalidException when the provided name does not contain at least two names separated by a space.
+   * @throws EmailInvalidException when the provided email is not well-formed
+   * @throws PasswordTooShortException when the provided password is too short
    * @throws UserEmailAlreadyInUseException when the provided email is already associated to another user
    */
-  public User createUserWithPasswordCredentialInfo(String name, String email, String avatarUrl, String password) throws ProcesspediaException {
+  public User createUserWithPasswordCredentialInfo(String name, String avatarUrl, String email, String password) throws ProcesspediaException {
     InputValidator.validateUserName(name);
     InputValidator.validateEmail(email);
     InputValidator.validateUserPassword(password);
@@ -75,7 +72,7 @@ public class Processpedia extends Processpedia_Base {
         }
       }
     }
-    User user = new User(name, email, avatarUrl);
+    User user = new User(name, avatarUrl, email);
     user.setCredentialInfo(new PasswordCredentialInfo(password));
     addParty(user);
     //EmailClient.sendActivationEmail(user.getName(), user.getEmail(), user.getActivationKey());

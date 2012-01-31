@@ -299,6 +299,11 @@ relation RolePlayQueueHasRole {
   Role playsRole role { multiplicity 1..1; }
 }
 
+relation AccountabilityIsComposedByRolePlays {
+  RolePlay playsRole rolePlay { multiplicity 0..*; }
+  Accountability playsRole accountability { multiplicity 1..1; }
+}
+
 relation RolePlayQueueHasAccountabilityType {
   RolePlayQueue playsRole rolePlayQueue { multiplicity 0..*; }
   AccountabilityType playsRole accountabilityType { multiplicity 1..1; }

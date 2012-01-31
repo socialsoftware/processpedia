@@ -32,6 +32,8 @@ import pt.ist.processpedia.client.view.home.content.process.CreateProcessViewImp
 import pt.ist.processpedia.client.view.home.content.process.ProcessView;
 import pt.ist.processpedia.client.view.home.content.process.ProcessViewImpl;
 import pt.ist.processpedia.client.view.home.content.request.*;
+import pt.ist.processpedia.client.view.home.content.request.header.RequestHeaderView;
+import pt.ist.processpedia.client.view.home.content.request.header.RequestHeaderViewImpl;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineViewImpl;
 import pt.ist.processpedia.client.view.home.content.splash.*;
@@ -94,6 +96,9 @@ public class BrowserFactoryImpl implements BrowserFactory {
   private static final NoRequestsFoundView NO_REQUESTS_FOUND_VIEW = new NoRequestsFoundViewImpl();
 
   private static final LoadingFoldersView LOADING_FOLDERS_VIEW = new LoadingFoldersViewImpl();
+  
+  
+  private static final RequestHeaderView REQUEST_HEADER_VIEW = new RequestHeaderViewImpl();
   
   private static BrowserFactory INSTANCE = new BrowserFactoryImpl();
 
@@ -185,5 +190,9 @@ public class BrowserFactoryImpl implements BrowserFactory {
 
   public ExceptionHandler getExceptionHandler() {
     return EXCEPTION_HANDLER;
+  }
+
+  public RequestHeaderView getRequestHeaderView() {
+    return REQUEST_HEADER_VIEW;
   }
 }

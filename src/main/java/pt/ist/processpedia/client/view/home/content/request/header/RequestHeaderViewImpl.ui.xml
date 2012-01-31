@@ -8,38 +8,40 @@
       background-color: #000;
       color: #FFF;
     }
+    .userContainer {
+      width: 200px;
+      display: inline;
+      
+    }
     .avatar {
       width: 22px;
       height: 22px;
+      display: inline;
     }
     .userName {
       font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
       font-size: 12px;
       font-weight: 300;
+      display: inline;
     }
     .subject {
       font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 10px;      
-    }
-    .processTitle {
-      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
-      font-size: 15px;
-      font-weight: bold;
-      margin-bottom: 3px;
+      display: inline;
     }
   </ui:style>
-  <g:VerticalPanel styleName="{style.container}">
-    <g:FlowPanel>
-      <g:Image styleName="{style.avatar}" ui:field="initiatorAvatarContainer" />
-      <g:Image styleName="{style.userName}" ui:field="initiatorNameContainer" />
-    </g:FlowPanel>
-    <g:FlowPanel>
-      <g:Image styleName="{style.avatar}" ui:field="fromAvatarContainer" />
-      <g:Label styleName="{style.userName}" ui:field="fromNameContainer" />
-    </g:FlowPanel>
+  <g:FlowPanel styleName="{style.container}">
     <g:Label styleName="{style.subject}" ui:field="subjectContainer"/>
-    <g:Label styleName="{style.processTitle}" ui:field="processTitleContainer"/>
-  </g:VerticalPanel>
+    <g:FlowPanel styleName="{style.userContainer">
+      <g:Image styleName="{style.avatar}" ui:field="initiatorAvatarContainer" />
+      <g:Label styleName="{style.userName}" ui:field="initiatorNameContainer" />
+    </g:FlowPanel>
+    <g:FlowPanel styleName="{style.userContainer">
+      <g:Image styleName="{style.avatar}" ui:field="fromAvatarContainer" />
+      <g:Label styleName="{style.userName}" ui:field="senderNameContainer" />
+    </g:FlowPanel>
+
+  </g:FlowPanel>
 </ui:UiBinder>

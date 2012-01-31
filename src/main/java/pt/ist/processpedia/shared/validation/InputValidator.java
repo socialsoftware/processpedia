@@ -72,6 +72,7 @@ public class InputValidator {
   }
 
   public static boolean emailIsInvalid(String email) {
+    System.out.println("given email: "+email);
     return !email.contains("@");
   }
 

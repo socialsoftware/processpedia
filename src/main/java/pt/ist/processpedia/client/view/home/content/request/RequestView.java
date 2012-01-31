@@ -20,13 +20,6 @@ package pt.ist.processpedia.client.view.home.content.request;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import pt.ist.processpedia.client.view.ProcesspediaView;
 
-/**
- * Created by IntelliJ IDEA.
- * User: davidmartinho
- * Date: 11/18/11
- * Time: 8:52 AM
- * To change this template use File | Settings | File Templates.
- */
 public interface RequestView extends ProcesspediaView {
 
 

@@ -16,6 +16,7 @@ import pt.ist.processpedia.client.view.home.content.process.ProcessView;
 import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
 import pt.ist.processpedia.client.view.home.content.request.RequestListView;
+import pt.ist.processpedia.client.view.home.content.request.header.RequestHeaderView;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
 import pt.ist.processpedia.client.view.home.content.splash.NoFolderSelectedView;
 import pt.ist.processpedia.client.view.home.content.splash.NoRequestsFoundView;
@@ -75,5 +76,7 @@ public interface BrowserFactory {
 
 
   ExceptionHandler getExceptionHandler();
+
+  RequestHeaderView getRequestHeaderView();
 
 }

@@ -12,13 +12,10 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
   interface RequestHeaderViewImplUiBinder extends UiBinder<Widget,RequestHeaderViewImpl> {}
   private static RequestHeaderViewImplUiBinder uiBinder = GWT.create(RequestHeaderViewImplUiBinder.class);
   
-  private ProcesspediaPresenter presenter;
+  private Presenter presenter;
 
   @UiField
   HasText subjectContainer;
-  
-  @UiField
-  HasText processTitleContainer;
   
   @UiField
   HasText initiatorNameContainer, senderNameContainer;
@@ -31,4 +28,22 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
   public void prepareView() {
     
   }
+  
+  public void setSubject(String subject) {
+    this.subjectContainer.setText(subject);
+  }
+  
+  public void setInitiatorName(String initiatorName) {
+    this.initiatorNameContainer.setText(initiatorName);
+  }
+
+  public void setSenderName(String senderName) {
+    this.senderNameContainer.setText(senderName);
+  }
+
+  @Override
+  public void setPresenter(Presenter presenter) {
+    this.presenter = presenter;
+  }
+  
 }
