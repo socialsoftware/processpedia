@@ -19,7 +19,7 @@
       margin-bottom: 4px;
     }
   </ui:style>
-  <g:VerticalPanel styleName="{style.requestFolderListContainer}"
+  <g:HTMLPanel styleName="{style.requestFolderListContainer}"
                    ui:field="folderListContainer">
- </g:VerticalPanel>
+ </g:HTMLPanel>
 </ui:UiBinder>

@@ -52,7 +52,7 @@
       margin-top: 30px;
     }
   </ui:style>
-  <g:VerticalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
+  <g:HTMLPanel addStyleNames="{style.container}">
     <g:Label styleName="{style.title}" ui:field="settingsTitleContainer"/>
     <g:Label styleName="{style.label}" ui:field="userNameLabelContainer"/>
     <g:TextBox styleName="{style.textbox}" ui:field="userNameContainer"/>
@@ -73,6 +73,5 @@
       <g:Button styleName="{style.cancelButton}" ui:field="cancelChangesAction" />
       <g:Button addStyleNames="{style.submitButton}" ui:field="saveSettingsAction" />
     </g:FlowPanel>
-
- </g:VerticalPanel>
+  </g:HTMLPanel>
 </ui:UiBinder>

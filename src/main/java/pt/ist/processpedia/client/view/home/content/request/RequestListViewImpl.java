@@ -22,6 +22,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -43,7 +44,7 @@ public class RequestListViewImpl extends Composite implements RequestListView {
   private static RequestListViewImplUiBinder uiBinder = GWT.create(RequestListViewImplUiBinder.class);
 
   @UiField
-  VerticalPanel requestGridContainer;
+  HTMLPanel requestGridContainer;
 
   DataGrid<RequestDto> requestGrid;
 
@@ -66,6 +67,7 @@ public class RequestListViewImpl extends Composite implements RequestListView {
   public void displayRequestSet(Set<RequestDto> requestDtoSet, List<RequestColumn<RequestDto,String>> columnSet) {
     List<RequestDto> requestList = new ArrayList<RequestDto>();
     requestList.addAll(requestDtoSet);
+    requestGridContainer.setHeight("100%");
     requestGrid  = new DataGrid<RequestDto>(2000, RequestDataGridLine.KEY_PROVIDER);
     requestGrid.setWidth("100%");
     requestGrid.setHeight("100%");

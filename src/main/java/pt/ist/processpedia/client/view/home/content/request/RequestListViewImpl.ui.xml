@@ -4,8 +4,7 @@
   <ui:style>
     .processContainer {
       width: 100%;
-      height: 100%;
     }
   </ui:style>
-  <g:VerticalPanel ui:field="requestGridContainer" styleName="{style.processContainer}" />
+  <g:HTMLPanel ui:field="requestGridContainer" styleName="{style.processContainer}" />
 </ui:UiBinder>

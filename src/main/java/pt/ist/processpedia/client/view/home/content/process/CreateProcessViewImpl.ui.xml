@@ -54,7 +54,7 @@
       margin-top: 30px;
     }
   </ui:style>
-  <g:VerticalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
+  <g:HTMLPanel addStyleNames="{style.container}">
     <g:Label styleName="{style.title}" ui:field="createProcessTitleContainer"/>
     <g:Label styleName="{style.label}" ui:field="processTitleLabelContainer"/>
     <g:TextBox styleName="{style.textbox}" ui:field="processTitleContainer"/>
@@ -65,6 +65,5 @@
       <g:Button styleName="{style.cancelButton}" ui:field="cancelAction" />
       <g:Button addStyleNames="{style.submitButton}" ui:field="createProcessAction" />
     </g:FlowPanel>
-
- </g:VerticalPanel>
+  </g:HTMLPanel>
 </ui:UiBinder>
