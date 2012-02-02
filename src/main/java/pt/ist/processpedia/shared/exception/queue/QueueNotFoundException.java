@@ -17,24 +17,24 @@
 
 package pt.ist.processpedia.shared.exception.queue;
 
-import pt.ist.processpedia.shared.dto.domain.QueueDto;
+import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
 import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
 public class QueueNotFoundException extends ProcesspediaException {
 
-  private QueueDto queueDto;
+  private QueueDtoImpl queueDto;
 
   public QueueNotFoundException() {}
 
-  public QueueNotFoundException(QueueDto queueDto) {
+  public QueueNotFoundException(QueueDtoImpl queueDto) {
     setQueueDto(queueDto);
   }
 
-  public QueueDto getQueueDto() {
+  public QueueDtoImpl getQueueDto() {
     return queueDto;
   }
 
-  public void setQueueDto(QueueDto queueDto) {
+  public void setQueueDto(QueueDtoImpl queueDto) {
     this.queueDto = queueDto;
   }
 }

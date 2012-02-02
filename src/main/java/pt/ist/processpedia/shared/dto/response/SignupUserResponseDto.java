@@ -17,10 +17,10 @@
 
 package pt.ist.processpedia.shared.dto.response;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+public class SignupUserResponseDto extends ResponseDto {
 
-public class SignupUserResponseDto extends ResponseDto implements IsSerializable {
-
+  private static final long serialVersionUID = 1L;
+  
   private String email;
 
   public SignupUserResponseDto() {}

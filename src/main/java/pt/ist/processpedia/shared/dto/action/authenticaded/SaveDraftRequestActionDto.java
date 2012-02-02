@@ -1,8 +1,8 @@
 package pt.ist.processpedia.shared.dto.action.authenticaded;
 
 import java.util.Set;
-import pt.ist.processpedia.shared.dto.domain.DataObjectDto;
-import pt.ist.processpedia.shared.dto.domain.QueueDto;
+import pt.ist.processpedia.shared.dto.domain.DataObjectDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
 
 public class SaveDraftRequestActionDto extends AuthenticatedActionDto {
 
@@ -10,12 +10,12 @@ public class SaveDraftRequestActionDto extends AuthenticatedActionDto {
   private String subject;
   private String message;
   private Boolean isResponseExpected;
-  private Set<DataObjectDto> inputDataObjectDtoSet;
-  private Set<QueueDto> queueDtoSet;
+  private Set<DataObjectDtoImpl> inputDataObjectDtoSet;
+  private Set<QueueDtoImpl> queueDtoSet;
   
   public SaveDraftRequestActionDto() {}
   
-  public SaveDraftRequestActionDto(String actorOid, long parentRequestOid, String subject, String message, boolean isResponseExpected, Set<QueueDto> queueDtoSet, Set<DataObjectDto> inputDataObjectDtoSet) {
+  public SaveDraftRequestActionDto(String actorOid, long parentRequestOid, String subject, String message, boolean isResponseExpected, Set<QueueDtoImpl> queueDtoSet, Set<DataObjectDtoImpl> inputDataObjectDtoSet) {
     super(actorOid);
     setParentRequestOid(parentRequestOid);
     setSubject(subject);
@@ -57,19 +57,19 @@ public class SaveDraftRequestActionDto extends AuthenticatedActionDto {
     this.isResponseExpected = isResponseExpected;
   }
   
-  public Set<QueueDto> getQueueDtoSet() {
+  public Set<QueueDtoImpl> getQueueDtoSet() {
     return queueDtoSet;
   }
   
-  public void setQueueDtoSet(Set<QueueDto> queueDtoSet) {
+  public void setQueueDtoSet(Set<QueueDtoImpl> queueDtoSet) {
     this.queueDtoSet = queueDtoSet;
   }
   
-  public Set<DataObjectDto> getInputDataObjectDtoSet() {
+  public Set<DataObjectDtoImpl> getInputDataObjectDtoSet() {
     return inputDataObjectDtoSet;
   }
   
-  public void setInputDataObjectDtoSet(Set<DataObjectDto> inputDataObjectDtoSet) {
+  public void setInputDataObjectDtoSet(Set<DataObjectDtoImpl> inputDataObjectDtoSet) {
     this.inputDataObjectDtoSet = inputDataObjectDtoSet;
   }
   

@@ -3,7 +3,7 @@ package pt.ist.processpedia.client.view.home.content.request.list;
 import java.util.Comparator;
 import pt.ist.processpedia.client.BrowserFactoryImpl;
 import pt.ist.processpedia.client.Messages;
-import pt.ist.processpedia.shared.dto.domain.QueueDto;
+import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
 import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.TextCell;
@@ -144,7 +144,7 @@ public class RequestListColumn {
   
   public static final RequestColumn<RequestDto,String> NUMBER_PUBLISHED_QUEUE_COLUMN = new RequestColumn<RequestDto, String>(new TextCell()) {
     public String getValue(RequestDto requestDto) {
-      QueueDto queueDto = (QueueDto)requestDto.getPublishedQueueDtoSet().toArray()[0];
+      QueueDtoImpl queueDto = (QueueDtoImpl)requestDto.getPublishedQueueDtoSet().toArray()[0];
       return queueDto.getTitle();
     }
     public int compare(RequestDto a, RequestDto b) {

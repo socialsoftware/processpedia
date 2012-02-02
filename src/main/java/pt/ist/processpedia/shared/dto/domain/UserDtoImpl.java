@@ -1,22 +1,12 @@
 package pt.ist.processpedia.shared.dto.domain;
 
-public class UserDtoImpl extends DomainObjectDtoImpl implements UserDto {
+public class UserDtoImpl extends OperatingPartyDtoImpl implements UserDto {
 
-  private String name;
-
+  private static final long serialVersionUID = 1L;
+  
   public UserDtoImpl() {}
 
-  public UserDtoImpl(Long oid, String name) {
-    super(oid);
-    setName(name);
+  public UserDtoImpl(Long oid, String name, String avatarUrl) {
+    super(oid, name, avatarUrl);
   }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
 }

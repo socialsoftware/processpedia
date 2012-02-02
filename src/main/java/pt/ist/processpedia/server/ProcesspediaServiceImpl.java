@@ -87,7 +87,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     Credential credential = authenticator.getCredential(credentialDto);
     User user = authenticator.login(httpSession, credential);
     
-    return new LoginUserResponseDto(DomainObjectMapper.getPartyDtoFromParty(user));
+    return new LoginUserResponseDto(DomainObjectMapper.getUserDtoFromUser(user));
   }
 
   @Atomic
@@ -157,7 +157,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
   public GetQueueSetResponseDto getQueueSet(GetQueueSetActionDto getQueueSetActionDto) throws ProcesspediaException {
     getUserFromAuthenticatedActionDto(getQueueSetActionDto);
     Processpedia processpedia = Processpedia.getInstance();
-    Set<QueueDto> queueDtoSet = DomainObjectMapper.getQueueDtoSetFromQueueSet(processpedia.getQueueSet());
+    Set<QueueDtoImpl> queueDtoSet = DomainObjectMapper.getQueueDtoSetFromQueueSet(processpedia.getQueueSet());
     return new GetQueueSetResponseDto(queueDtoSet);
   }
 

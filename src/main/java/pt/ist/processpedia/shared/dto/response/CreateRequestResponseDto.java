@@ -1,7 +1,9 @@
 package pt.ist.processpedia.shared.dto.response;
 
 public class CreateRequestResponseDto extends ResponseDto {
-  
+
+  private static final long serialVersionUID = 1L;
+
   private long requestOid;
   
   public CreateRequestResponseDto() {}

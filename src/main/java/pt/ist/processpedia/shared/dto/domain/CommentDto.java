@@ -21,7 +21,7 @@ import java.util.Date;
 
 public interface CommentDto extends DomainObjectDto {
 
-  public UserDetailedDto getAuthorDto();
+  public OperatingPartyDto getAuthor();
   public Date getCreationTimestamp();
   public String getCommentaryText();
   public CommentDto getNextCommentDto();

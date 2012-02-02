@@ -1,6 +1,6 @@
 package pt.ist.processpedia.server.domain;
 
-import pt.ist.processpedia.shared.dto.domain.DataObjectType;
+import pt.ist.processpedia.shared.domain.DataObjectType;
 
 public class DataObject extends DataObject_Base {
 

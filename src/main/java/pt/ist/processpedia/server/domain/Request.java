@@ -2,7 +2,8 @@ package pt.ist.processpedia.server.domain;
 
 import org.joda.time.DateTime;
 
-import pt.ist.processpedia.shared.dto.domain.DataObjectType;
+import pt.ist.processpedia.shared.domain.DataObjectType;
+import pt.ist.processpedia.shared.exception.request.RequestIsBeingExecutedByOtherOperatingPartyException;
 
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public class Request extends Request_Base {
    * @param expectsAnswer true if the requests expects an answer, false if not
    * @param inputDataObjectSet the set of data objects available to the executor
    */
-  public Request(User initiator, String subject, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObjectVersion> inputDataObjectVersionSet) {
+  public Request(OperatingParty initiator, String subject, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObjectVersion> inputDataObjectVersionSet) {
     setInitiator(initiator);
     setSubject(subject);
     setDescription(description);
@@ -64,9 +65,13 @@ public class Request extends Request_Base {
    * @param publishedQueueSet the set of queues where the new request is to be published
    * @param inputDataObjectSet the set of data objects that will be available to the executor
    * @return the created request
+   * @throws RequestIsBeingExecutedByOtherOperatingPartyException when the initiator of the request is not executing the context request
    */
-  public Request createSubRequest(User initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObjectVersion> inputDataObjectVersionSet) {
-    Request childRequest = new Request(initiator, title, description, expectsAnswer, publishedQueueSet, inputDataObjectVersionSet);
+  public Request createSubRequest(OperatingParty initiator, String title, String description, Boolean expectsAnswer, Set<Queue> publishedQueueSet, Set<DataObjectVersion> inputDataObjectVersionSet) throws RequestIsBeingExecutedByOtherOperatingPartyException {
+    if(!getExecutor().equals(initiator)) {
+      throw new RequestIsBeingExecutedByOtherOperatingPartyException();
+    }
+    Request childRequest = new Request(getExecutor(), title, description, expectsAnswer, publishedQueueSet, inputDataObjectVersionSet);
     childRequest.setParentRequest(this);
     childRequest.setProcess(getProcess());
     return childRequest;

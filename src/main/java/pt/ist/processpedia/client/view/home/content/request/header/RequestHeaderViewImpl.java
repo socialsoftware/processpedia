@@ -18,6 +18,9 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
   HasText subjectContainer;
   
   @UiField
+  HasText processTitleContainer;
+  
+  @UiField
   HasText initiatorNameContainer, senderNameContainer;
 
   public RequestHeaderViewImpl() {
@@ -26,7 +29,14 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
   
   @Override
   public void prepareView() {
-    
+    setProcessTitle("");
+    setSubject("");
+    setInitiatorName("");
+    setSenderName("");
+  }
+  
+  public void setProcessTitle(String processTitle) {
+    this.processTitleContainer.setText(processTitle);
   }
   
   public void setSubject(String subject) {
@@ -45,5 +55,4 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
   public void setPresenter(Presenter presenter) {
     this.presenter = presenter;
   }
-  
 }

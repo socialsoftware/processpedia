@@ -1,4 +1,4 @@
-package pt.ist.processpedia.shared.dto.domain;
+package pt.ist.processpedia.shared.domain;
 
 public enum DataObjectType {
 

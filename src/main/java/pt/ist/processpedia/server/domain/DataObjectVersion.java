@@ -2,7 +2,7 @@ package pt.ist.processpedia.server.domain;
 
 import org.joda.time.DateTime;
 
-import pt.ist.processpedia.shared.dto.domain.DataObjectType;
+import pt.ist.processpedia.shared.domain.DataObjectType;
 
 public class DataObjectVersion extends DataObjectVersion_Base {
 

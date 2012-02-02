@@ -18,9 +18,9 @@
 package pt.ist.processpedia.shared.dto.action.authenticaded;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import pt.ist.processpedia.shared.dto.domain.DataObjectDto;
-import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
-import pt.ist.processpedia.shared.dto.domain.QueueDto;
+import pt.ist.processpedia.shared.dto.domain.DataObjectDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
 import java.util.Set;
 
 public class CreateRequestActionDto extends AuthenticatedActionDto implements IsSerializable {
@@ -29,12 +29,12 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
   private String title;
   private String description;
   private Boolean isResponseExpected;
-  private Set<DataObjectVersionDto> inputDataObjectVersionDtoSet;
-  private Set<QueueDto> queueDtoSet;
+  private Set<DataObjectVersionDtoImpl> inputDataObjectVersionDtoSet;
+  private Set<QueueDtoImpl> queueDtoSet;
 
   public CreateRequestActionDto() {}
 
-  public CreateRequestActionDto(String actorOid, long parentRequestOid, String title, String description, Boolean isResponseExpected, Set<QueueDto> queueDtoSet, Set<DataObjectDto> inputDataObjectDtoSet) {
+  public CreateRequestActionDto(String actorOid, long parentRequestOid, String title, String description, Boolean isResponseExpected, Set<QueueDtoImpl> queueDtoSet, Set<DataObjectDtoImpl> inputDataObjectDtoSet) {
     super(actorOid);
     setParentRequestOid(parentRequestOid);
     setTitle(title);
@@ -76,19 +76,19 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
     this.isResponseExpected = isResponseExpected;
   }
 
-  public Set<QueueDto> getQueueDtoSet() {
+  public Set<QueueDtoImpl> getQueueDtoSet() {
     return queueDtoSet;
   }
 
-  public void setQueueDtoSet(Set<QueueDto> queueDtoSet) {
+  public void setQueueDtoSet(Set<QueueDtoImpl> queueDtoSet) {
     this.queueDtoSet = queueDtoSet;
   }
 
-  public Set<DataObjectVersionDto> getInputDataObjectVersionDtoSet() {
+  public Set<DataObjectVersionDtoImpl> getInputDataObjectVersionDtoSet() {
     return inputDataObjectVersionDtoSet;
   }
 
-  public void setInputDataObjectVersionDtoSet(Set<DataObjectVersionDto> inputDataObjectVersionDtoSet) {
+  public void setInputDataObjectVersionDtoSet(Set<DataObjectVersionDtoImpl> inputDataObjectVersionDtoSet) {
     this.inputDataObjectVersionDtoSet = inputDataObjectVersionDtoSet;
   }
 }

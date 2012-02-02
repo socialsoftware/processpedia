@@ -17,24 +17,24 @@
 
 package pt.ist.processpedia.shared.dto.domain;
 
-import java.util.Set;
+public class DataObjectDtoImpl extends DomainObjectDtoImpl implements DataObjectDto {
 
-public class ProcessWithRootRequestsDto extends ProcessDetailedDto {
+  private static final long serialVersionUID = 1L;
 
-  private Set<RequestDetailedDtoImpl> rootRequestSet;
+  private DataObjectVersionDto dataObjectVersion;
 
-  public ProcessWithRootRequestsDto() {}
+  public DataObjectDtoImpl() {}
 
-  public ProcessWithRootRequestsDto(long processOid, String processTitle, String processDescription, Set<RequestDetailedDtoImpl> rootRequestSet) {
-    super(processOid, processTitle, processDescription);
-    setRootRequestSet(rootRequestSet);
+  public DataObjectDto withCurrentDataobjectVersion(DataObjectVersionDto dataObjectVersion) {
+    setCurrentDataObjectVersion(dataObjectVersion);
+    return this;
   }
 
-  public Set<RequestDetailedDtoImpl> getRootRequestSet() {
-    return rootRequestSet;
+  public DataObjectVersionDto getDataObjectVersionDto() {
+    return dataObjectVersion;
   }
 
-  public void setRootRequestSet(Set<RequestDetailedDtoImpl> rootRequestSet) {
-    this.rootRequestSet = rootRequestSet;
+  public void setCurrentDataObjectVersion(DataObjectVersionDto dataObjectVersion) {
+    this.dataObjectVersion = dataObjectVersion;
   }
 }

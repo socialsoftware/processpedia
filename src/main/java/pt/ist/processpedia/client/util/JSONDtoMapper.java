@@ -12,11 +12,11 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 
 import pt.ist.processpedia.shared.dto.Dto;
-import pt.ist.processpedia.shared.dto.domain.ProcessDto;
-import pt.ist.processpedia.shared.dto.domain.QueueDto;
+import pt.ist.processpedia.shared.dto.domain.ProcessDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
 import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import pt.ist.processpedia.shared.dto.domain.RequestDtoImpl;
-import pt.ist.processpedia.shared.dto.domain.UserDto;
+import pt.ist.processpedia.shared.dto.domain.OperatingParty;
 import pt.ist.processpedia.shared.dto.domain.UserDtoImpl;
 
 public class JSONDtoMapper implements DtoMapper {
@@ -40,8 +40,8 @@ public class JSONDtoMapper implements DtoMapper {
   
   @Override
   public String externalize(Dto dto) {
-    if(dto instanceof UserDto) {
-      return externalizeUserDto((UserDto)dto).toString();
+    if(dto instanceof OperatingParty) {
+      return externalizeUserDto((OperatingParty)dto).toString();
     } else if(dto instanceof RequestDto) {
       return externalizeRequestDto((RequestDto)dto).toString();
     }
@@ -49,17 +49,17 @@ public class JSONDtoMapper implements DtoMapper {
     return null;
   }
 
-  public UserDto internalizeUserDto(String externalizedDto) {
+  public OperatingParty internalizeUserDto(String externalizedDto) {
     return internalizeUserDto((JSONObject)parse(externalizedDto));
   }
   
-  public UserDto internalizeUserDto(JSONObject userJsonObject) {
+  public OperatingParty internalizeUserDto(JSONObject userJsonObject) {
     Long oid = new Long(((JSONString)userJsonObject.get(Key.OID)).stringValue());
     String name = ((JSONString)userJsonObject.get(Key.NAME.toString())).stringValue();
     return new UserDtoImpl(oid, name);
   }
   
-  public JSONObject externalizeUserDto(UserDto userDto) {
+  public JSONObject externalizeUserDto(OperatingParty userDto) {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put(Key.OID, new JSONNumber(userDto.getOid()));
     jsonObject.put(Key.NAME, new JSONString(userDto.getName()));
@@ -70,56 +70,56 @@ public class JSONDtoMapper implements DtoMapper {
     JSONObject jsonObject = (JSONObject)parse(externalizedDto);
     Long oid = new Long(((JSONString)jsonObject.get(Key.OID)).stringValue());
     String subject = ((JSONString)jsonObject.get(Key.SUBJECT)).stringValue();
-    UserDto initiatorDto = internalizeUserDto((JSONObject)jsonObject.get(Key.INITIATOR));
-    UserDto executorDto = internalizeUserDto((JSONObject)jsonObject.get(Key.EXECUTOR));
-    Set<QueueDto> publishedQueueDtoSet = internalizeQueueDtoSet((JSONArray)jsonObject.get(Key.PUBLISHED_QUEUES));
+    OperatingParty initiatorDto = internalizeUserDto((JSONObject)jsonObject.get(Key.INITIATOR));
+    OperatingParty executorDto = internalizeUserDto((JSONObject)jsonObject.get(Key.EXECUTOR));
+    Set<QueueDtoImpl> publishedQueueDtoSet = internalizeQueueDtoSet((JSONArray)jsonObject.get(Key.PUBLISHED_QUEUES));
     Date creationTimestamp = new Date(new Long(((JSONNumber)jsonObject.get(Key.CREATION_TIMESTAMP)).toString()));
     Date lastUpdateTimestamp = new Date(new Long(((JSONNumber)jsonObject.get(Key.LAST_UPDATE_TIMESTAMP)).toString()));
-    ProcessDto processDto = internalizeProcessDto((JSONObject)jsonObject.get(Key.PROCESS));
+    ProcessDtoImpl processDto = internalizeProcessDto((JSONObject)jsonObject.get(Key.PROCESS));
     return new RequestDtoImpl(oid, subject, initiatorDto, executorDto, publishedQueueDtoSet, creationTimestamp, lastUpdateTimestamp, processDto);
   }
   
-  public QueueDto internalizeQueueDto(String externalizedDto) {
+  public QueueDtoImpl internalizeQueueDto(String externalizedDto) {
     return internalizeQueueDto((JSONObject)parse(externalizedDto));
   }
   
-  public QueueDto internalizeQueueDto(JSONObject queueDtoJsonObject) {
+  public QueueDtoImpl internalizeQueueDto(JSONObject queueDtoJsonObject) {
     Long oid = new Long(((JSONNumber)queueDtoJsonObject.get(Key.OID)).toString());
     String title = ((JSONString)queueDtoJsonObject.get(Key.TITLE.toString())).stringValue();
-    return new QueueDto(oid, title);
+    return new QueueDtoImpl(oid, title);
   }
   
-  public Set<QueueDto> internalizeQueueDtoSet(JSONArray queueSetJsonArray) {
-    Set<QueueDto> queueDtoSet = new HashSet<QueueDto>();
+  public Set<QueueDtoImpl> internalizeQueueDtoSet(JSONArray queueSetJsonArray) {
+    Set<QueueDtoImpl> queueDtoSet = new HashSet<QueueDtoImpl>();
     for(int i = 0; i < queueSetJsonArray.size(); i++) {
       queueDtoSet.add(internalizeQueueDto(((JSONObject)queueSetJsonArray.get(i))));
     }
     return queueDtoSet;  
   }
   
-  public JSONArray externalizeQueueDtoSet(Set<QueueDto> queueDtoSet) {
+  public JSONArray externalizeQueueDtoSet(Set<QueueDtoImpl> queueDtoSet) {
     JSONArray queueSetJsonArray = new JSONArray();
     int i = 0;
-    for(QueueDto queueDto : queueDtoSet) {
+    for(QueueDtoImpl queueDto : queueDtoSet) {
       queueSetJsonArray.set(i++, externalizeQueueDto(queueDto));
     }
     return queueSetJsonArray;
   }
   
-  public JSONObject externalizeQueueDto(QueueDto queueDto) {
+  public JSONObject externalizeQueueDto(QueueDtoImpl queueDto) {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put(Key.OID, new JSONNumber(queueDto.getOid()));
     jsonObject.put(Key.TITLE, new JSONString(queueDto.getTitle()));
     return jsonObject;
   }
   
-  public ProcessDto internalizeProcessDto(JSONObject processJsonObject) {
+  public ProcessDtoImpl internalizeProcessDto(JSONObject processJsonObject) {
     Long oid = new Long(((JSONNumber)processJsonObject.get(Key.OID)).toString());
     String title = ((JSONString)processJsonObject.get(Key.TITLE.toString())).stringValue();
-    return new ProcessDto(oid, title);
+    return new ProcessDtoImpl(oid, title);
   }
   
-  public ProcessDto internalizeProcessDto(String externalizedDto) {
+  public ProcessDtoImpl internalizeProcessDto(String externalizedDto) {
     return internalizeProcessDto((JSONObject)parse(externalizedDto));
   }
   

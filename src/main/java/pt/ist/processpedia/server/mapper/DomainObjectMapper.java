@@ -32,10 +32,16 @@ import java.util.Set;
 
 public class DomainObjectMapper {
 
-  public static UserDtoImpl getPartyDtoFromParty(Party party) {
-    if(party==null)
+  public static OperatingParty getUserDtoFromUser(User user) {
+    if(user == null)
       return null;
-    return new UserDtoImpl(party.getOid(), party.getName());
+    return new UserDtoImpl(user.getOid(), user.getName(), user.getAvatarUrl());
+  }
+  
+  public static OperatingPartyDto getOperatingPartyDtoFromOperatingParty(OperatingParty operatingParty) {
+    if(operatingParty == null)
+      return null;
+    return new UserDtoImpl(operatingParty.getOid(), operatingParty.getName(), operatingParty.getAvatarUrl());
   }
 
   public static UserDetailedDtoImpl getPartyDetailedDtoFromParty(Party party) {
@@ -44,16 +50,16 @@ public class DomainObjectMapper {
     return new UserDetailedDtoImpl(party.getOid(), party.getName(), party.getAvatarUrl());
   }
 
-  public static ProcessDto getProcessDtoFromProcess(Process process) {
+  public static ProcessDtoImpl getProcessDtoFromProcess(Process process) {
     if(process==null)
       return null;
-    return new ProcessDto(process.getOid(), process.getTitleTag().getKeyword());
+    return new ProcessDtoImpl(process.getOid(), process.getTitleTag().getKeyword());
   }
 
-  public static ProcessDetailedDto getProcessDetailedDtoFromProcess(Process process) {
+  public static ProcessDetailedDtoImpl getProcessDetailedDtoFromProcess(Process process) {
     if(process == null)
       return null;
-    return new ProcessDetailedDto(process.getOid(), process.getTitleTag().getKeyword(), process.getDescription());
+    return new ProcessDetailedDtoImpl(process.getOid(), process.getTitleTag().getKeyword(), process.getDescription());
   }
 
   public static RequestDtoImpl getRequestDtoFromRequest(Request request) {
@@ -61,8 +67,8 @@ public class DomainObjectMapper {
       return null;
     return new RequestDtoImpl(request.getOid(),
         request.getSubjectTag().getKeyword(),
-        getPartyDtoFromParty(request.getInitiator()),
-        getPartyDtoFromParty(request.getExecutor()),
+        getOperatingPartyDtoFromOperatingParty(request.getInitiator()),
+        getOperatingPartyDtoFromOperatingParty(request.getExecutor()),
         getQueueDtoSetFromQueueSet(request.getQueueSet()),
         request.getCreationTimestamp().toDate(),
         request.getLastUpdateTimestamp().toDate(),
@@ -110,57 +116,57 @@ public class DomainObjectMapper {
     return commentDtoSet;
   }
 
-  public static Set<DataObjectDto> getDataObjectDtoSetFromDataObjectSet(Set<DataObject> dataObjectSet) {
-    Set<DataObjectDto> dataObjectDtoSet = new HashSet<DataObjectDto>();
+  public static Set<DataObjectDtoImpl> getDataObjectDtoSetFromDataObjectSet(Set<DataObject> dataObjectSet) {
+    Set<DataObjectDtoImpl> dataObjectDtoSet = new HashSet<DataObjectDtoImpl>();
     for(DataObject dataObject : dataObjectSet) {
       dataObjectDtoSet.add(getDataObjectDtoFromDataObject(dataObject));
     }
     return dataObjectDtoSet;
   }
 
-  public static DataObjectDto getDataObjectDtoFromDataObject(DataObject dataObject) {
-    return new DataObjectDto(dataObject.getOid(),
+  public static DataObjectDtoImpl getDataObjectDtoFromDataObject(DataObject dataObject) {
+    return new DataObjectDtoImpl(dataObject.getOid(),
         getDataObjectVersionDtoFromDataObjectVersion(dataObject.getLastVersion()));
   }
 
-  public static DataObjectVersionDto getDataObjectVersionDtoFromDataObjectVersion(DataObjectVersion dataObjectVersion) {
-    return new DataObjectVersionDto(dataObjectVersion.getOid(),
+  public static DataObjectVersionDtoImpl getDataObjectVersionDtoFromDataObjectVersion(DataObjectVersion dataObjectVersion) {
+    return new DataObjectVersionDtoImpl(dataObjectVersion.getOid(),
         dataObjectVersion.getType(),
         dataObjectVersion.getLabelTag().getKeyword(),
         dataObjectVersion.getExternalizedValue());
   }
 
-  public static Set<DataObjectVersionDto> getDataObjectVersionDtoSetFromDataObjectVersionSet(Set<DataObjectVersion> dataObjectVersionSet) {
-    Set<DataObjectVersionDto> dataObjectVersionDtoSet = new HashSet<DataObjectVersionDto>();
+  public static Set<DataObjectVersionDtoImpl> getDataObjectVersionDtoSetFromDataObjectVersionSet(Set<DataObjectVersion> dataObjectVersionSet) {
+    Set<DataObjectVersionDtoImpl> dataObjectVersionDtoSet = new HashSet<DataObjectVersionDtoImpl>();
     for(DataObjectVersion dataObjectVersion : dataObjectVersionSet) {
       dataObjectVersionDtoSet.add(getDataObjectVersionDtoFromDataObjectVersion(dataObjectVersion));
     }
     return dataObjectVersionDtoSet;
   }
 
-  public static Set<QueueDto> getQueueDtoSetFromQueueSet(Set<Queue> queueSet) {
-    Set<QueueDto> queueDtoSet = new HashSet<QueueDto>();
+  public static Set<QueueDtoImpl> getQueueDtoSetFromQueueSet(Set<Queue> queueSet) {
+    Set<QueueDtoImpl> queueDtoSet = new HashSet<QueueDtoImpl>();
     for(Queue queue : queueSet) {
-      queueDtoSet.add(new QueueDto(queue.getOid(), queue.getTitle()));
+      queueDtoSet.add(new QueueDtoImpl(queue.getOid(), queue.getTitle()));
     }
     return queueDtoSet;
   }
 
-  public static Queue getQueueFromQueueDto(QueueDto queueDto) {
+  public static Queue getQueueFromQueueDto(QueueDtoImpl queueDto) {
     return Processpedia.fromOID(queueDto.getOid());
   }
 
-  public static Set<Queue> getQueueSetFromQueueDtoSet(Set<QueueDto> queueDtoSet) {
+  public static Set<Queue> getQueueSetFromQueueDtoSet(Set<QueueDtoImpl> queueDtoSet) {
     Set<Queue> queueSet = new HashSet<Queue>();
-    for(QueueDto queueDto : queueDtoSet) {
+    for(QueueDtoImpl queueDto : queueDtoSet) {
       queueSet.add(getQueueFromQueueDto(queueDto));
     }
     return queueSet;
   }
 
-  public static Set<DataObject> getDataObjectSetFromDataObjectDtoSet(Set<DataObjectDto> dataObjectDtoSet) {
+  public static Set<DataObject> getDataObjectSetFromDataObjectDtoSet(Set<DataObjectDtoImpl> dataObjectDtoSet) {
     Set<DataObject> dataObjectSet = new HashSet<DataObject>();
-    for(DataObjectDto dataObjectDto : dataObjectDtoSet) {
+    for(DataObjectDtoImpl dataObjectDto : dataObjectDtoSet) {
       DataObject dataObject = Processpedia.fromOID(dataObjectDto.getOid());
       if(dataObject!=null) {
         dataObjectSet.add(dataObject);
@@ -179,16 +185,16 @@ public class DomainObjectMapper {
     return requestRecommendationDtoSet;
   }
 
-  public static Set<DataObjectVersion> getDataObjectVersionSetFromDataObjectVersionDtoSet(Set<DataObjectVersionDto> dataObjectVersionDtoSet) {
+  public static Set<DataObjectVersion> getDataObjectVersionSetFromDataObjectVersionDtoSet(Set<DataObjectVersionDtoImpl> dataObjectVersionDtoSet) {
     Set<DataObjectVersion> dataObjectVersionSet = new HashSet<DataObjectVersion>();
-    for(DataObjectVersionDto dataObjectVersionDto : dataObjectVersionDtoSet) {
+    for(DataObjectVersionDtoImpl dataObjectVersionDto : dataObjectVersionDtoSet) {
       dataObjectVersionSet.add(getDataObjectVersionFromDataObjectVersionDto(dataObjectVersionDto));
     }
     
     return dataObjectVersionSet;
   }
 
-  public static DataObjectVersion getDataObjectVersionFromDataObjectVersionDto(DataObjectVersionDto dataObjectVersionDto) {
+  public static DataObjectVersion getDataObjectVersionFromDataObjectVersionDto(DataObjectVersionDtoImpl dataObjectVersionDto) {
     return Processpedia.fromOID(dataObjectVersionDto.getOid());
   }
 

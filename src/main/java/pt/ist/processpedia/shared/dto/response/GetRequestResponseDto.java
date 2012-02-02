@@ -21,6 +21,8 @@ import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
 
 public class GetRequestResponseDto extends ResponseDto {
 
+  private static final long serialVersionUID = 1L;
+
   private RequestDetailedDto requestDetailedDto;
 
   public GetRequestResponseDto() {}

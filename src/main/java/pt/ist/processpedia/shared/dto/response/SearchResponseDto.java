@@ -22,6 +22,8 @@ import java.util.Set;
 
 public class SearchResponseDto extends ResponseDto {
 
+  private static final long serialVersionUID = 1L;
+  
   private Set<RequestDto> requestDtoSet;
 
   public SearchResponseDto() {}

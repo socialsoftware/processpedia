@@ -21,6 +21,8 @@ import pt.ist.processpedia.shared.exception.ProcesspediaException;
 
 public class ActivationKeyIsWrongException extends ProcesspediaException {
 
+  private static final long serialVersionUID = 1L;
+  
   private String wrongActivationKey;
 
   public ActivationKeyIsWrongException() {}

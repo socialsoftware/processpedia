@@ -17,18 +17,8 @@
 
 package pt.ist.processpedia.shared.dto.domain;
 
-import java.util.Date;
+public interface OperatingParty extends DomainObjectDto {
 
-public interface RequestDetailedDto extends DomainObjectDto {
-  
-  public ProcessDetailedDto getProcessDetailedDto();
-
-  public String getSubject();
-  public CommentDto getDescriptionCommentDto();
-  public Date getCreationTimestamp();
-
-  public UserDetailedDto getInitiatorDetailedDto();
-  public UserDetailedDto getSenderDetailedDto();
-  public UserDetailedDto getExecutorDetailedDto();
+  public String getName();
 
 }

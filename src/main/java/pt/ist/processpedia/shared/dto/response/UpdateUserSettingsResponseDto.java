@@ -19,6 +19,8 @@ package pt.ist.processpedia.shared.dto.response;
 
 public class UpdateUserSettingsResponseDto extends ResponseDto {
 
+  private static final long serialVersionUID = 1L;
+
   public UpdateUserSettingsResponseDto() {}
   
 }

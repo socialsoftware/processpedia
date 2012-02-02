@@ -1,15 +1,16 @@
 package pt.ist.processpedia.shared.dto.domain;
 
-import pt.ist.processpedia.shared.dto.Dto;
+public abstract class DomainObjectDtoImpl implements DomainObjectDto {
 
-public abstract class DomainObjectDtoImpl implements Dto {
+  private static final long serialVersionUID = 1L;
 
   private Long oid;
 
   public DomainObjectDtoImpl() {}
 
-  public DomainObjectDtoImpl(Long oid) {
+  public DomainObjectDto withOid(long oid) {
     setOid(oid);
+    return this;
   }
 
   public Long getOid() {

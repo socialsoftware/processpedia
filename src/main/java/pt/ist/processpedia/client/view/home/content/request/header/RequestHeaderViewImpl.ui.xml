@@ -11,7 +11,7 @@
     .userContainer {
       width: 200px;
       display: inline;
-      
+      align: middle;
     }
     .avatar {
       width: 22px;
@@ -29,11 +29,17 @@
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 10px;      
-      display: inline;
+    }
+    .processTitle {
+      font-family: 'Helvetica-Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      margin-bottom: 10px;      
     }
   </ui:style>
   <g:FlowPanel styleName="{style.container}">
-    <g:Label styleName="{style.subject}" ui:field="subjectContainer"/>
+    <g:Label styleName="{style.subject}" ui:field="subjectContainer" />
+    <g:Label styleName="{style.processTitle}" ui:field="processTitleContainer" />
     <g:FlowPanel styleName="{style.userContainer">
       <g:Image styleName="{style.avatar}" ui:field="initiatorAvatarContainer" />
       <g:Label styleName="{style.userName}" ui:field="initiatorNameContainer" />
@@ -42,6 +48,5 @@
       <g:Image styleName="{style.avatar}" ui:field="fromAvatarContainer" />
       <g:Label styleName="{style.userName}" ui:field="senderNameContainer" />
     </g:FlowPanel>
-
   </g:FlowPanel>
 </ui:UiBinder>

@@ -19,6 +19,8 @@ package pt.ist.processpedia.shared.exception;
 
 public abstract class ProcesspediaException extends Exception {
 
+  private static final long serialVersionUID = 1L;
+
   public ProcesspediaException() {}
 
 }

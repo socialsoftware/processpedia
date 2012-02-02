@@ -1,6 +1,6 @@
 package pt.ist.processpedia.server.domain;
 
-enum pt.ist.processpedia.shared.dto.domain.DataObjectType as DataObjectType;
+enum pt.ist.processpedia.shared.domain.DataObjectType as DataObjectType;
 enum pt.ist.processpedia.server.domain.Request.RequestState as RequestState;
 
 class Processpedia;
@@ -191,12 +191,12 @@ relation ProcessHasCreator {
 
 relation RequestHasAnInitiator {
   Request playsRole initiatedRequest { multiplicity 0..*; }
-  Party playsRole initiator { multiplicity 1..1; }
+  OperatingParty playsRole initiator { multiplicity 1..1; }
 }
 
 relation RequestMayHaveAnExecutor {
   Request playsRole executingRequest { multiplicity 0..*; }
-  Party playsRole executor { multiplicity 0..1; }
+  OperatingParty playsRole executor { multiplicity 0..1; }
 }
 
 relation RequestsAreOriginallyPublishedOnQueues {

@@ -34,7 +34,7 @@ import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.view.util.DataObjectCreationBox;
 import pt.ist.processpedia.client.view.util.SelectableDataObject;
 import pt.ist.processpedia.client.view.util.TokenTextBox;
-import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDtoImpl;
 import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
 
 public class CreateRequestViewImpl extends Composite implements CreateRequestView, FocusHandler {
@@ -111,7 +111,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
 
     DataObjectCreationBox dataObjectCreationBox = new DataObjectCreationBox();
     dataObjectCreationBox.addDataObjectCreationHandler(new DataObjectCreationBox.DataObjectCreationHandler() {
-      public void onDataObjectCreation(DataObjectVersionDto dataObjectVersionDto) {
+      public void onDataObjectCreation(DataObjectVersionDtoImpl dataObjectVersionDto) {
         addDataObjectVersionToTree(dataObjectVersionDto);
       }
     });
@@ -119,7 +119,7 @@ public class CreateRequestViewImpl extends Composite implements CreateRequestVie
     inputDataObjectsContainer.addItem(root);
   }
 
-  private void addDataObjectVersionToTree(DataObjectVersionDto dataObjectVersionDto) {
+  private void addDataObjectVersionToTree(DataObjectVersionDtoImpl dataObjectVersionDto) {
     inputDataObjectsContainer.insertItem(inputDataObjectsContainer.getItemCount()-1, new SelectableDataObject(dataObjectVersionDto.getLabel(), dataObjectVersionDto.getExternalizedValue()));
   }
 

@@ -1,6 +1,5 @@
 package pt.ist.processpedia.shared.validation;
 
-import pt.ist.processpedia.shared.exception.*;
 import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyInvalidException;
 import pt.ist.processpedia.shared.exception.activationkey.ActivationKeyIsNullException;
 import pt.ist.processpedia.shared.exception.credential.PasswordIsEmptyException;

@@ -37,6 +37,7 @@ public class ShowRequestHeaderInformationActivity extends ProcesspediaActivity<R
     requestHeaderView.setPresenter(this);
     requestHeaderView.prepareView();
     requestHeaderView.setSubject(requestDetailedDto.getSubject());
+    requestHeaderView.setProcessTitle(requestDetailedDto.getProcessDetailedDto().getTitle());
     requestHeaderView.setInitiatorName(requestDetailedDto.getInitiatorDetailedDto().getName());
     requestHeaderView.setSenderName(requestDetailedDto.getInitiatorDetailedDto().getName());
     containerWidget.setWidget(requestHeaderView);

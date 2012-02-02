@@ -18,23 +18,25 @@
 package pt.ist.processpedia.shared.dto.response;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import pt.ist.processpedia.shared.dto.domain.UserDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.OperatingParty;
 
 public class LoginUserResponseDto extends ResponseDto implements IsSerializable {
 
-  private UserDtoImpl userDto;
+  private static final long serialVersionUID = 1L;
+
+  private OperatingParty userDto;
 
   public LoginUserResponseDto() {}
 
-  public LoginUserResponseDto(UserDtoImpl userDto) {
+  public LoginUserResponseDto(OperatingParty userDto) {
     setUserDto(userDto);
   }
 
-  public UserDtoImpl getUserDto() {
+  public OperatingParty getUserDto() {
     return userDto;
   }
 
-  public void setUserDto(UserDtoImpl userDto) {
+  public void setUserDto(OperatingParty userDto) {
     this.userDto = userDto;
   }
 }

@@ -3,7 +3,9 @@ package pt.ist.processpedia.shared.dto.recommendation;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 public class RequestRecommendationDtoImpl implements RequestRecommendationDto, Suggestion {
-  
+
+  private static final long serialVersionUID = 1L;
+
   private String requestTitle;
   private Double support;
   

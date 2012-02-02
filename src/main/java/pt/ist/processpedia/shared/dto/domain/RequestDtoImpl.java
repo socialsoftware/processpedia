@@ -5,77 +5,106 @@ import java.util.Set;
 
 public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
 
-  private String title;
-  private UserDto initiatorDto;
-  private UserDto senderDto;
-  private UserDto executorDto;
+  private static final long serialVersionUID = 1L;
 
-  private Set<QueueDto> publishedQueueDtoSet;
+  private String subject;
+  private CommentDto initialComment;
 
-  private ProcessDto processDto;
+  private OperatingPartyDto initiator;
+  private OperatingPartyDto sender;
+  private OperatingPartyDto executor;
+
+  private ProcessDto process;
 
   private Date creationTimestamp;
   private Date lastUpdateTimestamp;
 
-  public RequestDtoImpl() {}
+  private Set<QueueDto> publishedQueueSet;
+  private Set<DataObjectVersionDtoImpl> dataObjectVersionSet;
 
-  public RequestDtoImpl(long oid, String title, UserDto initiatorDto, UserDto executorDto, Set<QueueDto> publishedQueueDtoSet, Date creationTimestamp, Date lastUpdateTimestamp, ProcessDto processDto) {
-    super(oid);
-    setTitle(title);
-    setInitiatorDto(initiatorDto);
-    setExecutorDto(executorDto);
-    setPublishedQueueDtoSet(publishedQueueDtoSet);
-    setCreationTimestamp(creationTimestamp);
-    setLastUpdateTimestamp(lastUpdateTimestamp);
-    setProcessDto(processDto);
+  public RequestDtoImpl() {}
+  
+  public RequestDto withSubject(String subject) {
+    setSubject(subject);
+    return this;
   }
 
   public String getSubject() {
-    return title;
+    return subject;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setSubject(String title) {
+    this.subject = title;
   }
 
-  public UserDto getInitiatorDto() {
-    return initiatorDto;
+  public RequestDto withInitialComment(CommentDto initialComment) {
+    setInitialComment(initialComment);
+    return this;
   }
 
-  public void setInitiatorDto(UserDto initiatorDto) {
-    this.initiatorDto = initiatorDto;
+  public CommentDto getInitialComment() {
+    return initialComment;
+  }
+
+  public void setInitialComment(CommentDto initialComment) {
+    this.initialComment = initialComment;
+  }
+
+  public RequestDto withInitiator(OperatingPartyDto initiator) {
+    setInitiator(initiator);
+    return this;
+  }
+
+  public OperatingPartyDto getInitiator() {
+    return initiator;
+  }
+
+  public void setInitiator(OperatingPartyDto initiator) {
+    this.initiator = initiator;
   }
   
-  public UserDto getSenderDto() {
-    return senderDto;
+  public RequestDto withSender(OperatingPartyDto sender) {
+    setSender(sender);
+    return this;
   }
   
-  public void setSenderDto(UserDto senderDto) {
-    this.senderDto = senderDto;
+  public OperatingPartyDto getSender() {
+    return sender;
+  }
+  
+  public void setSender(OperatingPartyDto sender) {
+    this.sender = sender;
+  }
+  
+  public RequestDto withExecutor(OperatingPartyDto executor) {
+    this.executor = executor;
+    return this;
+  }
+  
+  public OperatingPartyDto getExecutor() {
+    return executor;
   }
 
-  public UserDto getExecutorDto() {
-    return executorDto;
+  public void setExecutor(OperatingPartyDto executor) {
+    this.executor = executor;
   }
 
-  public void setExecutorDto(UserDto executorDto) {
-    this.executorDto = executorDto;
+  public RequestDto withCreationTimestamp(Date creationTimestamp) {
+    setCreationTimestamp(creationTimestamp);
+    return this;
   }
-
-  public Set<QueueDto> getPublishedQueueDtoSet() {
-    return publishedQueueDtoSet;
-  }
-
-  public void setPublishedQueueDtoSet(Set<QueueDto> publishedQueueDtoSet) {
-    this.publishedQueueDtoSet = publishedQueueDtoSet;
-  }
-
+  
   public Date getCreationTimestamp() {
     return creationTimestamp;
   }
 
   public void setCreationTimestamp(Date creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
+  }
+  
+  public RequestDto withLastUpdateTimestamp(Date lastUpdateTimestamp) {
+    setLastUpdateTimestamp(lastUpdateTimestamp);
+    return this;
   }
 
   public Date getLastUpdateTimestamp() {
@@ -85,12 +114,43 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
   public void setLastUpdateTimestamp(Date lastUpdateTimestamp) {
     this.lastUpdateTimestamp = lastUpdateTimestamp;
   }
-
-  public ProcessDto getProcessDto() {
-    return processDto;
+  
+  public RequestDto withProcess(ProcessDto process) {
+    setProcess(process);
+    return this;
   }
 
-  public void setProcessDto(ProcessDto processDto) {
-    this.processDto = processDto;
+  public ProcessDto getProcess() {
+    return process;
+  }
+
+  public void setProcess(ProcessDto process) {
+    this.process = process;
+  }
+  
+  public RequestDto withPublishedQueueSet(Set<QueueDto> publishedQueueSet) {
+    setPublishedQueueSet(publishedQueueSet);
+    return this;
+  }
+  
+  public Set<QueueDto> getPublishedQueueSet() {
+    return publishedQueueSet;
+  }
+
+  public void setPublishedQueueSet(Set<QueueDto> publishedQueueSet) {
+    this.publishedQueueSet = publishedQueueSet;
+  }
+
+  public RequestDto withDataObjectVersionSet(Set<DataObjectVersionDtoImpl> dataObjectVersionSet) {
+    setDataObjectVersionSet(dataObjectVersionSet);
+    return this;
+  }
+
+  public Set<DataObjectVersionDtoImpl> getDataObjectVersionSet() {
+    return dataObjectVersionSet;
+  }
+  
+  public void setDataObjectVersionSet(Set<DataObjectVersionDtoImpl> dataObjectVersionDto) {
+    this.dataObjectVersionSet = dataObjectVersionDto;
   }
 }

@@ -21,27 +21,26 @@ import java.util.Date;
 
 public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
 
-  private UserDetailedDto authorDto;
+  private static final long serialVersionUID = 1L;
+
+  private OperatingPartyDto author;
   private Date creationTimestamp;
   private String commentaryText;
-  private CommentDto nextCommentDto;
+  private CommentDto nextComment;
 
   public CommentDtoImpl() {}
 
-  public CommentDtoImpl(long commentOid, UserDetailedDto authorDto, Date creationTimestamp, String commentaryText, CommentDto nextComment) {
-    super(commentOid);
-    setAuthorDto(authorDto);
-    setCreationTimestamp(creationTimestamp);
-    setCommentaryText(commentaryText);
-    setNextCommentDto(nextCommentDto);
+  public CommentDto withAuthor(OperatingPartyDto author) {
+    setAuthor(author);
+    return this;
+  }
+  
+  public OperatingPartyDto getAuthor() {
+    return author;
   }
 
-  public UserDetailedDto getAuthorDto() {
-    return authorDto;
-  }
-
-  public void setAuthorDto(UserDetailedDto authorDto) {
-    this.authorDto = authorDto;
+  public void setAuthor(OperatingPartyDto author) {
+    this.author = author;
   }
 
   public Date getCreationTimestamp() {
@@ -59,12 +58,17 @@ public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
   public void setCommentaryText(String commentaryText) {
     this.commentaryText = commentaryText;
   }
-
-  public CommentDto getNextCommentDto() {
-    return nextCommentDto;
+  
+  public CommentDto withNextComment(CommentDto nextComment) {
+    setNextComment(nextComment);
+    return this;
   }
 
-  public void setNextCommentDto(CommentDto nextCommentDto) {
-    this.nextCommentDto = nextCommentDto;
+  public CommentDto getNextComment() {
+    return nextComment;
+  }
+
+  public void setNextComment(CommentDto nextComment) {
+    this.nextComment = nextComment;
   }
 }

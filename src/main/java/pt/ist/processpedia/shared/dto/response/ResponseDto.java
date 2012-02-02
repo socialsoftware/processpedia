@@ -22,6 +22,8 @@ import pt.ist.processpedia.shared.dto.Dto;
 
 public abstract class ResponseDto implements Dto, IsSerializable {
 
+  private static final long serialVersionUID = 1L;
+
   public ResponseDto() {}
 
 }

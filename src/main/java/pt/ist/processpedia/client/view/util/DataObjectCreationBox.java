@@ -19,15 +19,13 @@ package pt.ist.processpedia.client.view.util;
 
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import pt.ist.processpedia.client.util.KeyCodes;
-import pt.ist.processpedia.shared.dto.domain.DataObjectType;
-import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
+import pt.ist.processpedia.shared.domain.DataObjectType;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDtoImpl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -64,13 +62,13 @@ public class DataObjectCreationBox extends Composite {
 
   private void notifySubscribers() {
     for(DataObjectCreationHandler dataObjectCreationHandler : dataObjectCreationHandlerSet) {
-      dataObjectCreationHandler.onDataObjectCreation(new DataObjectVersionDto(1L, DataObjectType.FILE, labelTextBox.getText(), ""));
+      dataObjectCreationHandler.onDataObjectCreation(new DataObjectVersionDtoImpl(1L, DataObjectType.FILE, labelTextBox.getText(), ""));
     }
     labelTextBox.setText("");
   }
 
   public interface DataObjectCreationHandler {
-    public void onDataObjectCreation(DataObjectVersionDto atomicDataObjectVersionDto);
+    public void onDataObjectCreation(DataObjectVersionDtoImpl atomicDataObjectVersionDto);
   }
 
   public void addDataObjectCreationHandler(DataObjectCreationHandler dataObjectCreationHandler) {
