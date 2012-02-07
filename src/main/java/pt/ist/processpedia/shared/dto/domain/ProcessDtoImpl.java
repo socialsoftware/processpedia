@@ -9,14 +9,10 @@ public class ProcessDtoImpl extends DomainObjectDtoImpl implements ProcessDto {
 
   public ProcessDtoImpl() {}
   
-  public ProcessDto withTitle(String title) {
+  public ProcessDtoImpl(long oid, String title, String description) {
+    super(oid);
     setTitle(title);
-    return this;
-  }
-  
-  public ProcessDto withDescription(String description) {
     setDescription(description);
-    return this;
   }
 
   public String getTitle() {
@@ -34,5 +30,5 @@ public class ProcessDtoImpl extends DomainObjectDtoImpl implements ProcessDto {
   public void setDescription(String description) {
     this.description = description;
   }
-  
 }
+

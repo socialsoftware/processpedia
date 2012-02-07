@@ -8,9 +8,8 @@ public abstract class DomainObjectDtoImpl implements DomainObjectDto {
 
   public DomainObjectDtoImpl() {}
 
-  public DomainObjectDto withOid(long oid) {
+  public DomainObjectDtoImpl(long oid) {
     setOid(oid);
-    return this;
   }
 
   public Long getOid() {

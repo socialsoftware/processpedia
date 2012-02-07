@@ -35,12 +35,16 @@
   </ui:style>
   <g:HorizontalPanel addStyleNames="{style.container}" verticalAlignment="ALIGN_MIDDLE">
     <g:cell width="50px">
-      <g:Image styleName="{style.avatar}" ui:field="initiatorImage"/>
+      <g:Image styleName="{style.avatar}" ui:field="initiatorAvatar"/>
+    </g:cell>
+    <g:cell width="50px">
+      <g:Image styleName="{style.avatar}" ui:field="originalInitiatorAvatar"/>
     </g:cell>
     <g:cell>
       <g:VerticalPanel>
+        <g:Label styleName="{style.initiatorName}" ui:field="originalInitiatorNameContainer" />
         <g:Label styleName="{style.initiatorName}" ui:field="initiatorNameContainer" />
-        <g:Label styleName="{style.requestTitle}" ui:field="requestTitleContainer" />
+        <g:Label styleName="{style.requestTitle}" ui:field="subjectContainer" />
         <g:Label styleName="{style.date}" ui:field="dateContainer" />
       </g:VerticalPanel>
     </g:cell>

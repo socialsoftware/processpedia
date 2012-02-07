@@ -38,10 +38,13 @@ public class ParentRequestLineViewImpl extends Composite implements ParentReques
   HasText fromLabelContainer;
 
   @UiField
-  Image initiatorAvatar;
+  Image originalInitiatorAvatar, initiatorAvatar;
 
   @UiField
-  HasText initiatorNameContainer, requestTitleContainer, dateContainer;
+  HasText originalInitiatorNameContainer,
+          initiatorNameContainer,
+          subjectContainer,
+          dateContainer;
 
   private RequestDetailedView.Presenter presenter;
 
@@ -66,16 +69,24 @@ public class ParentRequestLineViewImpl extends Composite implements ParentReques
   public void setFromLabel(String fromLabel) {
     fromLabelContainer.setText(fromLabel);
   }
+  
+  public void setOriginalInitiatorName(String originalInitiatorName) {
+    originalInitiatorNameContainer.setText(originalInitiatorName);
+  }
 
   public void setInitiatorName(String initiatorName) {
     initiatorNameContainer.setText(initiatorName);
   }
 
-  public void setRequestTitle(String requestTitle) {
-    requestTitleContainer.setText(requestTitle);
+  public void setSubject(String subject) {
+    subjectContainer.setText(subject);
   }
 
   public void setCreationDate(Date date) {
     dateContainer.setText("date goes here");
+  }
+
+  public void setOriginalInitiatorAvatar(String avatarUrl) {
+    originalInitiatorAvatar.setUrl(avatarUrl);
   }
 }

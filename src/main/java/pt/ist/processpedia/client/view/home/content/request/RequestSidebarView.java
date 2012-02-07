@@ -19,7 +19,7 @@ package pt.ist.processpedia.client.view.home.content.request;
 
 import pt.ist.processpedia.client.view.ProcesspediaView;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 
 public interface RequestSidebarView extends ProcesspediaView {
 
@@ -27,7 +27,7 @@ public interface RequestSidebarView extends ProcesspediaView {
 
   void clear();
 
-  void setParentRequestLine(RequestDetailedDto requestDetailedDto);
+  void setParentRequestLine(RequestDto request);
   void addChildRequestLine(ChildRequestLineView childRequestLineView);
   
 }

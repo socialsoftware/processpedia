@@ -18,30 +18,31 @@
 package pt.ist.processpedia.shared.dto.action.authenticaded;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import pt.ist.processpedia.shared.dto.domain.DataObjectDtoImpl;
-import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDtoImpl;
-import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
+import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import java.util.Set;
 
 public class CreateRequestActionDto extends AuthenticatedActionDto implements IsSerializable {
 
+  private static final long serialVersionUID = 1L;
+  
   private long parentRequestOid;
-  private String title;
+  private String subject;
   private String description;
   private Boolean isResponseExpected;
-  private Set<DataObjectVersionDtoImpl> inputDataObjectVersionDtoSet;
-  private Set<QueueDtoImpl> queueDtoSet;
+  private Set<DataObjectVersionDto> inputDataObjectVersionSet;
+  private Set<QueueDto> queueSet;
 
   public CreateRequestActionDto() {}
 
-  public CreateRequestActionDto(String actorOid, long parentRequestOid, String title, String description, Boolean isResponseExpected, Set<QueueDtoImpl> queueDtoSet, Set<DataObjectDtoImpl> inputDataObjectDtoSet) {
+  public CreateRequestActionDto(String actorOid, long parentRequestOid, String subject, String description, Boolean isResponseExpected, Set<QueueDto> queueSet, Set<DataObjectVersionDto> inputDataObjectVersionSet) {
     super(actorOid);
     setParentRequestOid(parentRequestOid);
-    setTitle(title);
+    setSubject(subject);
     setDescription(description);
     setResponseExpected(isResponseExpected);
-    setQueueDtoSet(queueDtoSet);
-    setInputDataObjectVersionDtoSet(inputDataObjectVersionDtoSet);
+    setQueueSet(queueSet);
+    setInputDataObjectVersionSet(inputDataObjectVersionSet);
   }
   
   public long getParentRequestOid() {
@@ -52,12 +53,12 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
     this.parentRequestOid = parentRequestOid;
   }
 
-  public String getTitle() {
-    return title;
+  public String getSubject() {
+    return subject;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setSubject(String subject) {
+    this.subject = subject;
   }
 
   public String getDescription() {
@@ -76,19 +77,19 @@ public class CreateRequestActionDto extends AuthenticatedActionDto implements Is
     this.isResponseExpected = isResponseExpected;
   }
 
-  public Set<QueueDtoImpl> getQueueDtoSet() {
-    return queueDtoSet;
+  public Set<QueueDto> getQueueSet() {
+    return queueSet;
   }
 
-  public void setQueueDtoSet(Set<QueueDtoImpl> queueDtoSet) {
-    this.queueDtoSet = queueDtoSet;
+  public void setQueueSet(Set<QueueDto> queueSet) {
+    this.queueSet = queueSet;
   }
 
-  public Set<DataObjectVersionDtoImpl> getInputDataObjectVersionDtoSet() {
-    return inputDataObjectVersionDtoSet;
+  public Set<DataObjectVersionDto> getInputDataObjectVersionSet() {
+    return inputDataObjectVersionSet;
   }
 
-  public void setInputDataObjectVersionDtoSet(Set<DataObjectVersionDtoImpl> inputDataObjectVersionDtoSet) {
-    this.inputDataObjectVersionDtoSet = inputDataObjectVersionDtoSet;
+  public void setInputDataObjectVersionSet(Set<DataObjectVersionDto> inputDataObjectVersionSet) {
+    this.inputDataObjectVersionSet = inputDataObjectVersionSet;
   }
 }

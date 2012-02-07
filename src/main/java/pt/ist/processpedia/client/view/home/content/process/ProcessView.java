@@ -19,12 +19,12 @@ package pt.ist.processpedia.client.view.home.content.process;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 
 public interface ProcessView extends ProcesspediaView {
 
   interface Presenter extends ProcesspediaView.ProcesspediaPresenter {
-    void onRequestSelectAction(RequestDetailedDtoImpl requestDetailedDto);
+    void onRequestSelectAction(RequestDto request);
   }
 
   void setPresenter(Presenter presenter);

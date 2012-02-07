@@ -28,12 +28,12 @@ import pt.ist.processpedia.client.place.RequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
 import pt.ist.processpedia.client.view.home.content.splash.LoadingMessageView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetRequestActionDto;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import pt.ist.processpedia.shared.dto.response.GetRequestResponseDto;
 
 public class ShowRequestActivity extends ProcesspediaActivity<RequestPlace> implements RequestDetailedView.Presenter {
 
-  private RequestDetailedDto requestDetailedDto;
+  private RequestDto request;
   
   public ShowRequestActivity(RequestPlace place, BrowserFactory browserFactory) {
     super(place, browserFactory);
@@ -51,13 +51,13 @@ public class ShowRequestActivity extends ProcesspediaActivity<RequestPlace> impl
         handleException(throwable);
       }
       public void onSuccess(GetRequestResponseDto getRequestResponseDto) {
-        displayRequestDetailedView(containerWidget, getRequestResponseDto.getRequestDetailedDto());
+        displayRequestDetailedView(containerWidget, getRequestResponseDto.getRequest());
       }
     });
   }
 
-  private void displayRequestDetailedView(AcceptsOneWidget containerWidget, RequestDetailedDto requestDetailedDto) {
-    this.requestDetailedDto = requestDetailedDto;
+  private void displayRequestDetailedView(AcceptsOneWidget containerWidget, RequestDto request) {
+    this.request = request;
     
     RequestDetailedView requestDetailedView = getBrowserFactory().getRequestDetailedView();
     requestDetailedView.setPresenter(this);
@@ -68,7 +68,7 @@ public class ShowRequestActivity extends ProcesspediaActivity<RequestPlace> impl
 
   @Override
   public void onCreateNewRequestAction() {
-    goTo(new CreateRequestPlace(requestDetailedDto.getOid()));
+    goTo(new CreateRequestPlace(request.getOid()));
   }
 
 

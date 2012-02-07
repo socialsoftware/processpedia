@@ -8,7 +8,7 @@ import pt.ist.processpedia.client.activity.ProcesspediaActivity;
 import pt.ist.processpedia.client.place.RequestPlace;
 import pt.ist.processpedia.client.view.home.content.request.header.RequestHeaderView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetRequestActionDto;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 import pt.ist.processpedia.shared.dto.response.GetRequestResponseDto;
 
 public class ShowRequestHeaderInformationActivity extends ProcesspediaActivity<RequestPlace> implements RequestHeaderView.Presenter {
@@ -32,14 +32,14 @@ public class ShowRequestHeaderInformationActivity extends ProcesspediaActivity<R
   }
   
   private void onGetRequestResponseDto(AcceptsOneWidget containerWidget, GetRequestResponseDto getRequestResponseDto) {
-    RequestDetailedDto requestDetailedDto = getRequestResponseDto.getRequestDetailedDto();
+    RequestDto request = getRequestResponseDto.getRequest();
     RequestHeaderView requestHeaderView = getBrowserFactory().getRequestHeaderView();
     requestHeaderView.setPresenter(this);
     requestHeaderView.prepareView();
-    requestHeaderView.setSubject(requestDetailedDto.getSubject());
-    requestHeaderView.setProcessTitle(requestDetailedDto.getProcessDetailedDto().getTitle());
-    requestHeaderView.setInitiatorName(requestDetailedDto.getInitiatorDetailedDto().getName());
-    requestHeaderView.setSenderName(requestDetailedDto.getInitiatorDetailedDto().getName());
+    requestHeaderView.setSubject(request.getSubject());
+    requestHeaderView.setProcessTitle(request.getProcess().getTitle());
+    requestHeaderView.setOriginalInitiatorName(request.getOriginalInitiator().getName());
+    requestHeaderView.setInitiatorName(request.getInitiator().getName());
     containerWidget.setWidget(requestHeaderView);
   }
 

@@ -17,25 +17,25 @@
 
 package pt.ist.processpedia.shared.dto.response;
 
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 
 public class GetRequestResponseDto extends ResponseDto {
 
   private static final long serialVersionUID = 1L;
 
-  private RequestDetailedDto requestDetailedDto;
+  private RequestDto request;
 
   public GetRequestResponseDto() {}
 
-  public GetRequestResponseDto(RequestDetailedDto requestDetailedDto) {
-    setRequestDetailedDto(requestDetailedDto);
+  public GetRequestResponseDto(RequestDto requestDto) {
+    setRequest(request);
   }
 
-  public RequestDetailedDto getRequestDetailedDto() {
-    return requestDetailedDto;
+  public RequestDto getRequest() {
+    return request;
   }
 
-  public void setRequestDetailedDto(RequestDetailedDto requestDetailedDto) {
-    this.requestDetailedDto = requestDetailedDto;
+  public void setRequest(RequestDto request) {
+    this.request = request;
   }
 }

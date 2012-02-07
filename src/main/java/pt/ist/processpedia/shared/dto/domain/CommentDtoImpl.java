@@ -30,9 +30,11 @@ public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
 
   public CommentDtoImpl() {}
 
-  public CommentDto withAuthor(OperatingPartyDto author) {
+  public CommentDtoImpl(long oid, OperatingPartyDto author, Date creationTimestamp, String commentaryText) {
+    super(oid);
     setAuthor(author);
-    return this;
+    setCreationTimestamp(creationTimestamp);
+    setCommentaryText(commentaryText);    
   }
   
   public OperatingPartyDto getAuthor() {
@@ -57,11 +59,6 @@ public class CommentDtoImpl extends DomainObjectDtoImpl implements CommentDto {
 
   public void setCommentaryText(String commentaryText) {
     this.commentaryText = commentaryText;
-  }
-  
-  public CommentDto withNextComment(CommentDto nextComment) {
-    setNextComment(nextComment);
-    return this;
   }
 
   public CommentDto getNextComment() {

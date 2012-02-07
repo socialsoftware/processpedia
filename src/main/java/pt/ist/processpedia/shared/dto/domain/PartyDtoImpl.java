@@ -9,9 +9,9 @@ public abstract class PartyDtoImpl extends DomainObjectDtoImpl implements PartyD
 
   public PartyDtoImpl() {}
 
-  public PartyDto withName(String name) {
+  public PartyDtoImpl(long oid, String name, String avatarUrl) {
+    super(oid);
     setName(name);
-    return this;
   }
 
   public String getName() {
@@ -20,11 +20,6 @@ public abstract class PartyDtoImpl extends DomainObjectDtoImpl implements PartyD
 
   public void setName(String name) {
     this.name = name;
-  }
-  
-  public PartyDto withAvatarUrl(String avatarUrl) {
-    setAvatarUrl(avatarUrl);
-    return this;
   }
 
   public String getAvatarUrl() {

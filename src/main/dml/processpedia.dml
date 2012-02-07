@@ -226,12 +226,12 @@ relation RequestHasSubjectTag {
 
 relation CommentHasAuthor {
   Comment playsRole authoredComment { multiplicity 0..*; }
-  Party playsRole author { multiplicity 1..1; }
+  OperatingParty playsRole author { multiplicity 1..1; }
 }
 
-relation RequestMayHaveDescriptionComment {
+relation RequestMayHaveInitialComment {
   Request playsRole request { multiplicity 0..1; }
-  Comment playsRole descriptionComment { multiplicity 0..1; }
+  Comment playsRole initialComment { multiplicity 0..1; }
 }
 
 relation CommentMayHaveReplies {

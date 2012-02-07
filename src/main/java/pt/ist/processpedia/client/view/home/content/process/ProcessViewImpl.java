@@ -27,9 +27,7 @@ public class ProcessViewImpl extends Composite implements ProcessView {
   @UiField
   HasText processTitleContainer, processDescriptionContainer;
 
-
   private Presenter presenter;
-
 
   public void setProcessTitle(String processTitle) {
     processTitleContainer.setText(processTitle);

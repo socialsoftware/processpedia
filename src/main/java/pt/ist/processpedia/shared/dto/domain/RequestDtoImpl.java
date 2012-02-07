@@ -10,8 +10,8 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
   private String subject;
   private CommentDto initialComment;
 
+  private OperatingPartyDto originalInitiator;
   private OperatingPartyDto initiator;
-  private OperatingPartyDto sender;
   private OperatingPartyDto executor;
 
   private ProcessDto process;
@@ -24,9 +24,11 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
 
   public RequestDtoImpl() {}
   
-  public RequestDto withSubject(String subject) {
+  public RequestDtoImpl(long oid, OperatingPartyDto originalInitiator, OperatingPartyDto initiator) {
+    super(oid);
     setSubject(subject);
-    return this;
+    setOriginalInitiator(originalInitiator);
+    setInitiator(initiator);
   }
 
   public String getSubject() {
@@ -37,11 +39,6 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
     this.subject = title;
   }
 
-  public RequestDto withInitialComment(CommentDto initialComment) {
-    setInitialComment(initialComment);
-    return this;
-  }
-
   public CommentDto getInitialComment() {
     return initialComment;
   }
@@ -50,35 +47,20 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
     this.initialComment = initialComment;
   }
 
-  public RequestDto withInitiator(OperatingPartyDto initiator) {
-    setInitiator(initiator);
-    return this;
+  public OperatingPartyDto getOriginalInitiator() {
+    return originalInitiator;
   }
 
+  public void setOriginalInitiator(OperatingPartyDto originalInitiator) {
+    this.originalInitiator = originalInitiator;
+  }
+  
   public OperatingPartyDto getInitiator() {
     return initiator;
   }
 
   public void setInitiator(OperatingPartyDto initiator) {
     this.initiator = initiator;
-  }
-  
-  public RequestDto withSender(OperatingPartyDto sender) {
-    setSender(sender);
-    return this;
-  }
-  
-  public OperatingPartyDto getSender() {
-    return sender;
-  }
-  
-  public void setSender(OperatingPartyDto sender) {
-    this.sender = sender;
-  }
-  
-  public RequestDto withExecutor(OperatingPartyDto executor) {
-    this.executor = executor;
-    return this;
   }
   
   public OperatingPartyDto getExecutor() {
@@ -88,11 +70,6 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
   public void setExecutor(OperatingPartyDto executor) {
     this.executor = executor;
   }
-
-  public RequestDto withCreationTimestamp(Date creationTimestamp) {
-    setCreationTimestamp(creationTimestamp);
-    return this;
-  }
   
   public Date getCreationTimestamp() {
     return creationTimestamp;
@@ -100,11 +77,6 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
 
   public void setCreationTimestamp(Date creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
-  }
-  
-  public RequestDto withLastUpdateTimestamp(Date lastUpdateTimestamp) {
-    setLastUpdateTimestamp(lastUpdateTimestamp);
-    return this;
   }
 
   public Date getLastUpdateTimestamp() {
@@ -114,11 +86,6 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
   public void setLastUpdateTimestamp(Date lastUpdateTimestamp) {
     this.lastUpdateTimestamp = lastUpdateTimestamp;
   }
-  
-  public RequestDto withProcess(ProcessDto process) {
-    setProcess(process);
-    return this;
-  }
 
   public ProcessDto getProcess() {
     return process;
@@ -127,23 +94,13 @@ public class RequestDtoImpl extends DomainObjectDtoImpl implements RequestDto {
   public void setProcess(ProcessDto process) {
     this.process = process;
   }
-  
-  public RequestDto withPublishedQueueSet(Set<QueueDto> publishedQueueSet) {
-    setPublishedQueueSet(publishedQueueSet);
-    return this;
-  }
-  
+
   public Set<QueueDto> getPublishedQueueSet() {
     return publishedQueueSet;
   }
 
   public void setPublishedQueueSet(Set<QueueDto> publishedQueueSet) {
     this.publishedQueueSet = publishedQueueSet;
-  }
-
-  public RequestDto withDataObjectVersionSet(Set<DataObjectVersionDtoImpl> dataObjectVersionSet) {
-    setDataObjectVersionSet(dataObjectVersionSet);
-    return this;
   }
 
   public Set<DataObjectVersionDtoImpl> getDataObjectVersionSet() {

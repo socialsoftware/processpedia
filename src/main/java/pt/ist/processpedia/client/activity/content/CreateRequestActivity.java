@@ -40,8 +40,8 @@ import pt.ist.processpedia.client.view.home.content.request.CreateRequestView;
 import pt.ist.processpedia.shared.dto.action.authenticaded.CreateRequestActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetQueueSetActionDto;
 import pt.ist.processpedia.shared.dto.action.authenticaded.GetRequestRecommendationAction;
-import pt.ist.processpedia.shared.dto.domain.DataObjectDtoImpl;
-import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.DataObjectVersionDto;
+import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import pt.ist.processpedia.shared.dto.recommendation.RequestRecommendationDto;
 import pt.ist.processpedia.shared.dto.response.CreateRequestResponseDto;
 import pt.ist.processpedia.shared.dto.response.GetQueueSetResponseDto;
@@ -49,7 +49,7 @@ import pt.ist.processpedia.shared.dto.response.GetRequestRecommendationResponseD
 
 public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPlace> implements CreateRequestView.Presenter {
 
-  private Set<QueueDtoImpl> queueDtoSet;
+  private Set<QueueDto> queueSet;
   
   public CreateRequestActivity(CreateRequestPlace place, BrowserFactory browserFactory) {
     super(place, browserFactory);
@@ -88,11 +88,11 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
     containerWidget.setWidget(createRequestView);
   }
 
-  private void resetOracle(Set<QueueDtoImpl> queueDtoSet) {
-    this.queueDtoSet = queueDtoSet;
+  private void resetOracle(Set<QueueDto> queueDtoSet) {
+    this.queueSet = queueDtoSet;
     CreateRequestView createRequestView = getBrowserFactory().getCreateRequestView();
     createRequestView.getOracle().clear();
-    for(QueueDtoImpl queueDto : queueDtoSet) {
+    for(QueueDto queueDto : queueSet) {
       createRequestView.getOracle().add(queueDto.getTitle());
     }
   }
@@ -111,17 +111,17 @@ public class CreateRequestActivity extends ProcesspediaActivity<CreateRequestPla
     String requestDescription = createRequestView.getRequestDescription();
     Boolean isResponseExpected = createRequestView.getIsResponseExpected();
 
-    Set<QueueDtoImpl> publishQueueDtoSet = new HashSet<QueueDtoImpl>();
-    for(QueueDtoImpl queueDto : queueDtoSet) {
+    Set<QueueDto> publishQueueSet = new HashSet<QueueDto>();
+    for(QueueDto queueDto : queueSet) {
       if(createRequestView.getTo().contains(queueDto.getTitle())) {
-        publishQueueDtoSet.add(queueDto);
+        publishQueueSet.add(queueDto);
       }
     }
-    Set<DataObjectDtoImpl> inputDataObjectDtoSet = new HashSet<DataObjectDtoImpl>();
+    Set<DataObjectVersionDto> inputDataObjectVersionSet = new HashSet<DataObjectVersionDto>();
     //TODO: LOAD ALL DATA OBJECTS INTO THE INPUT DATA OBJECT DTO SET
 
     long parentRequestOid = Long.parseLong(getPlace().getParentRequestId());
-    CreateRequestActionDto createRequestActionDto = new CreateRequestActionDto(getActorOid(), parentRequestOid, requestTitle, requestDescription, isResponseExpected, publishQueueDtoSet, inputDataObjectDtoSet);
+    CreateRequestActionDto createRequestActionDto = new CreateRequestActionDto(getActorOid(), parentRequestOid, requestTitle, requestDescription, isResponseExpected, publishQueueSet, inputDataObjectVersionSet);
     getBrowserFactory().getDataSwitch().createRequest(createRequestActionDto, new AsyncCallback<CreateRequestResponseDto>() {
       public void onFailure(Throwable throwable) {
         handleException(throwable);

@@ -8,9 +8,9 @@ public class QueueDtoImpl extends DomainObjectDtoImpl implements QueueDto {
 
   public QueueDtoImpl() {}
 
-  public QueueDto withTitle(String title) {
+  public QueueDtoImpl(long oid, String title) {
+    super(oid);
     setTitle(title);
-    return this;
   }
 
   public String getTitle() {

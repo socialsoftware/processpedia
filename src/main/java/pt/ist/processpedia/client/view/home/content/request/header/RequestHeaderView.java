@@ -15,8 +15,8 @@ public interface RequestHeaderView extends ProcesspediaView {
   
   public void setSubject(String subject);
     
-  public void setInitiatorName(String initiatorName);
+  public void setOriginalInitiatorName(String initiatorName);
 
-  public void setSenderName(String senderName);
+  public void setInitiatorName(String senderName);
 
 }

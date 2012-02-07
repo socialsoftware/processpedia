@@ -30,8 +30,6 @@ public class RequestDataGridLine {
       else return a.getOid().compareTo(b.getOid());
     }
   }
-
-  
   
   private static class SubjectComparator implements Comparator<RequestDto> {
     public int compare(RequestDto a, RequestDto b) {
@@ -45,11 +43,11 @@ public class RequestDataGridLine {
 
   private static class ProcessTitleComparator implements Comparator<RequestDto> {
     public int compare(RequestDto a, RequestDto b) {
-      if(a == null || a.getProcessDto() == null || a.getProcessDto().getTitle() == null)
+      if(a == null || a.getProcess() == null || a.getProcess().getTitle() == null)
         return -1;
-      if(b == null || b.getProcessDto() == null || a.getProcessDto().getTitle() == null)
+      if(b == null || b.getProcess() == null || a.getProcess().getTitle() == null)
         return 1;
-      else return a.getProcessDto().getTitle().compareTo(b.getProcessDto().getTitle());
+      else return a.getProcess().getTitle().compareTo(b.getProcess().getTitle());
     }
   }
 
@@ -65,11 +63,11 @@ public class RequestDataGridLine {
 
   private static class SenderNameComparator implements Comparator<RequestDto> {
     public int compare(RequestDto a, RequestDto b) {
-      if(a == null || a.getInitiatorDto() == null || a.getInitiatorDto().getName() == null)
+      if(a == null || a.getOriginalInitiator() == null || a.getInitiator().getName() == null)
         return -1;
-      if(b == null || b.getInitiatorDto() == null || a.getInitiatorDto().getName() == null)
+      if(b == null || b.getInitiator() == null || a.getInitiator().getName() == null)
         return 1;
-      else return a.getInitiatorDto().getName().compareTo(b.getInitiatorDto().getName());
+      else return a.getInitiator().getName().compareTo(b.getInitiator().getName());
     }
   }
 }

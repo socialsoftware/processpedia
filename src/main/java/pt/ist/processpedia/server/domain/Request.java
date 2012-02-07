@@ -40,7 +40,7 @@ public class Request extends Request_Base {
   
   public void setDescription(String description) {
     Comment comment = new Comment(description, getInitiator());
-    this.setDescriptionComment(comment);
+    this.setInitialComment(comment);
   }
 
   /**
@@ -88,6 +88,18 @@ public class Request extends Request_Base {
       }
     }
     return super.getState();
+  }
+  
+  public OperatingParty getOriginalInitiator() {
+    Request request = this;
+    while(request.hasPreviousRequest()) {
+      request = request.getPreviousRequest();
+    }
+    return request.getInitiator();
+  }
+
+  public String getSubject() {
+    return getSubjectTag().getKeyword();
   }
 
 }

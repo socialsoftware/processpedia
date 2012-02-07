@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
 
 import java.util.Date;
 
@@ -35,12 +34,13 @@ public class ChildRequestLineViewImpl extends Composite implements ChildRequestL
   private static ChildRequestLineViewImplUiBinder uiBinder = GWT.create(ChildRequestLineViewImplUiBinder.class);
 
   @UiField
-  HasText requestTitleContainer,
+  HasText subjectContainer,
+          originalInitiatorNameContainer,
           initiatorNameContainer,
           dateContainer;
 
   @UiField
-  Image initiatorImage, requestStateImage;
+  Image originalInitiatorAvatar, initiatorAvatar, requestStateImage;
 
   private RequestDetailedView.Presenter presenter;
 
@@ -52,16 +52,24 @@ public class ChildRequestLineViewImpl extends Composite implements ChildRequestL
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void setInitiatorImage(String initiatorImageUrl) {
-    initiatorImage.setUrl(initiatorImageUrl);
+  public void setOriginalInitiatorAvatar(String avatarUrl) {
+    originalInitiatorAvatar.setUrl(avatarUrl);
+  }
+  
+  public void setInitiatorAvatar(String avatarUrl) {
+    initiatorAvatar.setUrl(avatarUrl);
   }
 
-  public void setRequestTitle(String requestTitle) {
-    requestTitleContainer.setText(requestTitle);
+  public void setSubject(String subject) {
+    subjectContainer.setText(subject);
   }
 
-  public void setInitiatorName(String initiatorName) {
-    initiatorNameContainer.setText(initiatorName);
+  public void setOriginalInitiatorName(String name) {
+    originalInitiatorNameContainer.setText(name);
+  }
+  
+  public void setInitiatorName(String name) {
+    initiatorNameContainer.setText(name);
   }
 
   public void setDate(Date date) {
@@ -74,9 +82,5 @@ public class ChildRequestLineViewImpl extends Composite implements ChildRequestL
 
   public void setPresenter(RequestDetailedView.Presenter presenter) {
     this.presenter = presenter;
-  }
-
-  public void setRequestDetailedDto(RequestDetailedDtoImpl requestDetailedDto) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 }

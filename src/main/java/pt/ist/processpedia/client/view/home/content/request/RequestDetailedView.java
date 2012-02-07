@@ -19,9 +19,7 @@ package pt.ist.processpedia.client.view.home.content.request;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-
 import pt.ist.processpedia.client.view.ProcesspediaView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
 
 public interface RequestDetailedView extends ProcesspediaView {
 

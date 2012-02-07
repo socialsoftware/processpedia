@@ -151,13 +151,11 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
     return new CreateProcessResponseDto();
   }
 
-
-
   @Atomic
   public GetQueueSetResponseDto getQueueSet(GetQueueSetActionDto getQueueSetActionDto) throws ProcesspediaException {
     getUserFromAuthenticatedActionDto(getQueueSetActionDto);
     Processpedia processpedia = Processpedia.getInstance();
-    Set<QueueDtoImpl> queueDtoSet = DomainObjectMapper.getQueueDtoSetFromQueueSet(processpedia.getQueueSet());
+    Set<QueueDto> queueDtoSet = DomainObjectMapper.getQueueDtoSetFromQueueSet(processpedia.getQueueSet());
     return new GetQueueSetResponseDto(queueDtoSet);
   }
 
@@ -207,7 +205,7 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
   @Atomic
   public GetRequestResponseDto getRequest(GetRequestActionDto getRequestActionDto) throws ProcesspediaException {
     Request request = (Request)Processpedia.fromOID(getRequestActionDto.getRequestOid());
-    return new GetRequestResponseDto(DomainObjectMapper.getRequestDetailedDtoFromRequest(request));
+    return new GetRequestResponseDto(DomainObjectMapper.getRequestDtoFromRequest(request));
   }
 
   @Atomic
@@ -263,11 +261,11 @@ public class ProcesspediaServiceImpl extends RemoteServiceServlet implements Pro
   public CreateRequestResponseDto createRequest(CreateRequestActionDto createRequestActionDto) throws ProcesspediaException {
     User actor = getUserFromAuthenticatedActionDto(createRequestActionDto);
     
-    String title = createRequestActionDto.getTitle();
+    String title = createRequestActionDto.getSubject();
     String description = createRequestActionDto.getDescription();
     Boolean expectsAnswer = createRequestActionDto.getResponseExpected();
-    Set<Queue> publishedQueueSet = DomainObjectMapper.getQueueSetFromQueueDtoSet(createRequestActionDto.getQueueDtoSet());
-    Set<DataObjectVersion> inputDataObjectVersionSet = DomainObjectMapper.getDataObjectVersionSetFromDataObjectVersionDtoSet(createRequestActionDto.getInputDataObjectVersionDtoSet());
+    Set<Queue> publishedQueueSet = DomainObjectMapper.getQueueSetFromQueueDtoSet(createRequestActionDto.getQueueSet());
+    Set<DataObjectVersion> inputDataObjectVersionSet = DomainObjectMapper.getDataObjectVersionSetFromDataObjectVersionDtoSet(createRequestActionDto.getInputDataObjectVersionSet());
     
     Request parentRequest = Processpedia.fromOID(createRequestActionDto.getParentRequestOid());
     Request createdRequest = parentRequest.createSubRequest(actor, title, description, expectsAnswer, publishedQueueSet, inputDataObjectVersionSet);

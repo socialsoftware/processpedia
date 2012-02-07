@@ -20,5 +20,6 @@ package pt.ist.processpedia.shared.dto.domain;
 public interface OperatingParty extends DomainObjectDto {
 
   public String getName();
+  public String getAvatarUrl();
 
 }

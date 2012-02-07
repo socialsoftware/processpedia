@@ -25,14 +25,14 @@ public class RequestListColumn {
   
   public static final RequestColumn<RequestDto,String> PROCESS_OID_COLUMN = new RequestColumn<RequestDto, String>(new TextCell()) {
     public String getValue(RequestDto requestDto) {
-      return requestDto.getProcessDto().getOid().toString();
+      return requestDto.getProcess().getOid().toString();
     }
     public int compare(RequestDto a, RequestDto b) {
-      if(a == null || a.getProcessDto() == null)
+      if(a == null || a.getProcess() == null)
         return -1;
-      if(b == null || b.getProcessDto() == null)
+      if(b == null || b.getProcess() == null)
         return 1;
-      else return a.getProcessDto().getOid().compareTo(b.getProcessDto().getOid());
+      else return a.getProcess().getOid().compareTo(b.getProcess().getOid());
     }
     @Override
     public String getHeader() {
@@ -42,14 +42,14 @@ public class RequestListColumn {
   
   public static final RequestColumn<RequestDto,String> PROCESS_TITLE_COLUMN = new RequestColumn<RequestDto, String>(new TextCell()) {
     public String getValue(RequestDto requestDto) {
-      return requestDto.getProcessDto().getTitle();
+      return requestDto.getProcess().getTitle();
     }
     public int compare(RequestDto a, RequestDto b) {
-      if(a == null || a.getProcessDto() == null)
+      if(a == null || a.getProcess() == null)
         return -1;
-      if(b == null || b.getProcessDto() == null)
+      if(b == null || b.getProcess() == null)
         return 1;
-      else return a.getProcessDto().getTitle().compareTo(b.getProcessDto().getTitle());
+      else return a.getProcess().getTitle().compareTo(b.getProcess().getTitle());
     }
     @Override
     public String getHeader() {
@@ -76,14 +76,14 @@ public class RequestListColumn {
 
   public static final RequestColumn<RequestDto,String> SENDER_NAME_COLUMN = new RequestColumn<RequestDto, String>(new TextCell()) {
     public String getValue(RequestDto requestDto) {
-      return requestDto.getInitiatorDto().getName();
+      return requestDto.getInitiator().getName();
     }
     public int compare(RequestDto a, RequestDto b) {
-      if(a == null || a.getSenderDto() == null)
+      if(a == null || a.getInitiator() == null)
         return -1;
-      if(b == null || b.getSenderDto() == null)
+      if(b == null || b.getInitiator() == null)
         return 1;
-      else return a.getSenderDto().getName().compareTo(b.getSenderDto().getName());
+      else return a.getInitiator().getName().compareTo(b.getInitiator().getName());
     }
     @Override
     public String getHeader() {
@@ -117,7 +117,7 @@ public class RequestListColumn {
         return -1;
       if(b == null || b.getLastUpdateTimestamp() == null)
         return 1;
-      else return a.getSenderDto().getName().compareTo(b.getSenderDto().getName());
+      else return a.getLastUpdateTimestamp().compareTo(b.getLastUpdateTimestamp());
     }
     @Override
     public String getHeader() {
@@ -144,15 +144,15 @@ public class RequestListColumn {
   
   public static final RequestColumn<RequestDto,String> NUMBER_PUBLISHED_QUEUE_COLUMN = new RequestColumn<RequestDto, String>(new TextCell()) {
     public String getValue(RequestDto requestDto) {
-      QueueDtoImpl queueDto = (QueueDtoImpl)requestDto.getPublishedQueueDtoSet().toArray()[0];
+      QueueDtoImpl queueDto = (QueueDtoImpl)requestDto.getPublishedQueueSet().toArray()[0];
       return queueDto.getTitle();
     }
     public int compare(RequestDto a, RequestDto b) {
-      if(a == null || a.getPublishedQueueDtoSet() == null)
+      if(a == null || a.getPublishedQueueSet() == null)
         return -1;
-      if(b == null || b.getPublishedQueueDtoSet() == null)
+      if(b == null || b.getPublishedQueueSet() == null)
         return 1;
-      else return new Integer(a.getPublishedQueueDtoSet().size()).compareTo(new Integer(b.getPublishedQueueDtoSet().size()));
+      else return new Integer(a.getPublishedQueueSet().size()).compareTo(new Integer(b.getPublishedQueueSet().size()));
     }
     @Override
     public String getHeader() {

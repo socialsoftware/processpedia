@@ -29,9 +29,10 @@ public class DataObjectVersionDtoImpl extends DomainObjectDtoImpl implements Dat
 
   public DataObjectVersionDtoImpl() {}
   
-  public DataObjectVersionDto withType(DataObjectType type) {
+  public DataObjectVersionDtoImpl(long oid, DataObjectType type, String label, String externalizedValue) {
+    super(oid);
     setType(type);
-    return this;
+    setExternalizedValue(externalizedValue);
   }
   
   public DataObjectType getType() {
@@ -41,11 +42,6 @@ public class DataObjectVersionDtoImpl extends DomainObjectDtoImpl implements Dat
   public void setType(DataObjectType type) {
     this.type = type;
   }
-  
-  public DataObjectVersionDto withLabel(String label) {
-    setLabel(label);
-    return this;
-  }
 
   public String getLabel() {
     return label;
@@ -53,11 +49,6 @@ public class DataObjectVersionDtoImpl extends DomainObjectDtoImpl implements Dat
 
   public void setLabel(String label) {
     this.label = label;
-  }
-  
-  public DataObjectVersionDto withExternalizedValue(String externalizedValue) {
-    setExternalizedValue(externalizedValue);
-    return this;
   }
   
   public String getExternalizedValue() {

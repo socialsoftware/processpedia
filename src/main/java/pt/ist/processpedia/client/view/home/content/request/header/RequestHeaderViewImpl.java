@@ -31,8 +31,8 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
   public void prepareView() {
     setProcessTitle("");
     setSubject("");
+    setOriginalInitiatorName("");
     setInitiatorName("");
-    setSenderName("");
   }
   
   public void setProcessTitle(String processTitle) {
@@ -43,11 +43,11 @@ public class RequestHeaderViewImpl extends Composite implements RequestHeaderVie
     this.subjectContainer.setText(subject);
   }
   
-  public void setInitiatorName(String initiatorName) {
+  public void setOriginalInitiatorName(String initiatorName) {
     this.initiatorNameContainer.setText(initiatorName);
   }
 
-  public void setSenderName(String senderName) {
+  public void setInitiatorName(String senderName) {
     this.senderNameContainer.setText(senderName);
   }
 

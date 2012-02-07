@@ -26,10 +26,14 @@ public interface ParentRequestLineView extends ProcesspediaView {
 
   void setPresenter(RequestDetailedView.Presenter presenter);
 
+  void setOriginalInitiatorAvatar(String avatarUrl);
   void setInitiatorAvatar(String avatarUrl);
   void setFromLabel(String fromLabel);
-  void setInitiatorName(String initiatorName);
+
+  void setOriginalInitiatorName(String name);
+  void setInitiatorName(String name);
+  
   void setCreationDate(Date date);
-  void setRequestTitle(String requestTitle);
+  void setSubject(String subject);
 
 }

@@ -25,9 +25,9 @@ public class DataObjectDtoImpl extends DomainObjectDtoImpl implements DataObject
 
   public DataObjectDtoImpl() {}
 
-  public DataObjectDto withCurrentDataobjectVersion(DataObjectVersionDto dataObjectVersion) {
+  public DataObjectDtoImpl(long oid, DataObjectVersionDto dataObjectVersion) {
+    super(oid);
     setCurrentDataObjectVersion(dataObjectVersion);
-    return this;
   }
 
   public DataObjectVersionDto getDataObjectVersionDto() {

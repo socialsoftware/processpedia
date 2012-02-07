@@ -30,4 +30,8 @@ public class Process extends Process_Base {
     return request;
   }
 
+  public String getTitle() {
+    return this.getTitleTag().getKeyword();
+  }
+
 }

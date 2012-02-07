@@ -17,26 +17,26 @@
 
 package pt.ist.processpedia.shared.dto.response;
 
-import pt.ist.processpedia.shared.dto.domain.QueueDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.QueueDto;
 import java.util.Set;
 
 public class GetQueueSetResponseDto extends ResponseDto {
 
   private static final long serialVersionUID = 1L;
 
-  private Set<QueueDtoImpl> queueDtoSet;
+  private Set<QueueDto> queueSet;
 
   public GetQueueSetResponseDto() {}
 
-  public GetQueueSetResponseDto(Set<QueueDtoImpl> queueDtoSet) {
-    setQueueDtoSet(queueDtoSet);
+  public GetQueueSetResponseDto(Set<QueueDto> queueDtoSet) {
+    setQueueSet(queueDtoSet);
   }
 
-  public Set<QueueDtoImpl> getQueueDtoSet() {
-    return queueDtoSet;
+  public Set<QueueDto> getQueueDtoSet() {
+    return queueSet;
   }
 
-  public void setQueueDtoSet(Set<QueueDtoImpl> queueDtoSet) {
-    this.queueDtoSet = queueDtoSet;
+  public void setQueueSet(Set<QueueDto> queueSet) {
+    this.queueSet = queueSet;
   }
 }

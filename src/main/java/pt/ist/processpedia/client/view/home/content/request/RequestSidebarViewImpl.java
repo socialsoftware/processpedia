@@ -28,9 +28,8 @@ import com.google.gwt.user.client.ui.Widget;
 import pt.ist.processpedia.client.Messages;
 import pt.ist.processpedia.client.view.home.content.request.line.ChildRequestLineView;
 import pt.ist.processpedia.client.view.home.content.request.line.ParentRequestLineViewImpl;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDto;
-import pt.ist.processpedia.shared.dto.domain.UserDetailedDto;
-import pt.ist.processpedia.shared.dto.domain.UserDetailedDtoImpl;
+import pt.ist.processpedia.shared.dto.domain.OperatingPartyDto;
+import pt.ist.processpedia.shared.dto.domain.RequestDto;
 
 public class RequestSidebarViewImpl extends Composite implements RequestSidebarView {
 
@@ -57,15 +56,17 @@ public class RequestSidebarViewImpl extends Composite implements RequestSidebarV
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void setParentRequestLine(RequestDetailedDto requestDetailedDto) {
-    UserDetailedDto initiatorDetailedDto = requestDetailedDto.getInitiatorDetailedDto();
-    UserDetailedDto executorDetailedDto = (UserDetailedDtoImpl)requestDetailedDto.getExecutorDetailedDto();
+  public void setParentRequestLine(RequestDto request) {
+    OperatingPartyDto originalInitiator = request.getOriginalInitiator();
+    OperatingPartyDto initiator = request.getInitiator();
+    OperatingPartyDto executor = request.getExecutor();
     parentRequestLineView.setPresenter(presenter);
     parentRequestLineView.prepareView();
-    parentRequestLineView.setInitiatorName(initiatorDetailedDto.getName());
-    parentRequestLineView.setInitiatorAvatar(initiatorDetailedDto.getAvatarUrl());
-    parentRequestLineView.setRequestTitle(requestDetailedDto.getSubject());
-    parentRequestLineView.setCreationDate(requestDetailedDto.getCreationTimestamp());
+    parentRequestLineView.setOriginalInitiatorName(originalInitiator.getName());
+    parentRequestLineView.setOriginalInitiatorAvatar(originalInitiator.getName());
+    parentRequestLineView.setInitiatorAvatar(originalInitiator.getAvatarUrl());
+    parentRequestLineView.setSubject(request.getSubject());
+    parentRequestLineView.setCreationDate(request.getCreationTimestamp());
   }
 
   public void addChildRequestLine(ChildRequestLineView childRequestLineView) {

@@ -24,6 +24,6 @@ public interface CommentDto extends DomainObjectDto {
   public OperatingPartyDto getAuthor();
   public Date getCreationTimestamp();
   public String getCommentaryText();
-  public CommentDto getNextCommentDto();
+  public CommentDto getNextComment();
 
 }

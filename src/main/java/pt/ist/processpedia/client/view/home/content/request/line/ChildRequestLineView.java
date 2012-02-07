@@ -19,18 +19,17 @@ package pt.ist.processpedia.client.view.home.content.request.line;
 
 import pt.ist.processpedia.client.view.ProcesspediaView;
 import pt.ist.processpedia.client.view.home.content.request.RequestDetailedView;
-import pt.ist.processpedia.shared.dto.domain.RequestDetailedDtoImpl;
-
 import java.util.Date;
 
 public interface ChildRequestLineView extends ProcesspediaView {
 
   void setPresenter(RequestDetailedView.Presenter presenter);
-  void setRequestDetailedDto(RequestDetailedDtoImpl requestDetailedDto);
 
-  void setInitiatorImage(String initiatorImageUrl);
-  void setRequestTitle(String requestTitle);
-  void setInitiatorName(String initiatorName);
+  void setOriginalInitiatorAvatar(String avatarUrl);
+  void setInitiatorAvatar(String avatarUrl);
+  void setSubject(String subject);
+  void setOriginalInitiatorName(String name);
+  void setInitiatorName(String name);
   void setDate(Date date);
   void setRequestStateImage(String requestStateImage);
 
